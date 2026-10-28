@@ -7,7 +7,7 @@ const router = Router();
 
 router.post('/register', async (req, res) => {
   try {
-    const { name, email, password, organizationName } = req.body;
+    const { name, email, password, organizationName, plan } = req.body;
 
     if (!name || !email || !password) {
       return res.status(400).json({ error: 'Name, email, and password are required.' });
@@ -19,17 +19,22 @@ router.post('/register', async (req, res) => {
     }
 
     // Create Tenant if new organization name is provided
+    let tenant = null;
     let tenantId = 'tenant_acme';
     if (organizationName) {
       const slug = organizationName.toLowerCase().replace(/[^a-z0-9]/g, '-');
-      const tenant = db.tenants.create({
+      const selectedPlan = (plan === 'ENTERPRISE' || plan === 'PRO') ? plan : 'FREE';
+      const rateLimit = selectedPlan === 'ENTERPRISE' ? 5000 : (selectedPlan === 'PRO' ? 1000 : 100);
+      tenant = db.tenants.create({
         name: organizationName,
         slug,
-        plan: 'FREE',
-        rateLimitPerMinute: 100,
+        plan: selectedPlan,
+        rateLimitPerMinute: rateLimit,
         status: 'ACTIVE',
       });
       tenantId = tenant.id;
+    } else {
+      tenant = db.tenants.findById(tenantId);
     }
 
     const passwordHash = await hashPassword(password);
@@ -67,6 +72,7 @@ router.post('/register', async (req, res) => {
         role: user.role,
         tenantId: user.tenantId,
       },
+      tenant,
     });
   } catch (err: any) {
     return res.status(500).json({ error: err.message || 'Registration failed' });
@@ -106,6 +112,8 @@ router.post('/login', async (req, res) => {
       resourceId: user.id,
     });
 
+    const tenant = db.tenants.findById(user.tenantId);
+
     return res.json({
       token,
       user: {
@@ -115,6 +123,7 @@ router.post('/login', async (req, res) => {
         role: user.role,
         tenantId: user.tenantId,
       },
+      tenant,
     });
   } catch (err: any) {
     return res.status(500).json({ error: err.message || 'Login failed' });

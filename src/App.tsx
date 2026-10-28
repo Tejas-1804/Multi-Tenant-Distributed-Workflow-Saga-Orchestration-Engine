@@ -11,6 +11,7 @@ import { DLQPage } from './pages/DLQPage.tsx';
 import { ApiKeysPage } from './pages/ApiKeysPage.tsx';
 import { AuditLogsPage } from './pages/AuditLogsPage.tsx';
 import { AdminPage } from './pages/AdminPage.tsx';
+import { AuthPage } from './pages/AuthPage.tsx';
 import { useWebSocket } from './hooks/useWebSocket.ts';
 import api from './services/api.ts';
 
@@ -65,6 +66,11 @@ function AppContent() {
     );
   }
 
+  // If user is not authenticated, render dedicated Login / Registration screen
+  if (!user) {
+    return <AuthPage initialMode="login" />;
+  }
+
   const handleOpenWorkflowBuilder = (workflowId?: string) => {
     setActiveWorkflowId(workflowId || null);
     setCurrentTab('builder');
@@ -78,7 +84,11 @@ function AppContent() {
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col font-sans selection:bg-emerald-500/20 selection:text-emerald-300">
       {/* Top Enterprise Header */}
-      <Navbar isWsConnected={isConnected} workerCount={workerCount} />
+      <Navbar
+        isWsConnected={isConnected}
+        workerCount={workerCount}
+        onNavigateTab={tab => setCurrentTab(tab)}
+      />
 
       {/* Main Container */}
       <div className="flex-1 flex overflow-hidden">
@@ -138,6 +148,8 @@ function AppContent() {
           {currentTab === 'audit' && <AuditLogsPage />}
 
           {currentTab === 'admin' && <AdminPage />}
+
+          {currentTab === 'auth' && <AuthPage initialMode="register" />}
         </main>
       </div>
     </div>

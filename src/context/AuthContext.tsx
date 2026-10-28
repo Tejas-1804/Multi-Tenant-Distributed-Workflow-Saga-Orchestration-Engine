@@ -9,7 +9,7 @@ interface AuthContextType {
   targetTenantId: string | null;
   isLoading: boolean;
   login: (email: string, password: string) => Promise<void>;
-  register: (name: string, email: string, password: string, organizationName?: string) => Promise<void>;
+  register: (name: string, email: string, password: string, organizationName?: string, plan?: 'FREE' | 'PRO' | 'ENTERPRISE') => Promise<void>;
   logout: () => void;
   setTargetTenant: (tenantId: string | null) => void;
   switchPersona: (personaKey: 'SUPER_ADMIN' | 'ACME_ADMIN' | 'ACME_OPERATOR' | 'CYBER_ADMIN') => Promise<void>;
@@ -65,25 +65,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setUser(res.data.user);
       setTenant(res.data.tenant);
     } catch (err) {
-      console.warn('Failed to fetch user with existing token, signing in with demo account...');
-      // Fallback: auto-login as demo Acme Admin
-      await quickLogin('admin@acme.com', 'AcmeAdmin123!');
+      console.warn('Failed to fetch user with existing token, clearing session...');
+      logout();
     } finally {
       setIsLoading(false);
-    }
-  };
-
-  const quickLogin = async (email: string, pass: string) => {
-    try {
-      const res = await api.post('/auth/login', { email, password: pass });
-      const newToken = res.data.token;
-      localStorage.setItem('token', newToken);
-      setToken(newToken);
-      setUser(res.data.user);
-      const meRes = await api.get('/auth/me');
-      setTenant(meRes.data.tenant);
-    } catch (err) {
-      console.error('Demo login error:', err);
     }
   };
 
@@ -91,7 +76,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (token) {
       fetchCurrentUser();
     } else {
-      quickLogin('admin@acme.com', 'AcmeAdmin123!').finally(() => setIsLoading(false));
+      setIsLoading(false);
     }
   }, []);
 
@@ -101,18 +86,38 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     localStorage.setItem('token', newToken);
     setToken(newToken);
     setUser(res.data.user);
-    const meRes = await api.get('/auth/me');
-    setTenant(meRes.data.tenant);
+    if (res.data.tenant) {
+      setTenant(res.data.tenant);
+    } else {
+      const meRes = await api.get('/auth/me');
+      setTenant(meRes.data.tenant);
+    }
   };
 
-  const register = async (name: string, email: string, pass: string, orgName?: string) => {
-    const res = await api.post('/auth/register', { name, email, password: pass, organizationName: orgName });
+  const register = async (
+    name: string,
+    email: string,
+    pass: string,
+    orgName?: string,
+    plan?: 'FREE' | 'PRO' | 'ENTERPRISE'
+  ) => {
+    const res = await api.post('/auth/register', {
+      name,
+      email,
+      password: pass,
+      organizationName: orgName,
+      plan: plan || 'PRO',
+    });
     const newToken = res.data.token;
     localStorage.setItem('token', newToken);
     setToken(newToken);
     setUser(res.data.user);
-    const meRes = await api.get('/auth/me');
-    setTenant(meRes.data.tenant);
+    if (res.data.tenant) {
+      setTenant(res.data.tenant);
+    } else {
+      const meRes = await api.get('/auth/me');
+      setTenant(meRes.data.tenant);
+    }
   };
 
   const logout = () => {
