@@ -12,35 +12,43 @@ interface AuthContextType {
   register: (name: string, email: string, password: string, organizationName?: string, plan?: 'FREE' | 'PRO' | 'ENTERPRISE') => Promise<void>;
   logout: () => void;
   setTargetTenant: (tenantId: string | null) => void;
-  switchPersona: (personaKey: 'SUPER_ADMIN' | 'ACME_ADMIN' | 'ACME_OPERATOR' | 'CYBER_ADMIN') => Promise<void>;
+  switchPersona: (personaKey: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const DEMO_PERSONAS = [
   {
-    key: 'ACME_ADMIN' as const,
-    label: 'Sarah Connor (Tenant Admin)',
+    key: 'TEJAS_ADMIN' as const,
+    label: 'Tejas (Tenant Admin)',
     role: 'TENANT_ADMIN' as UserRole,
     org: 'Acme Logistics Global',
-    email: 'admin@acme.com',
-    password: 'AcmeAdmin123!',
+    email: 'tejas@acme.com',
+    password: 'Tejas123!',
   },
   {
-    key: 'ACME_OPERATOR' as const,
-    label: 'Kyle Reese (Operator)',
-    role: 'TENANT_USER' as UserRole,
-    org: 'Acme Logistics Global',
-    email: 'operator@acme.com',
-    password: 'Operator123!',
-  },
-  {
-    key: 'CYBER_ADMIN' as const,
-    label: 'Miles Dyson (Tenant Admin)',
+    key: 'AMAAN_ADMIN' as const,
+    label: 'Amaan (Tenant Admin)',
     role: 'TENANT_ADMIN' as UserRole,
     org: 'Cyberdyne Systems Corp',
-    email: 'admin@cyberdyne.com',
-    password: 'Cyber123!',
+    email: 'amaan@cyberdyne.com',
+    password: 'Amaan123!',
+  },
+  {
+    key: 'PRIYANKA_ADMIN' as const,
+    label: 'Priyanka (Tenant Admin)',
+    role: 'TENANT_ADMIN' as UserRole,
+    org: 'Quantum Dynamics Corp',
+    email: 'priyanka@quantum.io',
+    password: 'Priyanka123!',
+  },
+  {
+    key: 'RINKLE_ADMIN' as const,
+    label: 'Rinkle Sharma (Tenant Admin)',
+    role: 'TENANT_ADMIN' as UserRole,
+    org: 'Helios Cloud Systems',
+    email: 'rinkle@helios.net',
+    password: 'Rinkle123!',
   },
   {
     key: 'SUPER_ADMIN' as const,
@@ -140,7 +148,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     fetchCurrentUser();
   };
 
-  const switchPersona = async (personaKey: 'SUPER_ADMIN' | 'ACME_ADMIN' | 'ACME_OPERATOR' | 'CYBER_ADMIN') => {
+  const switchPersona = async (personaKey: string) => {
     const persona = DEMO_PERSONAS.find(p => p.key === personaKey);
     if (!persona) return;
     setIsLoading(true);
