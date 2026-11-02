@@ -9,6 +9,7 @@ import {
   Sliders,
   Shield,
   Activity,
+  UserPlus,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext.tsx';
 
@@ -21,7 +22,8 @@ export type NavTab =
   | 'dlq'
   | 'apikeys'
   | 'audit'
-  | 'admin';
+  | 'admin'
+  | 'auth';
 
 interface SidebarProps {
   currentTab: NavTab;
@@ -40,6 +42,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentTab, onSelectTab, dlqCo
     { id: 'apikeys' as NavTab, label: 'API Keys', icon: KeyRound },
     { id: 'audit' as NavTab, label: 'Audit Logs', icon: FileText },
     { id: 'admin' as NavTab, label: 'Cluster & Admin', icon: Sliders },
+    { id: 'auth' as NavTab, label: 'Register / Auth', icon: UserPlus },
   ];
 
   return (

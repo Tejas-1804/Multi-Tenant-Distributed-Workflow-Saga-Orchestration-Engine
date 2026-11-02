@@ -4,71 +4,168 @@ import { hashPassword, hashApiKey } from './auth.ts';
 export async function seedDatabase() {
   const store = db.getStore();
 
-  // If already seeded, skip
-  if (store.tenants.length > 0 && store.users.length > 0) {
-    return;
+  console.log('🌱 Synchronizing multi-tenant database & Tenant Admins...');
+
+  // 1. Ensure Tenants
+  let acmeTenant = db.tenants.findOne({ slug: 'acme-logistics' });
+  if (!acmeTenant) {
+    acmeTenant = db.tenants.create({
+      name: 'Acme Logistics Global',
+      slug: 'acme-logistics',
+      plan: 'PRO',
+      rateLimitPerMinute: 1000,
+      status: 'ACTIVE',
+    });
   }
 
-  console.log('🌱 Seeding initial multi-tenant database...');
+  let cyberTenant = db.tenants.findOne({ slug: 'cyberdyne' });
+  if (!cyberTenant) {
+    cyberTenant = db.tenants.create({
+      name: 'Cyberdyne Systems Corp',
+      slug: 'cyberdyne',
+      plan: 'ENTERPRISE',
+      rateLimitPerMinute: 5000,
+      status: 'ACTIVE',
+    });
+  }
 
-  // 1. Tenants
-  const acmeTenant = db.tenants.create({
-    name: 'Acme Logistics Global',
-    slug: 'acme-logistics',
-    plan: 'PRO',
-    rateLimitPerMinute: 1000,
-    status: 'ACTIVE',
-  });
+  let quantumTenant = db.tenants.findOne({ slug: 'quantum-dynamics' });
+  if (!quantumTenant) {
+    quantumTenant = db.tenants.create({
+      name: 'Quantum Dynamics Corp',
+      slug: 'quantum-dynamics',
+      plan: 'PRO',
+      rateLimitPerMinute: 1000,
+      status: 'ACTIVE',
+    });
+  }
 
-  const cyberTenant = db.tenants.create({
-    name: 'Cyberdyne Systems Corp',
-    slug: 'cyberdyne',
-    plan: 'ENTERPRISE',
-    rateLimitPerMinute: 5000,
-    status: 'ACTIVE',
-  });
+  let heliosTenant = db.tenants.findOne({ slug: 'helios-cloud' });
+  if (!heliosTenant) {
+    heliosTenant = db.tenants.create({
+      name: 'Helios Cloud Systems',
+      slug: 'helios-cloud',
+      plan: 'ENTERPRISE',
+      rateLimitPerMinute: 5000,
+      status: 'ACTIVE',
+    });
+  }
 
-  // 2. Users
+  // 2. Ensure Password Hashes
+  const tejasPasswordHash = await hashPassword('Tejas123!');
+  const amaanPasswordHash = await hashPassword('Amaan123!');
+  const priyankaPasswordHash = await hashPassword('Priyanka123!');
+  const rinklePasswordHash = await hashPassword('Rinkle123!');
   const superPasswordHash = await hashPassword('Admin123!');
-  const acmeAdminHash = await hashPassword('AcmeAdmin123!');
-  const operatorHash = await hashPassword('Operator123!');
-  const cyberAdminHash = await hashPassword('Cyber123!');
 
-  const superAdmin = db.users.create({
-    tenantId: acmeTenant.id,
-    name: 'Master System Administrator',
-    email: 'superadmin@orchestration.engine',
-    role: 'SUPER_ADMIN',
-    status: 'ACTIVE',
-    passwordHash: superPasswordHash,
-  });
+  // Master System Admin
+  let superAdmin = db.users.findByEmail('superadmin@orchestration.engine');
+  if (!superAdmin) {
+    superAdmin = db.users.create({
+      tenantId: acmeTenant.id,
+      name: 'Master System Administrator',
+      email: 'superadmin@orchestration.engine',
+      role: 'SUPER_ADMIN',
+      status: 'ACTIVE',
+      passwordHash: superPasswordHash,
+    });
+  }
 
-  const acmeAdmin = db.users.create({
-    tenantId: acmeTenant.id,
-    name: 'Sarah Connor (Tenant Admin)',
-    email: 'admin@acme.com',
-    role: 'TENANT_ADMIN',
-    status: 'ACTIVE',
-    passwordHash: acmeAdminHash,
-  });
+  // 1. Tejas (Tenant Admin)
+  let tejasAdmin = db.users.findByEmail('tejas@acme.com');
+  if (!tejasAdmin) {
+    tejasAdmin = db.users.create({
+      tenantId: acmeTenant.id,
+      name: 'Tejas (Tenant Admin)',
+      email: 'tejas@acme.com',
+      role: 'TENANT_ADMIN',
+      status: 'ACTIVE',
+      passwordHash: tejasPasswordHash,
+    });
+  } else {
+    db.users.update(tejasAdmin.id, { name: 'Tejas (Tenant Admin)', passwordHash: tejasPasswordHash });
+  }
 
-  const acmeOperator = db.users.create({
-    tenantId: acmeTenant.id,
-    name: 'Kyle Reese (Operator)',
-    email: 'operator@acme.com',
-    role: 'TENANT_USER',
-    status: 'ACTIVE',
-    passwordHash: operatorHash,
-  });
+  // Also update or create admin@acme.com alias for Tejas
+  let acmeAlias = db.users.findByEmail('admin@acme.com');
+  if (acmeAlias) {
+    db.users.update(acmeAlias.id, { name: 'Tejas', passwordHash: tejasPasswordHash });
+  } else {
+    db.users.create({
+      tenantId: acmeTenant.id,
+      name: 'Tejas',
+      email: 'admin@acme.com',
+      role: 'TENANT_ADMIN',
+      status: 'ACTIVE',
+      passwordHash: tejasPasswordHash,
+    });
+  }
 
-  db.users.create({
-    tenantId: cyberTenant.id,
-    name: 'Miles Dyson (Cyber Admin)',
-    email: 'admin@cyberdyne.com',
-    role: 'TENANT_ADMIN',
-    status: 'ACTIVE',
-    passwordHash: cyberAdminHash,
-  });
+  // 2. Amaan (Tenant Admin)
+  let amaanAdmin = db.users.findByEmail('amaan@cyberdyne.com');
+  if (!amaanAdmin) {
+    amaanAdmin = db.users.create({
+      tenantId: cyberTenant.id,
+      name: 'Amaan (Tenant Admin)',
+      email: 'amaan@cyberdyne.com',
+      role: 'TENANT_ADMIN',
+      status: 'ACTIVE',
+      passwordHash: amaanPasswordHash,
+    });
+  } else {
+    db.users.update(amaanAdmin.id, { name: 'Amaan (Tenant Admin)', passwordHash: amaanPasswordHash });
+  }
+
+  // Also update or create admin@cyberdyne.com alias for Amaan
+  let cyberAlias = db.users.findByEmail('admin@cyberdyne.com');
+  if (cyberAlias) {
+    db.users.update(cyberAlias.id, { name: 'Amaan', passwordHash: amaanPasswordHash });
+  } else {
+    db.users.create({
+      tenantId: cyberTenant.id,
+      name: 'Amaan',
+      email: 'admin@cyberdyne.com',
+      role: 'TENANT_ADMIN',
+      status: 'ACTIVE',
+      passwordHash: amaanPasswordHash,
+    });
+  }
+
+  // 3. Priyanka (Tenant Admin)
+  let priyankaAdmin = db.users.findByEmail('priyanka@quantum.io');
+  if (!priyankaAdmin) {
+    priyankaAdmin = db.users.create({
+      tenantId: quantumTenant.id,
+      name: 'Priyanka (Tenant Admin)',
+      email: 'priyanka@quantum.io',
+      role: 'TENANT_ADMIN',
+      status: 'ACTIVE',
+      passwordHash: priyankaPasswordHash,
+    });
+  } else {
+    db.users.update(priyankaAdmin.id, { name: 'Priyanka (Tenant Admin)', passwordHash: priyankaPasswordHash });
+  }
+
+  // 4. Rinkle Sharma (Tenant Admin)
+  let rinkleAdmin = db.users.findByEmail('rinkle@helios.net');
+  if (!rinkleAdmin) {
+    rinkleAdmin = db.users.create({
+      tenantId: heliosTenant.id,
+      name: 'Rinkle Sharma (Tenant Admin)',
+      email: 'rinkle@helios.net',
+      role: 'TENANT_ADMIN',
+      status: 'ACTIVE',
+      passwordHash: rinklePasswordHash,
+    });
+  } else {
+    db.users.update(rinkleAdmin.id, { name: 'Rinkle Sharma (Tenant Admin)', passwordHash: rinklePasswordHash });
+  }
+
+  // If workflows already exist, skip workflow re-creation
+  if (store.workflows.length > 0) {
+    console.log('✅ Tenant Admins synchronized: Tejas, Amaan, Priyanka, and Rinkle Sharma.');
+    return;
+  }
 
   // 3. API Keys
   const demoRawKey = 'wk_live_acme_prod_99f38e4a77194602';
@@ -85,7 +182,7 @@ export async function seedDatabase() {
     name: 'E-Commerce Order Processing & Saga Compensation',
     description: 'Mission-critical distributed transaction executing Payment Capture, Warehouse Inventory Reservation, and Carrier Dispatch with automatic backward Saga rollback upon downstream failure.',
     status: 'ACTIVE',
-    createdBy: acmeAdmin.email,
+    createdBy: tejasAdmin.email,
     nodes: [
       {
         id: 'node-start',
@@ -254,7 +351,7 @@ return {
     nodeExecutions: {},
     compensationsExecuted: [],
     trigger: 'MANUAL',
-    triggeredBy: acmeAdmin.email,
+    triggeredBy: tejasAdmin.email,
   });
 
   const historicExec2 = db.executions.create({
@@ -289,12 +386,12 @@ return {
   // Audit log entries
   db.auditLogs.create({
     tenantId: acmeTenant.id,
-    userId: acmeAdmin.id,
-    userEmail: acmeAdmin.email,
+    userId: tejasAdmin.id,
+    userEmail: tejasAdmin.email,
     action: 'SYSTEM_BOOTSTRAPPED',
     resource: 'Tenant',
     metadata: { tenant: acmeTenant.name },
   });
 
-  console.log('✅ Seed completed successfully with 2 tenants, 4 users, demo Saga workflow, and telemetry.');
+  console.log('✅ Seed completed successfully with 4 tenants and tenant admins: Tejas, Amaan, Priyanka, and Rinkle Sharma.');
 }

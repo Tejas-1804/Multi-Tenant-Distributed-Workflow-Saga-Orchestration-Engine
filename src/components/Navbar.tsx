@@ -10,15 +10,17 @@ import {
   Building,
   LogOut,
   RefreshCw,
+  UserPlus,
 } from 'lucide-react';
 import { useAuth, DEMO_PERSONAS } from '../context/AuthContext.tsx';
 
 interface NavbarProps {
   isWsConnected: boolean;
   workerCount: number;
+  onNavigateTab?: (tab: any) => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ isWsConnected, workerCount }) => {
+export const Navbar: React.FC<NavbarProps> = ({ isWsConnected, workerCount, onNavigateTab }) => {
   const { user, tenant, switchPersona, logout } = useAuth();
   const [showPersonaMenu, setShowPersonaMenu] = useState(false);
 
@@ -126,13 +128,25 @@ export const Navbar: React.FC<NavbarProps> = ({ isWsConnected, workerCount }) =>
                 ))}
               </div>
 
-              <div className="pt-1 mt-1 border-t border-zinc-800">
+              <div className="pt-1 mt-1 border-t border-zinc-800 space-y-0.5">
+                {onNavigateTab && (
+                  <button
+                    onClick={() => {
+                      onNavigateTab('auth');
+                      setShowPersonaMenu(false);
+                    }}
+                    className="w-full text-left px-2.5 py-1.5 rounded text-emerald-400 hover:bg-emerald-950/30 flex items-center gap-2 cursor-pointer"
+                  >
+                    <UserPlus className="w-3.5 h-3.5" />
+                    <span>Register New Workspace</span>
+                  </button>
+                )}
                 <button
                   onClick={() => {
                     logout();
                     setShowPersonaMenu(false);
                   }}
-                  className="w-full text-left px-2.5 py-1.5 rounded text-rose-400 hover:bg-rose-950/30 flex items-center gap-2"
+                  className="w-full text-left px-2.5 py-1.5 rounded text-rose-400 hover:bg-rose-950/30 flex items-center gap-2 cursor-pointer"
                 >
                   <LogOut className="w-3.5 h-3.5" />
                   <span>Log out</span>
