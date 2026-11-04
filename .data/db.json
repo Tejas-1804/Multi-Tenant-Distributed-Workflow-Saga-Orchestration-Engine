@@ -70,9 +70,9 @@
       "email": "admin@acme.com",
       "role": "TENANT_ADMIN",
       "status": "ACTIVE",
-      "passwordHash": "$2b$10$KaeK9VqCtn1VPIZOLL6JtutXuTMyfC/KJrhl1/UUSUGl3eEUB49NK",
+      "passwordHash": "$2b$12$BrtI6Vs6CwL5KK7WJjEaEuoUDaTwmNXkZI5QxXPDqv1mXNyQnlC32",
       "createdAt": "2026-10-08T15:27:09.902Z",
-      "updatedAt": "2026-11-02T20:17:03.513Z"
+      "updatedAt": "2026-11-04T09:50:01.857Z"
     },
     {
       "id": "usr_zhg9jzrn",
@@ -92,9 +92,9 @@
       "email": "admin@cyberdyne.com",
       "role": "TENANT_ADMIN",
       "status": "ACTIVE",
-      "passwordHash": "$2b$10$z5dsEEPP68GM9e7sbGGYwOThMIJNSSGWfNv8H6b1pwFvnSO8VK9uu",
+      "passwordHash": "$2b$12$BzuV5T/Gk0.KsUK9Ga69meeEt/S7L4Y2iVTbgRMJZ7OqOyOktrs16",
       "createdAt": "2026-10-08T15:27:09.902Z",
-      "updatedAt": "2026-11-02T20:17:03.515Z"
+      "updatedAt": "2026-11-04T09:50:01.862Z"
     },
     {
       "id": "usr_trr1hk54",
@@ -114,9 +114,9 @@
       "email": "tejas@acme.com",
       "role": "TENANT_ADMIN",
       "status": "ACTIVE",
-      "passwordHash": "$2b$10$KaeK9VqCtn1VPIZOLL6JtutXuTMyfC/KJrhl1/UUSUGl3eEUB49NK",
+      "passwordHash": "$2b$12$BrtI6Vs6CwL5KK7WJjEaEuoUDaTwmNXkZI5QxXPDqv1mXNyQnlC32",
       "createdAt": "2026-10-28T15:36:29.217Z",
-      "updatedAt": "2026-11-02T20:17:03.511Z"
+      "updatedAt": "2026-11-04T09:50:01.854Z"
     },
     {
       "id": "usr_9oipaxmc",
@@ -125,9 +125,9 @@
       "email": "amaan@cyberdyne.com",
       "role": "TENANT_ADMIN",
       "status": "ACTIVE",
-      "passwordHash": "$2b$10$z5dsEEPP68GM9e7sbGGYwOThMIJNSSGWfNv8H6b1pwFvnSO8VK9uu",
+      "passwordHash": "$2b$12$BzuV5T/Gk0.KsUK9Ga69meeEt/S7L4Y2iVTbgRMJZ7OqOyOktrs16",
       "createdAt": "2026-10-28T15:36:29.218Z",
-      "updatedAt": "2026-11-02T20:17:03.514Z"
+      "updatedAt": "2026-11-04T09:50:01.860Z"
     },
     {
       "id": "usr_esa5p0d6",
@@ -136,9 +136,9 @@
       "email": "priyanka@quantum.io",
       "role": "TENANT_ADMIN",
       "status": "ACTIVE",
-      "passwordHash": "$2b$10$DZY17/WwRzKlBl//AZYWE.FbEI0HsvcMuIOQzn1BcNMwF1wZHlGoW",
+      "passwordHash": "$2b$12$XTmuA3lgheYOb5JIlzQJOuyfJZ1DtY4UEe2RyY9G/AZMXW1VF/5Zu",
       "createdAt": "2026-10-28T15:36:29.218Z",
-      "updatedAt": "2026-11-02T20:17:03.516Z"
+      "updatedAt": "2026-11-04T09:50:01.865Z"
     },
     {
       "id": "usr_k9irpksi",
@@ -147,15 +147,15 @@
       "email": "rinkle@helios.net",
       "role": "TENANT_ADMIN",
       "status": "ACTIVE",
-      "passwordHash": "$2b$10$C20oOJZUMAXm1Mc/SQGnF.KpvNI.4rRi1PnWtEC6efrW4QR.NE0N6",
+      "passwordHash": "$2b$12$sEirY4CSU9Bjqbk4C2UWD.FQijxmK026conIEgyj8cxRzQbLdVXNe",
       "createdAt": "2026-10-28T15:36:29.219Z",
-      "updatedAt": "2026-11-02T20:17:03.517Z"
+      "updatedAt": "2026-11-04T09:50:01.867Z"
     }
   ],
   "workflows": [
     {
       "id": "wf_5svtfgwq",
-      "version": 7,
+      "version": 11,
       "tenantId": "tenant_8seup31w",
       "name": "E-Commerce Order Processing & Saga Compensation",
       "description": "Mission-critical distributed transaction executing Payment Capture, Warehouse Inventory Reservation, and Carrier Dispatch with automatic backward Saga rollback upon downstream failure.",
@@ -379,7 +379,7 @@
         }
       ],
       "createdAt": "2026-10-08T15:27:09.903Z",
-      "updatedAt": "2026-11-02T20:17:20.987Z"
+      "updatedAt": "2026-11-04T09:50:20.683Z"
     },
     {
       "id": "wf_q3h22wdb",
@@ -514,6 +514,94 @@
       "createdBy": "admin@acme.com",
       "createdAt": "2026-11-02T20:17:37.827Z",
       "updatedAt": "2026-11-02T20:17:37.827Z"
+    },
+    {
+      "id": "wf_aquh1vae",
+      "version": 1,
+      "tenantId": "tenant_8seup31w",
+      "name": "New Workflow",
+      "description": "Orchestration DAG pipeline",
+      "nodes": [
+        {
+          "id": "node-start",
+          "type": "START",
+          "position": {
+            "x": 100,
+            "y": 150
+          },
+          "data": {
+            "label": "Start Trigger",
+            "description": "Receives initial payload"
+          }
+        },
+        {
+          "id": "node-end",
+          "type": "END",
+          "position": {
+            "x": 500,
+            "y": 150
+          },
+          "data": {
+            "label": "End Transaction",
+            "description": "Marks execution SUCCESS"
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "edge-1",
+          "source": "node-start",
+          "target": "node-end"
+        }
+      ],
+      "status": "ACTIVE",
+      "createdBy": "admin@acme.com",
+      "createdAt": "2026-11-04T09:43:21.196Z",
+      "updatedAt": "2026-11-04T09:43:21.196Z"
+    },
+    {
+      "id": "wf_g299r5ng",
+      "version": 1,
+      "tenantId": "tenant_8seup31w",
+      "name": "New Workflow",
+      "description": "Orchestration DAG pipeline",
+      "nodes": [
+        {
+          "id": "node-start",
+          "type": "START",
+          "position": {
+            "x": 100,
+            "y": 150
+          },
+          "data": {
+            "label": "Start Trigger",
+            "description": "Receives initial payload"
+          }
+        },
+        {
+          "id": "node-end",
+          "type": "END",
+          "position": {
+            "x": 500,
+            "y": 150
+          },
+          "data": {
+            "label": "End Transaction",
+            "description": "Marks execution SUCCESS"
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "edge-1",
+          "source": "node-start",
+          "target": "node-end"
+        }
+      ],
+      "status": "ACTIVE",
+      "createdBy": "admin@acme.com",
+      "createdAt": "2026-11-04T09:50:38.279Z",
+      "updatedAt": "2026-11-04T09:50:38.279Z"
     }
   ],
   "executions": [
@@ -6493,6 +6581,3916 @@
       "triggeredBy": "admin@acme.com",
       "currentNodeId": "node-end",
       "completedAt": "2026-11-02T20:17:38.710Z"
+    },
+    {
+      "id": "exec_jy6mfxsb",
+      "workflowId": "wf_5svtfgwq",
+      "workflowName": "E-Commerce Order Processing & Saga Compensation",
+      "tenantId": "tenant_8seup31w",
+      "status": "SUCCESS",
+      "startedAt": "2026-11-04T09:42:59.803Z",
+      "contextData": {
+        "orderId": "ORD-1344",
+        "customer": "Marcus Vance",
+        "amount": 249.99,
+        "status": "SUCCESS",
+        "node-start": {
+          "startedAt": "2026-11-04T09:43:00.236Z",
+          "initialPayload": {
+            "orderId": "ORD-1344",
+            "customer": "Marcus Vance",
+            "amount": 249.99,
+            "status": 200
+          }
+        },
+        "startedAt": "2026-11-04T09:43:00.236Z",
+        "initialPayload": {
+          "orderId": "ORD-1344",
+          "customer": "Marcus Vance",
+          "amount": 249.99,
+          "status": 200
+        },
+        "node-payment": {
+          "status": 200,
+          "statusText": "OK (Mocked Distributed Service)",
+          "endpoint": "https://api.example.com/v1/payments/capture",
+          "method": "POST",
+          "data": {
+            "success": true,
+            "timestamp": "2026-11-04T09:43:00.673Z",
+            "resourceId": "res_895c6a",
+            "processed": true,
+            "echo": {
+              "orderId": "ORD-1344",
+              "customer": "Marcus Vance",
+              "amount": 249.99,
+              "status": 200,
+              "node-start": {
+                "startedAt": "2026-11-04T09:43:00.236Z",
+                "initialPayload": {
+                  "orderId": "ORD-1344",
+                  "customer": "Marcus Vance",
+                  "amount": 249.99,
+                  "status": 200
+                }
+              },
+              "startedAt": "2026-11-04T09:43:00.236Z",
+              "initialPayload": {
+                "orderId": "ORD-1344",
+                "customer": "Marcus Vance",
+                "amount": 249.99,
+                "status": 200
+              }
+            }
+          }
+        },
+        "statusText": "OK (Mocked Distributed Service)",
+        "endpoint": "https://api.example.com/v1/logistics/shipments",
+        "method": "POST",
+        "data": {
+          "success": true,
+          "timestamp": "2026-11-04T09:43:01.985Z",
+          "resourceId": "res_986ddb",
+          "processed": true,
+          "echo": {
+            "orderId": "ORD-1344",
+            "customer": "Marcus Vance",
+            "amount": 249.99,
+            "status": 200,
+            "node-start": {
+              "startedAt": "2026-11-04T09:43:00.236Z",
+              "initialPayload": {
+                "orderId": "ORD-1344",
+                "customer": "Marcus Vance",
+                "amount": 249.99,
+                "status": 200
+              }
+            },
+            "startedAt": "2026-11-04T09:43:00.236Z",
+            "initialPayload": {
+              "orderId": "ORD-1344",
+              "customer": "Marcus Vance",
+              "amount": 249.99,
+              "status": 200
+            },
+            "node-payment": {
+              "status": 200,
+              "statusText": "OK (Mocked Distributed Service)",
+              "endpoint": "https://api.example.com/v1/payments/capture",
+              "method": "POST",
+              "data": {
+                "success": true,
+                "timestamp": "2026-11-04T09:43:00.673Z",
+                "resourceId": "res_895c6a",
+                "processed": true,
+                "echo": {
+                  "orderId": "ORD-1344",
+                  "customer": "Marcus Vance",
+                  "amount": 249.99,
+                  "status": 200,
+                  "node-start": {
+                    "startedAt": "2026-11-04T09:43:00.236Z",
+                    "initialPayload": {
+                      "orderId": "ORD-1344",
+                      "customer": "Marcus Vance",
+                      "amount": 249.99,
+                      "status": 200
+                    }
+                  },
+                  "startedAt": "2026-11-04T09:43:00.236Z",
+                  "initialPayload": {
+                    "orderId": "ORD-1344",
+                    "customer": "Marcus Vance",
+                    "amount": 249.99,
+                    "status": 200
+                  }
+                }
+              }
+            },
+            "statusText": "OK (Mocked Distributed Service)",
+            "endpoint": "https://api.example.com/v1/inventory/reserve",
+            "method": "POST",
+            "data": {
+              "success": true,
+              "timestamp": "2026-11-04T09:43:01.109Z",
+              "resourceId": "res_2ecd0b",
+              "processed": true,
+              "echo": {
+                "orderId": "ORD-1344",
+                "customer": "Marcus Vance",
+                "amount": 249.99,
+                "status": 200,
+                "node-start": {
+                  "startedAt": "2026-11-04T09:43:00.236Z",
+                  "initialPayload": {
+                    "orderId": "ORD-1344",
+                    "customer": "Marcus Vance",
+                    "amount": 249.99,
+                    "status": 200
+                  }
+                },
+                "startedAt": "2026-11-04T09:43:00.236Z",
+                "initialPayload": {
+                  "orderId": "ORD-1344",
+                  "customer": "Marcus Vance",
+                  "amount": 249.99,
+                  "status": 200
+                },
+                "node-payment": {
+                  "status": 200,
+                  "statusText": "OK (Mocked Distributed Service)",
+                  "endpoint": "https://api.example.com/v1/payments/capture",
+                  "method": "POST",
+                  "data": {
+                    "success": true,
+                    "timestamp": "2026-11-04T09:43:00.673Z",
+                    "resourceId": "res_895c6a",
+                    "processed": true,
+                    "echo": {
+                      "orderId": "ORD-1344",
+                      "customer": "Marcus Vance",
+                      "amount": 249.99,
+                      "status": 200,
+                      "node-start": {
+                        "startedAt": "2026-11-04T09:43:00.236Z",
+                        "initialPayload": {
+                          "orderId": "ORD-1344",
+                          "customer": "Marcus Vance",
+                          "amount": 249.99,
+                          "status": 200
+                        }
+                      },
+                      "startedAt": "2026-11-04T09:43:00.236Z",
+                      "initialPayload": {
+                        "orderId": "ORD-1344",
+                        "customer": "Marcus Vance",
+                        "amount": 249.99,
+                        "status": 200
+                      }
+                    }
+                  }
+                },
+                "statusText": "OK (Mocked Distributed Service)",
+                "endpoint": "https://api.example.com/v1/payments/capture",
+                "method": "POST",
+                "data": {
+                  "success": true,
+                  "timestamp": "2026-11-04T09:43:00.673Z",
+                  "resourceId": "res_895c6a",
+                  "processed": true,
+                  "echo": {
+                    "orderId": "ORD-1344",
+                    "customer": "Marcus Vance",
+                    "amount": 249.99,
+                    "status": 200,
+                    "node-start": {
+                      "startedAt": "2026-11-04T09:43:00.236Z",
+                      "initialPayload": {
+                        "orderId": "ORD-1344",
+                        "customer": "Marcus Vance",
+                        "amount": 249.99,
+                        "status": 200
+                      }
+                    },
+                    "startedAt": "2026-11-04T09:43:00.236Z",
+                    "initialPayload": {
+                      "orderId": "ORD-1344",
+                      "customer": "Marcus Vance",
+                      "amount": 249.99,
+                      "status": 200
+                    }
+                  }
+                }
+              }
+            },
+            "node-inventory": {
+              "status": 200,
+              "statusText": "OK (Mocked Distributed Service)",
+              "endpoint": "https://api.example.com/v1/inventory/reserve",
+              "method": "POST",
+              "data": {
+                "success": true,
+                "timestamp": "2026-11-04T09:43:01.109Z",
+                "resourceId": "res_2ecd0b",
+                "processed": true,
+                "echo": {
+                  "orderId": "ORD-1344",
+                  "customer": "Marcus Vance",
+                  "amount": 249.99,
+                  "status": 200,
+                  "node-start": {
+                    "startedAt": "2026-11-04T09:43:00.236Z",
+                    "initialPayload": {
+                      "orderId": "ORD-1344",
+                      "customer": "Marcus Vance",
+                      "amount": 249.99,
+                      "status": 200
+                    }
+                  },
+                  "startedAt": "2026-11-04T09:43:00.236Z",
+                  "initialPayload": {
+                    "orderId": "ORD-1344",
+                    "customer": "Marcus Vance",
+                    "amount": 249.99,
+                    "status": 200
+                  },
+                  "node-payment": {
+                    "status": 200,
+                    "statusText": "OK (Mocked Distributed Service)",
+                    "endpoint": "https://api.example.com/v1/payments/capture",
+                    "method": "POST",
+                    "data": {
+                      "success": true,
+                      "timestamp": "2026-11-04T09:43:00.673Z",
+                      "resourceId": "res_895c6a",
+                      "processed": true,
+                      "echo": {
+                        "orderId": "ORD-1344",
+                        "customer": "Marcus Vance",
+                        "amount": 249.99,
+                        "status": 200,
+                        "node-start": {
+                          "startedAt": "2026-11-04T09:43:00.236Z",
+                          "initialPayload": {
+                            "orderId": "ORD-1344",
+                            "customer": "Marcus Vance",
+                            "amount": 249.99,
+                            "status": 200
+                          }
+                        },
+                        "startedAt": "2026-11-04T09:43:00.236Z",
+                        "initialPayload": {
+                          "orderId": "ORD-1344",
+                          "customer": "Marcus Vance",
+                          "amount": 249.99,
+                          "status": 200
+                        }
+                      }
+                    }
+                  },
+                  "statusText": "OK (Mocked Distributed Service)",
+                  "endpoint": "https://api.example.com/v1/payments/capture",
+                  "method": "POST",
+                  "data": {
+                    "success": true,
+                    "timestamp": "2026-11-04T09:43:00.673Z",
+                    "resourceId": "res_895c6a",
+                    "processed": true,
+                    "echo": {
+                      "orderId": "ORD-1344",
+                      "customer": "Marcus Vance",
+                      "amount": 249.99,
+                      "status": 200,
+                      "node-start": {
+                        "startedAt": "2026-11-04T09:43:00.236Z",
+                        "initialPayload": {
+                          "orderId": "ORD-1344",
+                          "customer": "Marcus Vance",
+                          "amount": 249.99,
+                          "status": 200
+                        }
+                      },
+                      "startedAt": "2026-11-04T09:43:00.236Z",
+                      "initialPayload": {
+                        "orderId": "ORD-1344",
+                        "customer": "Marcus Vance",
+                        "amount": 249.99,
+                        "status": 200
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "node-condition": {
+              "conditionField": "status",
+              "actualValue": 200,
+              "operator": "==",
+              "targetVal": "200",
+              "conditionPassed": true
+            },
+            "conditionField": "status",
+            "actualValue": 200,
+            "operator": "==",
+            "targetVal": "200",
+            "conditionPassed": true
+          }
+        },
+        "node-inventory": {
+          "status": 200,
+          "statusText": "OK (Mocked Distributed Service)",
+          "endpoint": "https://api.example.com/v1/inventory/reserve",
+          "method": "POST",
+          "data": {
+            "success": true,
+            "timestamp": "2026-11-04T09:43:01.109Z",
+            "resourceId": "res_2ecd0b",
+            "processed": true,
+            "echo": {
+              "orderId": "ORD-1344",
+              "customer": "Marcus Vance",
+              "amount": 249.99,
+              "status": 200,
+              "node-start": {
+                "startedAt": "2026-11-04T09:43:00.236Z",
+                "initialPayload": {
+                  "orderId": "ORD-1344",
+                  "customer": "Marcus Vance",
+                  "amount": 249.99,
+                  "status": 200
+                }
+              },
+              "startedAt": "2026-11-04T09:43:00.236Z",
+              "initialPayload": {
+                "orderId": "ORD-1344",
+                "customer": "Marcus Vance",
+                "amount": 249.99,
+                "status": 200
+              },
+              "node-payment": {
+                "status": 200,
+                "statusText": "OK (Mocked Distributed Service)",
+                "endpoint": "https://api.example.com/v1/payments/capture",
+                "method": "POST",
+                "data": {
+                  "success": true,
+                  "timestamp": "2026-11-04T09:43:00.673Z",
+                  "resourceId": "res_895c6a",
+                  "processed": true,
+                  "echo": {
+                    "orderId": "ORD-1344",
+                    "customer": "Marcus Vance",
+                    "amount": 249.99,
+                    "status": 200,
+                    "node-start": {
+                      "startedAt": "2026-11-04T09:43:00.236Z",
+                      "initialPayload": {
+                        "orderId": "ORD-1344",
+                        "customer": "Marcus Vance",
+                        "amount": 249.99,
+                        "status": 200
+                      }
+                    },
+                    "startedAt": "2026-11-04T09:43:00.236Z",
+                    "initialPayload": {
+                      "orderId": "ORD-1344",
+                      "customer": "Marcus Vance",
+                      "amount": 249.99,
+                      "status": 200
+                    }
+                  }
+                }
+              },
+              "statusText": "OK (Mocked Distributed Service)",
+              "endpoint": "https://api.example.com/v1/payments/capture",
+              "method": "POST",
+              "data": {
+                "success": true,
+                "timestamp": "2026-11-04T09:43:00.673Z",
+                "resourceId": "res_895c6a",
+                "processed": true,
+                "echo": {
+                  "orderId": "ORD-1344",
+                  "customer": "Marcus Vance",
+                  "amount": 249.99,
+                  "status": 200,
+                  "node-start": {
+                    "startedAt": "2026-11-04T09:43:00.236Z",
+                    "initialPayload": {
+                      "orderId": "ORD-1344",
+                      "customer": "Marcus Vance",
+                      "amount": 249.99,
+                      "status": 200
+                    }
+                  },
+                  "startedAt": "2026-11-04T09:43:00.236Z",
+                  "initialPayload": {
+                    "orderId": "ORD-1344",
+                    "customer": "Marcus Vance",
+                    "amount": 249.99,
+                    "status": 200
+                  }
+                }
+              }
+            }
+          }
+        },
+        "node-condition": {
+          "conditionField": "status",
+          "actualValue": 200,
+          "operator": "==",
+          "targetVal": "200",
+          "conditionPassed": true
+        },
+        "conditionField": "status",
+        "actualValue": 200,
+        "operator": "==",
+        "targetVal": "200",
+        "conditionPassed": true,
+        "node-shipment": {
+          "status": 200,
+          "statusText": "OK (Mocked Distributed Service)",
+          "endpoint": "https://api.example.com/v1/logistics/shipments",
+          "method": "POST",
+          "data": {
+            "success": true,
+            "timestamp": "2026-11-04T09:43:01.985Z",
+            "resourceId": "res_986ddb",
+            "processed": true,
+            "echo": {
+              "orderId": "ORD-1344",
+              "customer": "Marcus Vance",
+              "amount": 249.99,
+              "status": 200,
+              "node-start": {
+                "startedAt": "2026-11-04T09:43:00.236Z",
+                "initialPayload": {
+                  "orderId": "ORD-1344",
+                  "customer": "Marcus Vance",
+                  "amount": 249.99,
+                  "status": 200
+                }
+              },
+              "startedAt": "2026-11-04T09:43:00.236Z",
+              "initialPayload": {
+                "orderId": "ORD-1344",
+                "customer": "Marcus Vance",
+                "amount": 249.99,
+                "status": 200
+              },
+              "node-payment": {
+                "status": 200,
+                "statusText": "OK (Mocked Distributed Service)",
+                "endpoint": "https://api.example.com/v1/payments/capture",
+                "method": "POST",
+                "data": {
+                  "success": true,
+                  "timestamp": "2026-11-04T09:43:00.673Z",
+                  "resourceId": "res_895c6a",
+                  "processed": true,
+                  "echo": {
+                    "orderId": "ORD-1344",
+                    "customer": "Marcus Vance",
+                    "amount": 249.99,
+                    "status": 200,
+                    "node-start": {
+                      "startedAt": "2026-11-04T09:43:00.236Z",
+                      "initialPayload": {
+                        "orderId": "ORD-1344",
+                        "customer": "Marcus Vance",
+                        "amount": 249.99,
+                        "status": 200
+                      }
+                    },
+                    "startedAt": "2026-11-04T09:43:00.236Z",
+                    "initialPayload": {
+                      "orderId": "ORD-1344",
+                      "customer": "Marcus Vance",
+                      "amount": 249.99,
+                      "status": 200
+                    }
+                  }
+                }
+              },
+              "statusText": "OK (Mocked Distributed Service)",
+              "endpoint": "https://api.example.com/v1/inventory/reserve",
+              "method": "POST",
+              "data": {
+                "success": true,
+                "timestamp": "2026-11-04T09:43:01.109Z",
+                "resourceId": "res_2ecd0b",
+                "processed": true,
+                "echo": {
+                  "orderId": "ORD-1344",
+                  "customer": "Marcus Vance",
+                  "amount": 249.99,
+                  "status": 200,
+                  "node-start": {
+                    "startedAt": "2026-11-04T09:43:00.236Z",
+                    "initialPayload": {
+                      "orderId": "ORD-1344",
+                      "customer": "Marcus Vance",
+                      "amount": 249.99,
+                      "status": 200
+                    }
+                  },
+                  "startedAt": "2026-11-04T09:43:00.236Z",
+                  "initialPayload": {
+                    "orderId": "ORD-1344",
+                    "customer": "Marcus Vance",
+                    "amount": 249.99,
+                    "status": 200
+                  },
+                  "node-payment": {
+                    "status": 200,
+                    "statusText": "OK (Mocked Distributed Service)",
+                    "endpoint": "https://api.example.com/v1/payments/capture",
+                    "method": "POST",
+                    "data": {
+                      "success": true,
+                      "timestamp": "2026-11-04T09:43:00.673Z",
+                      "resourceId": "res_895c6a",
+                      "processed": true,
+                      "echo": {
+                        "orderId": "ORD-1344",
+                        "customer": "Marcus Vance",
+                        "amount": 249.99,
+                        "status": 200,
+                        "node-start": {
+                          "startedAt": "2026-11-04T09:43:00.236Z",
+                          "initialPayload": {
+                            "orderId": "ORD-1344",
+                            "customer": "Marcus Vance",
+                            "amount": 249.99,
+                            "status": 200
+                          }
+                        },
+                        "startedAt": "2026-11-04T09:43:00.236Z",
+                        "initialPayload": {
+                          "orderId": "ORD-1344",
+                          "customer": "Marcus Vance",
+                          "amount": 249.99,
+                          "status": 200
+                        }
+                      }
+                    }
+                  },
+                  "statusText": "OK (Mocked Distributed Service)",
+                  "endpoint": "https://api.example.com/v1/payments/capture",
+                  "method": "POST",
+                  "data": {
+                    "success": true,
+                    "timestamp": "2026-11-04T09:43:00.673Z",
+                    "resourceId": "res_895c6a",
+                    "processed": true,
+                    "echo": {
+                      "orderId": "ORD-1344",
+                      "customer": "Marcus Vance",
+                      "amount": 249.99,
+                      "status": 200,
+                      "node-start": {
+                        "startedAt": "2026-11-04T09:43:00.236Z",
+                        "initialPayload": {
+                          "orderId": "ORD-1344",
+                          "customer": "Marcus Vance",
+                          "amount": 249.99,
+                          "status": 200
+                        }
+                      },
+                      "startedAt": "2026-11-04T09:43:00.236Z",
+                      "initialPayload": {
+                        "orderId": "ORD-1344",
+                        "customer": "Marcus Vance",
+                        "amount": 249.99,
+                        "status": 200
+                      }
+                    }
+                  }
+                }
+              },
+              "node-inventory": {
+                "status": 200,
+                "statusText": "OK (Mocked Distributed Service)",
+                "endpoint": "https://api.example.com/v1/inventory/reserve",
+                "method": "POST",
+                "data": {
+                  "success": true,
+                  "timestamp": "2026-11-04T09:43:01.109Z",
+                  "resourceId": "res_2ecd0b",
+                  "processed": true,
+                  "echo": {
+                    "orderId": "ORD-1344",
+                    "customer": "Marcus Vance",
+                    "amount": 249.99,
+                    "status": 200,
+                    "node-start": {
+                      "startedAt": "2026-11-04T09:43:00.236Z",
+                      "initialPayload": {
+                        "orderId": "ORD-1344",
+                        "customer": "Marcus Vance",
+                        "amount": 249.99,
+                        "status": 200
+                      }
+                    },
+                    "startedAt": "2026-11-04T09:43:00.236Z",
+                    "initialPayload": {
+                      "orderId": "ORD-1344",
+                      "customer": "Marcus Vance",
+                      "amount": 249.99,
+                      "status": 200
+                    },
+                    "node-payment": {
+                      "status": 200,
+                      "statusText": "OK (Mocked Distributed Service)",
+                      "endpoint": "https://api.example.com/v1/payments/capture",
+                      "method": "POST",
+                      "data": {
+                        "success": true,
+                        "timestamp": "2026-11-04T09:43:00.673Z",
+                        "resourceId": "res_895c6a",
+                        "processed": true,
+                        "echo": {
+                          "orderId": "ORD-1344",
+                          "customer": "Marcus Vance",
+                          "amount": 249.99,
+                          "status": 200,
+                          "node-start": {
+                            "startedAt": "2026-11-04T09:43:00.236Z",
+                            "initialPayload": {
+                              "orderId": "ORD-1344",
+                              "customer": "Marcus Vance",
+                              "amount": 249.99,
+                              "status": 200
+                            }
+                          },
+                          "startedAt": "2026-11-04T09:43:00.236Z",
+                          "initialPayload": {
+                            "orderId": "ORD-1344",
+                            "customer": "Marcus Vance",
+                            "amount": 249.99,
+                            "status": 200
+                          }
+                        }
+                      }
+                    },
+                    "statusText": "OK (Mocked Distributed Service)",
+                    "endpoint": "https://api.example.com/v1/payments/capture",
+                    "method": "POST",
+                    "data": {
+                      "success": true,
+                      "timestamp": "2026-11-04T09:43:00.673Z",
+                      "resourceId": "res_895c6a",
+                      "processed": true,
+                      "echo": {
+                        "orderId": "ORD-1344",
+                        "customer": "Marcus Vance",
+                        "amount": 249.99,
+                        "status": 200,
+                        "node-start": {
+                          "startedAt": "2026-11-04T09:43:00.236Z",
+                          "initialPayload": {
+                            "orderId": "ORD-1344",
+                            "customer": "Marcus Vance",
+                            "amount": 249.99,
+                            "status": 200
+                          }
+                        },
+                        "startedAt": "2026-11-04T09:43:00.236Z",
+                        "initialPayload": {
+                          "orderId": "ORD-1344",
+                          "customer": "Marcus Vance",
+                          "amount": 249.99,
+                          "status": 200
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "node-condition": {
+                "conditionField": "status",
+                "actualValue": 200,
+                "operator": "==",
+                "targetVal": "200",
+                "conditionPassed": true
+              },
+              "conditionField": "status",
+              "actualValue": 200,
+              "operator": "==",
+              "targetVal": "200",
+              "conditionPassed": true
+            }
+          }
+        },
+        "node-transform": {
+          "invoiceId": "INV-220957",
+          "subtotal": 249.99,
+          "tax": 20.62,
+          "totalCharged": 270.61,
+          "fulfillmentCenter": "FC-AUSTIN-04",
+          "generatedAt": "2026-11-04T09:43:02.454Z"
+        },
+        "invoiceId": "INV-220957",
+        "subtotal": 249.99,
+        "tax": 20.62,
+        "totalCharged": 270.61,
+        "fulfillmentCenter": "FC-AUSTIN-04",
+        "generatedAt": "2026-11-04T09:43:02.454Z",
+        "node-end": {
+          "finishedAt": "2026-11-04T09:43:02.889Z",
+          "status": "SUCCESS"
+        },
+        "finishedAt": "2026-11-04T09:43:02.889Z"
+      },
+      "nodeExecutions": {
+        "node-start": {
+          "id": "nexec_ce8bf706e797",
+          "executionId": "exec_jy6mfxsb",
+          "nodeId": "node-start",
+          "nodeType": "START",
+          "nodeLabel": "Receive Order Event",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: Receive Order Event (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 402ms."
+          ],
+          "startedAt": "2026-11-04T09:42:59.826Z",
+          "output": {
+            "startedAt": "2026-11-04T09:43:00.236Z",
+            "initialPayload": {
+              "orderId": "ORD-1344",
+              "customer": "Marcus Vance",
+              "amount": 249.99,
+              "status": 200
+            }
+          },
+          "completedAt": "2026-11-04T09:43:00.236Z"
+        },
+        "node-payment": {
+          "id": "nexec_c0f55ade45d1",
+          "executionId": "exec_jy6mfxsb",
+          "nodeId": "node-payment",
+          "nodeType": "HTTP_REQUEST",
+          "nodeLabel": "Authorize & Capture Payment",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 2,
+          "logs": [
+            "[EXEC] Executing node: Authorize & Capture Payment (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 416ms."
+          ],
+          "startedAt": "2026-11-04T09:43:00.254Z",
+          "output": {
+            "status": 200,
+            "statusText": "OK (Mocked Distributed Service)",
+            "endpoint": "https://api.example.com/v1/payments/capture",
+            "method": "POST",
+            "data": {
+              "success": true,
+              "timestamp": "2026-11-04T09:43:00.673Z",
+              "resourceId": "res_895c6a",
+              "processed": true,
+              "echo": {
+                "orderId": "ORD-1344",
+                "customer": "Marcus Vance",
+                "amount": 249.99,
+                "status": 200,
+                "node-start": {
+                  "startedAt": "2026-11-04T09:43:00.236Z",
+                  "initialPayload": {
+                    "orderId": "ORD-1344",
+                    "customer": "Marcus Vance",
+                    "amount": 249.99,
+                    "status": 200
+                  }
+                },
+                "startedAt": "2026-11-04T09:43:00.236Z",
+                "initialPayload": {
+                  "orderId": "ORD-1344",
+                  "customer": "Marcus Vance",
+                  "amount": 249.99,
+                  "status": 200
+                }
+              }
+            }
+          },
+          "completedAt": "2026-11-04T09:43:00.673Z"
+        },
+        "node-inventory": {
+          "id": "nexec_963c82767bdf",
+          "executionId": "exec_jy6mfxsb",
+          "nodeId": "node-inventory",
+          "nodeType": "HTTP_REQUEST",
+          "nodeLabel": "Reserve Warehouse Inventory",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 3,
+          "logs": [
+            "[EXEC] Executing node: Reserve Warehouse Inventory (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 410ms."
+          ],
+          "startedAt": "2026-11-04T09:43:00.694Z",
+          "output": {
+            "status": 200,
+            "statusText": "OK (Mocked Distributed Service)",
+            "endpoint": "https://api.example.com/v1/inventory/reserve",
+            "method": "POST",
+            "data": {
+              "success": true,
+              "timestamp": "2026-11-04T09:43:01.109Z",
+              "resourceId": "res_2ecd0b",
+              "processed": true,
+              "echo": {
+                "orderId": "ORD-1344",
+                "customer": "Marcus Vance",
+                "amount": 249.99,
+                "status": 200,
+                "node-start": {
+                  "startedAt": "2026-11-04T09:43:00.236Z",
+                  "initialPayload": {
+                    "orderId": "ORD-1344",
+                    "customer": "Marcus Vance",
+                    "amount": 249.99,
+                    "status": 200
+                  }
+                },
+                "startedAt": "2026-11-04T09:43:00.236Z",
+                "initialPayload": {
+                  "orderId": "ORD-1344",
+                  "customer": "Marcus Vance",
+                  "amount": 249.99,
+                  "status": 200
+                },
+                "node-payment": {
+                  "status": 200,
+                  "statusText": "OK (Mocked Distributed Service)",
+                  "endpoint": "https://api.example.com/v1/payments/capture",
+                  "method": "POST",
+                  "data": {
+                    "success": true,
+                    "timestamp": "2026-11-04T09:43:00.673Z",
+                    "resourceId": "res_895c6a",
+                    "processed": true,
+                    "echo": {
+                      "orderId": "ORD-1344",
+                      "customer": "Marcus Vance",
+                      "amount": 249.99,
+                      "status": 200,
+                      "node-start": {
+                        "startedAt": "2026-11-04T09:43:00.236Z",
+                        "initialPayload": {
+                          "orderId": "ORD-1344",
+                          "customer": "Marcus Vance",
+                          "amount": 249.99,
+                          "status": 200
+                        }
+                      },
+                      "startedAt": "2026-11-04T09:43:00.236Z",
+                      "initialPayload": {
+                        "orderId": "ORD-1344",
+                        "customer": "Marcus Vance",
+                        "amount": 249.99,
+                        "status": 200
+                      }
+                    }
+                  }
+                },
+                "statusText": "OK (Mocked Distributed Service)",
+                "endpoint": "https://api.example.com/v1/payments/capture",
+                "method": "POST",
+                "data": {
+                  "success": true,
+                  "timestamp": "2026-11-04T09:43:00.673Z",
+                  "resourceId": "res_895c6a",
+                  "processed": true,
+                  "echo": {
+                    "orderId": "ORD-1344",
+                    "customer": "Marcus Vance",
+                    "amount": 249.99,
+                    "status": 200,
+                    "node-start": {
+                      "startedAt": "2026-11-04T09:43:00.236Z",
+                      "initialPayload": {
+                        "orderId": "ORD-1344",
+                        "customer": "Marcus Vance",
+                        "amount": 249.99,
+                        "status": 200
+                      }
+                    },
+                    "startedAt": "2026-11-04T09:43:00.236Z",
+                    "initialPayload": {
+                      "orderId": "ORD-1344",
+                      "customer": "Marcus Vance",
+                      "amount": 249.99,
+                      "status": 200
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "completedAt": "2026-11-04T09:43:01.109Z"
+        },
+        "node-condition": {
+          "id": "nexec_5a073ab8826a",
+          "executionId": "exec_jy6mfxsb",
+          "nodeId": "node-condition",
+          "nodeType": "CONDITION",
+          "nodeLabel": "Evaluate Inventory Status",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: Evaluate Inventory Status (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 414ms."
+          ],
+          "startedAt": "2026-11-04T09:43:01.127Z",
+          "output": {
+            "conditionField": "status",
+            "actualValue": 200,
+            "operator": "==",
+            "targetVal": "200",
+            "conditionPassed": true
+          },
+          "completedAt": "2026-11-04T09:43:01.545Z"
+        },
+        "node-shipment": {
+          "id": "nexec_46a5c219b497",
+          "executionId": "exec_jy6mfxsb",
+          "nodeId": "node-shipment",
+          "nodeType": "HTTP_REQUEST",
+          "nodeLabel": "Create Carrier Shipment & Waybill",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 3,
+          "logs": [
+            "[EXEC] Executing node: Create Carrier Shipment & Waybill (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 408ms."
+          ],
+          "startedAt": "2026-11-04T09:43:01.573Z",
+          "output": {
+            "status": 200,
+            "statusText": "OK (Mocked Distributed Service)",
+            "endpoint": "https://api.example.com/v1/logistics/shipments",
+            "method": "POST",
+            "data": {
+              "success": true,
+              "timestamp": "2026-11-04T09:43:01.985Z",
+              "resourceId": "res_986ddb",
+              "processed": true,
+              "echo": {
+                "orderId": "ORD-1344",
+                "customer": "Marcus Vance",
+                "amount": 249.99,
+                "status": 200,
+                "node-start": {
+                  "startedAt": "2026-11-04T09:43:00.236Z",
+                  "initialPayload": {
+                    "orderId": "ORD-1344",
+                    "customer": "Marcus Vance",
+                    "amount": 249.99,
+                    "status": 200
+                  }
+                },
+                "startedAt": "2026-11-04T09:43:00.236Z",
+                "initialPayload": {
+                  "orderId": "ORD-1344",
+                  "customer": "Marcus Vance",
+                  "amount": 249.99,
+                  "status": 200
+                },
+                "node-payment": {
+                  "status": 200,
+                  "statusText": "OK (Mocked Distributed Service)",
+                  "endpoint": "https://api.example.com/v1/payments/capture",
+                  "method": "POST",
+                  "data": {
+                    "success": true,
+                    "timestamp": "2026-11-04T09:43:00.673Z",
+                    "resourceId": "res_895c6a",
+                    "processed": true,
+                    "echo": {
+                      "orderId": "ORD-1344",
+                      "customer": "Marcus Vance",
+                      "amount": 249.99,
+                      "status": 200,
+                      "node-start": {
+                        "startedAt": "2026-11-04T09:43:00.236Z",
+                        "initialPayload": {
+                          "orderId": "ORD-1344",
+                          "customer": "Marcus Vance",
+                          "amount": 249.99,
+                          "status": 200
+                        }
+                      },
+                      "startedAt": "2026-11-04T09:43:00.236Z",
+                      "initialPayload": {
+                        "orderId": "ORD-1344",
+                        "customer": "Marcus Vance",
+                        "amount": 249.99,
+                        "status": 200
+                      }
+                    }
+                  }
+                },
+                "statusText": "OK (Mocked Distributed Service)",
+                "endpoint": "https://api.example.com/v1/inventory/reserve",
+                "method": "POST",
+                "data": {
+                  "success": true,
+                  "timestamp": "2026-11-04T09:43:01.109Z",
+                  "resourceId": "res_2ecd0b",
+                  "processed": true,
+                  "echo": {
+                    "orderId": "ORD-1344",
+                    "customer": "Marcus Vance",
+                    "amount": 249.99,
+                    "status": 200,
+                    "node-start": {
+                      "startedAt": "2026-11-04T09:43:00.236Z",
+                      "initialPayload": {
+                        "orderId": "ORD-1344",
+                        "customer": "Marcus Vance",
+                        "amount": 249.99,
+                        "status": 200
+                      }
+                    },
+                    "startedAt": "2026-11-04T09:43:00.236Z",
+                    "initialPayload": {
+                      "orderId": "ORD-1344",
+                      "customer": "Marcus Vance",
+                      "amount": 249.99,
+                      "status": 200
+                    },
+                    "node-payment": {
+                      "status": 200,
+                      "statusText": "OK (Mocked Distributed Service)",
+                      "endpoint": "https://api.example.com/v1/payments/capture",
+                      "method": "POST",
+                      "data": {
+                        "success": true,
+                        "timestamp": "2026-11-04T09:43:00.673Z",
+                        "resourceId": "res_895c6a",
+                        "processed": true,
+                        "echo": {
+                          "orderId": "ORD-1344",
+                          "customer": "Marcus Vance",
+                          "amount": 249.99,
+                          "status": 200,
+                          "node-start": {
+                            "startedAt": "2026-11-04T09:43:00.236Z",
+                            "initialPayload": {
+                              "orderId": "ORD-1344",
+                              "customer": "Marcus Vance",
+                              "amount": 249.99,
+                              "status": 200
+                            }
+                          },
+                          "startedAt": "2026-11-04T09:43:00.236Z",
+                          "initialPayload": {
+                            "orderId": "ORD-1344",
+                            "customer": "Marcus Vance",
+                            "amount": 249.99,
+                            "status": 200
+                          }
+                        }
+                      }
+                    },
+                    "statusText": "OK (Mocked Distributed Service)",
+                    "endpoint": "https://api.example.com/v1/payments/capture",
+                    "method": "POST",
+                    "data": {
+                      "success": true,
+                      "timestamp": "2026-11-04T09:43:00.673Z",
+                      "resourceId": "res_895c6a",
+                      "processed": true,
+                      "echo": {
+                        "orderId": "ORD-1344",
+                        "customer": "Marcus Vance",
+                        "amount": 249.99,
+                        "status": 200,
+                        "node-start": {
+                          "startedAt": "2026-11-04T09:43:00.236Z",
+                          "initialPayload": {
+                            "orderId": "ORD-1344",
+                            "customer": "Marcus Vance",
+                            "amount": 249.99,
+                            "status": 200
+                          }
+                        },
+                        "startedAt": "2026-11-04T09:43:00.236Z",
+                        "initialPayload": {
+                          "orderId": "ORD-1344",
+                          "customer": "Marcus Vance",
+                          "amount": 249.99,
+                          "status": 200
+                        }
+                      }
+                    }
+                  }
+                },
+                "node-inventory": {
+                  "status": 200,
+                  "statusText": "OK (Mocked Distributed Service)",
+                  "endpoint": "https://api.example.com/v1/inventory/reserve",
+                  "method": "POST",
+                  "data": {
+                    "success": true,
+                    "timestamp": "2026-11-04T09:43:01.109Z",
+                    "resourceId": "res_2ecd0b",
+                    "processed": true,
+                    "echo": {
+                      "orderId": "ORD-1344",
+                      "customer": "Marcus Vance",
+                      "amount": 249.99,
+                      "status": 200,
+                      "node-start": {
+                        "startedAt": "2026-11-04T09:43:00.236Z",
+                        "initialPayload": {
+                          "orderId": "ORD-1344",
+                          "customer": "Marcus Vance",
+                          "amount": 249.99,
+                          "status": 200
+                        }
+                      },
+                      "startedAt": "2026-11-04T09:43:00.236Z",
+                      "initialPayload": {
+                        "orderId": "ORD-1344",
+                        "customer": "Marcus Vance",
+                        "amount": 249.99,
+                        "status": 200
+                      },
+                      "node-payment": {
+                        "status": 200,
+                        "statusText": "OK (Mocked Distributed Service)",
+                        "endpoint": "https://api.example.com/v1/payments/capture",
+                        "method": "POST",
+                        "data": {
+                          "success": true,
+                          "timestamp": "2026-11-04T09:43:00.673Z",
+                          "resourceId": "res_895c6a",
+                          "processed": true,
+                          "echo": {
+                            "orderId": "ORD-1344",
+                            "customer": "Marcus Vance",
+                            "amount": 249.99,
+                            "status": 200,
+                            "node-start": {
+                              "startedAt": "2026-11-04T09:43:00.236Z",
+                              "initialPayload": {
+                                "orderId": "ORD-1344",
+                                "customer": "Marcus Vance",
+                                "amount": 249.99,
+                                "status": 200
+                              }
+                            },
+                            "startedAt": "2026-11-04T09:43:00.236Z",
+                            "initialPayload": {
+                              "orderId": "ORD-1344",
+                              "customer": "Marcus Vance",
+                              "amount": 249.99,
+                              "status": 200
+                            }
+                          }
+                        }
+                      },
+                      "statusText": "OK (Mocked Distributed Service)",
+                      "endpoint": "https://api.example.com/v1/payments/capture",
+                      "method": "POST",
+                      "data": {
+                        "success": true,
+                        "timestamp": "2026-11-04T09:43:00.673Z",
+                        "resourceId": "res_895c6a",
+                        "processed": true,
+                        "echo": {
+                          "orderId": "ORD-1344",
+                          "customer": "Marcus Vance",
+                          "amount": 249.99,
+                          "status": 200,
+                          "node-start": {
+                            "startedAt": "2026-11-04T09:43:00.236Z",
+                            "initialPayload": {
+                              "orderId": "ORD-1344",
+                              "customer": "Marcus Vance",
+                              "amount": 249.99,
+                              "status": 200
+                            }
+                          },
+                          "startedAt": "2026-11-04T09:43:00.236Z",
+                          "initialPayload": {
+                            "orderId": "ORD-1344",
+                            "customer": "Marcus Vance",
+                            "amount": 249.99,
+                            "status": 200
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "node-condition": {
+                  "conditionField": "status",
+                  "actualValue": 200,
+                  "operator": "==",
+                  "targetVal": "200",
+                  "conditionPassed": true
+                },
+                "conditionField": "status",
+                "actualValue": 200,
+                "operator": "==",
+                "targetVal": "200",
+                "conditionPassed": true
+              }
+            }
+          },
+          "completedAt": "2026-11-04T09:43:01.985Z"
+        },
+        "node-transform": {
+          "id": "nexec_549037a6074f",
+          "executionId": "exec_jy6mfxsb",
+          "nodeId": "node-transform",
+          "nodeType": "TRANSFORM",
+          "nodeLabel": "Generate Order Invoice & Telemetry",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: Generate Order Invoice & Telemetry (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 454ms."
+          ],
+          "startedAt": "2026-11-04T09:43:01.998Z",
+          "output": {
+            "invoiceId": "INV-220957",
+            "subtotal": 249.99,
+            "tax": 20.62,
+            "totalCharged": 270.61,
+            "fulfillmentCenter": "FC-AUSTIN-04",
+            "generatedAt": "2026-11-04T09:43:02.454Z"
+          },
+          "completedAt": "2026-11-04T09:43:02.455Z"
+        },
+        "node-log-fallback": {
+          "id": "nexec_47690ed00cc8",
+          "executionId": "exec_jy6mfxsb",
+          "nodeId": "node-log-fallback",
+          "nodeType": "LOG",
+          "nodeLabel": "Log Out-of-Stock Alert",
+          "status": "SKIPPED",
+          "attempts": 0,
+          "maxAttempts": 1,
+          "logs": [
+            "Node skipped because prior conditional branch did not execute."
+          ]
+        },
+        "node-end": {
+          "id": "nexec_5a1a48b4908b",
+          "executionId": "exec_jy6mfxsb",
+          "nodeId": "node-end",
+          "nodeType": "END",
+          "nodeLabel": "Order Processing Complete",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: Order Processing Complete (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 409ms."
+          ],
+          "startedAt": "2026-11-04T09:43:02.476Z",
+          "output": {
+            "finishedAt": "2026-11-04T09:43:02.889Z",
+            "status": "SUCCESS"
+          },
+          "completedAt": "2026-11-04T09:43:02.889Z"
+        }
+      },
+      "compensationsExecuted": [],
+      "trigger": "MANUAL",
+      "triggeredBy": "admin@acme.com",
+      "currentNodeId": "node-end",
+      "completedAt": "2026-11-04T09:43:02.895Z"
+    },
+    {
+      "id": "exec_wdrplers",
+      "workflowId": "wf_5svtfgwq",
+      "workflowName": "E-Commerce Order Processing & Saga Compensation",
+      "tenantId": "tenant_8seup31w",
+      "status": "COMPENSATED",
+      "startedAt": "2026-11-04T09:43:05.804Z",
+      "contextData": {
+        "orderId": "ORD-4398",
+        "customer": "Elena Rostova (Failure Test)",
+        "amount": 249.99,
+        "status": 200,
+        "node-start": {
+          "startedAt": "2026-11-04T09:43:06.221Z",
+          "initialPayload": {
+            "orderId": "ORD-4398",
+            "customer": "Elena Rostova (Failure Test)",
+            "amount": 249.99,
+            "status": 200
+          }
+        },
+        "startedAt": "2026-11-04T09:43:06.221Z",
+        "initialPayload": {
+          "orderId": "ORD-4398",
+          "customer": "Elena Rostova (Failure Test)",
+          "amount": 249.99,
+          "status": 200
+        },
+        "node-payment": {
+          "status": 200,
+          "statusText": "OK (Mocked Distributed Service)",
+          "endpoint": "https://api.example.com/v1/payments/capture",
+          "method": "POST",
+          "data": {
+            "success": true,
+            "timestamp": "2026-11-04T09:43:06.660Z",
+            "resourceId": "res_b1a076",
+            "processed": true,
+            "echo": {
+              "orderId": "ORD-4398",
+              "customer": "Elena Rostova (Failure Test)",
+              "amount": 249.99,
+              "status": 200,
+              "node-start": {
+                "startedAt": "2026-11-04T09:43:06.221Z",
+                "initialPayload": {
+                  "orderId": "ORD-4398",
+                  "customer": "Elena Rostova (Failure Test)",
+                  "amount": 249.99,
+                  "status": 200
+                }
+              },
+              "startedAt": "2026-11-04T09:43:06.221Z",
+              "initialPayload": {
+                "orderId": "ORD-4398",
+                "customer": "Elena Rostova (Failure Test)",
+                "amount": 249.99,
+                "status": 200
+              }
+            }
+          }
+        },
+        "statusText": "OK (Mocked Distributed Service)",
+        "endpoint": "https://api.example.com/v1/inventory/reserve",
+        "method": "POST",
+        "data": {
+          "success": true,
+          "timestamp": "2026-11-04T09:43:07.095Z",
+          "resourceId": "res_47fcae",
+          "processed": true,
+          "echo": {
+            "orderId": "ORD-4398",
+            "customer": "Elena Rostova (Failure Test)",
+            "amount": 249.99,
+            "status": 200,
+            "node-start": {
+              "startedAt": "2026-11-04T09:43:06.221Z",
+              "initialPayload": {
+                "orderId": "ORD-4398",
+                "customer": "Elena Rostova (Failure Test)",
+                "amount": 249.99,
+                "status": 200
+              }
+            },
+            "startedAt": "2026-11-04T09:43:06.221Z",
+            "initialPayload": {
+              "orderId": "ORD-4398",
+              "customer": "Elena Rostova (Failure Test)",
+              "amount": 249.99,
+              "status": 200
+            },
+            "node-payment": {
+              "status": 200,
+              "statusText": "OK (Mocked Distributed Service)",
+              "endpoint": "https://api.example.com/v1/payments/capture",
+              "method": "POST",
+              "data": {
+                "success": true,
+                "timestamp": "2026-11-04T09:43:06.660Z",
+                "resourceId": "res_b1a076",
+                "processed": true,
+                "echo": {
+                  "orderId": "ORD-4398",
+                  "customer": "Elena Rostova (Failure Test)",
+                  "amount": 249.99,
+                  "status": 200,
+                  "node-start": {
+                    "startedAt": "2026-11-04T09:43:06.221Z",
+                    "initialPayload": {
+                      "orderId": "ORD-4398",
+                      "customer": "Elena Rostova (Failure Test)",
+                      "amount": 249.99,
+                      "status": 200
+                    }
+                  },
+                  "startedAt": "2026-11-04T09:43:06.221Z",
+                  "initialPayload": {
+                    "orderId": "ORD-4398",
+                    "customer": "Elena Rostova (Failure Test)",
+                    "amount": 249.99,
+                    "status": 200
+                  }
+                }
+              }
+            },
+            "statusText": "OK (Mocked Distributed Service)",
+            "endpoint": "https://api.example.com/v1/payments/capture",
+            "method": "POST",
+            "data": {
+              "success": true,
+              "timestamp": "2026-11-04T09:43:06.660Z",
+              "resourceId": "res_b1a076",
+              "processed": true,
+              "echo": {
+                "orderId": "ORD-4398",
+                "customer": "Elena Rostova (Failure Test)",
+                "amount": 249.99,
+                "status": 200,
+                "node-start": {
+                  "startedAt": "2026-11-04T09:43:06.221Z",
+                  "initialPayload": {
+                    "orderId": "ORD-4398",
+                    "customer": "Elena Rostova (Failure Test)",
+                    "amount": 249.99,
+                    "status": 200
+                  }
+                },
+                "startedAt": "2026-11-04T09:43:06.221Z",
+                "initialPayload": {
+                  "orderId": "ORD-4398",
+                  "customer": "Elena Rostova (Failure Test)",
+                  "amount": 249.99,
+                  "status": 200
+                }
+              }
+            }
+          }
+        },
+        "node-inventory": {
+          "status": 200,
+          "statusText": "OK (Mocked Distributed Service)",
+          "endpoint": "https://api.example.com/v1/inventory/reserve",
+          "method": "POST",
+          "data": {
+            "success": true,
+            "timestamp": "2026-11-04T09:43:07.095Z",
+            "resourceId": "res_47fcae",
+            "processed": true,
+            "echo": {
+              "orderId": "ORD-4398",
+              "customer": "Elena Rostova (Failure Test)",
+              "amount": 249.99,
+              "status": 200,
+              "node-start": {
+                "startedAt": "2026-11-04T09:43:06.221Z",
+                "initialPayload": {
+                  "orderId": "ORD-4398",
+                  "customer": "Elena Rostova (Failure Test)",
+                  "amount": 249.99,
+                  "status": 200
+                }
+              },
+              "startedAt": "2026-11-04T09:43:06.221Z",
+              "initialPayload": {
+                "orderId": "ORD-4398",
+                "customer": "Elena Rostova (Failure Test)",
+                "amount": 249.99,
+                "status": 200
+              },
+              "node-payment": {
+                "status": 200,
+                "statusText": "OK (Mocked Distributed Service)",
+                "endpoint": "https://api.example.com/v1/payments/capture",
+                "method": "POST",
+                "data": {
+                  "success": true,
+                  "timestamp": "2026-11-04T09:43:06.660Z",
+                  "resourceId": "res_b1a076",
+                  "processed": true,
+                  "echo": {
+                    "orderId": "ORD-4398",
+                    "customer": "Elena Rostova (Failure Test)",
+                    "amount": 249.99,
+                    "status": 200,
+                    "node-start": {
+                      "startedAt": "2026-11-04T09:43:06.221Z",
+                      "initialPayload": {
+                        "orderId": "ORD-4398",
+                        "customer": "Elena Rostova (Failure Test)",
+                        "amount": 249.99,
+                        "status": 200
+                      }
+                    },
+                    "startedAt": "2026-11-04T09:43:06.221Z",
+                    "initialPayload": {
+                      "orderId": "ORD-4398",
+                      "customer": "Elena Rostova (Failure Test)",
+                      "amount": 249.99,
+                      "status": 200
+                    }
+                  }
+                }
+              },
+              "statusText": "OK (Mocked Distributed Service)",
+              "endpoint": "https://api.example.com/v1/payments/capture",
+              "method": "POST",
+              "data": {
+                "success": true,
+                "timestamp": "2026-11-04T09:43:06.660Z",
+                "resourceId": "res_b1a076",
+                "processed": true,
+                "echo": {
+                  "orderId": "ORD-4398",
+                  "customer": "Elena Rostova (Failure Test)",
+                  "amount": 249.99,
+                  "status": 200,
+                  "node-start": {
+                    "startedAt": "2026-11-04T09:43:06.221Z",
+                    "initialPayload": {
+                      "orderId": "ORD-4398",
+                      "customer": "Elena Rostova (Failure Test)",
+                      "amount": 249.99,
+                      "status": 200
+                    }
+                  },
+                  "startedAt": "2026-11-04T09:43:06.221Z",
+                  "initialPayload": {
+                    "orderId": "ORD-4398",
+                    "customer": "Elena Rostova (Failure Test)",
+                    "amount": 249.99,
+                    "status": 200
+                  }
+                }
+              }
+            }
+          }
+        },
+        "node-condition": {
+          "conditionField": "status",
+          "actualValue": 200,
+          "operator": "==",
+          "targetVal": "200",
+          "conditionPassed": true
+        },
+        "conditionField": "status",
+        "actualValue": 200,
+        "operator": "==",
+        "targetVal": "200",
+        "conditionPassed": true
+      },
+      "nodeExecutions": {
+        "node-start": {
+          "id": "nexec_5b4bbac6e1c8",
+          "executionId": "exec_wdrplers",
+          "nodeId": "node-start",
+          "nodeType": "START",
+          "nodeLabel": "Receive Order Event",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: Receive Order Event (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 405ms."
+          ],
+          "startedAt": "2026-11-04T09:43:05.813Z",
+          "output": {
+            "startedAt": "2026-11-04T09:43:06.221Z",
+            "initialPayload": {
+              "orderId": "ORD-4398",
+              "customer": "Elena Rostova (Failure Test)",
+              "amount": 249.99,
+              "status": 200
+            }
+          },
+          "completedAt": "2026-11-04T09:43:06.221Z"
+        },
+        "node-payment": {
+          "id": "nexec_b4098dcd6958",
+          "executionId": "exec_wdrplers",
+          "nodeId": "node-payment",
+          "nodeType": "HTTP_REQUEST",
+          "nodeLabel": "Authorize & Capture Payment",
+          "status": "COMPENSATED",
+          "attempts": 1,
+          "maxAttempts": 2,
+          "logs": [
+            "[EXEC] Executing node: Authorize & Capture Payment (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 410ms.",
+            "[SAGA] Initiating rollback compensation: Refund Payment Transaction",
+            "[SAGA SUCCESS] Simulated rollback executed: Refund $249.99 to customer credit card via payment gateway (fetch failed)"
+          ],
+          "startedAt": "2026-11-04T09:43:06.244Z",
+          "output": {
+            "status": 200,
+            "statusText": "OK (Mocked Distributed Service)",
+            "endpoint": "https://api.example.com/v1/payments/capture",
+            "method": "POST",
+            "data": {
+              "success": true,
+              "timestamp": "2026-11-04T09:43:06.660Z",
+              "resourceId": "res_b1a076",
+              "processed": true,
+              "echo": {
+                "orderId": "ORD-4398",
+                "customer": "Elena Rostova (Failure Test)",
+                "amount": 249.99,
+                "status": 200,
+                "node-start": {
+                  "startedAt": "2026-11-04T09:43:06.221Z",
+                  "initialPayload": {
+                    "orderId": "ORD-4398",
+                    "customer": "Elena Rostova (Failure Test)",
+                    "amount": 249.99,
+                    "status": 200
+                  }
+                },
+                "startedAt": "2026-11-04T09:43:06.221Z",
+                "initialPayload": {
+                  "orderId": "ORD-4398",
+                  "customer": "Elena Rostova (Failure Test)",
+                  "amount": 249.99,
+                  "status": 200
+                }
+              }
+            }
+          },
+          "completedAt": "2026-11-04T09:43:06.660Z",
+          "compensationStatus": "SUCCESS"
+        },
+        "node-inventory": {
+          "id": "nexec_66a89c950762",
+          "executionId": "exec_wdrplers",
+          "nodeId": "node-inventory",
+          "nodeType": "HTTP_REQUEST",
+          "nodeLabel": "Reserve Warehouse Inventory",
+          "status": "COMPENSATED",
+          "attempts": 1,
+          "maxAttempts": 3,
+          "logs": [
+            "[EXEC] Executing node: Reserve Warehouse Inventory (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 407ms.",
+            "[SAGA] Initiating rollback compensation: Release Reserved Inventory",
+            "[SAGA SUCCESS] Simulated rollback executed: Released 1 unit of SKU-QUANTUM-X back to active inventory pool (fetch failed)"
+          ],
+          "startedAt": "2026-11-04T09:43:06.682Z",
+          "output": {
+            "status": 200,
+            "statusText": "OK (Mocked Distributed Service)",
+            "endpoint": "https://api.example.com/v1/inventory/reserve",
+            "method": "POST",
+            "data": {
+              "success": true,
+              "timestamp": "2026-11-04T09:43:07.095Z",
+              "resourceId": "res_47fcae",
+              "processed": true,
+              "echo": {
+                "orderId": "ORD-4398",
+                "customer": "Elena Rostova (Failure Test)",
+                "amount": 249.99,
+                "status": 200,
+                "node-start": {
+                  "startedAt": "2026-11-04T09:43:06.221Z",
+                  "initialPayload": {
+                    "orderId": "ORD-4398",
+                    "customer": "Elena Rostova (Failure Test)",
+                    "amount": 249.99,
+                    "status": 200
+                  }
+                },
+                "startedAt": "2026-11-04T09:43:06.221Z",
+                "initialPayload": {
+                  "orderId": "ORD-4398",
+                  "customer": "Elena Rostova (Failure Test)",
+                  "amount": 249.99,
+                  "status": 200
+                },
+                "node-payment": {
+                  "status": 200,
+                  "statusText": "OK (Mocked Distributed Service)",
+                  "endpoint": "https://api.example.com/v1/payments/capture",
+                  "method": "POST",
+                  "data": {
+                    "success": true,
+                    "timestamp": "2026-11-04T09:43:06.660Z",
+                    "resourceId": "res_b1a076",
+                    "processed": true,
+                    "echo": {
+                      "orderId": "ORD-4398",
+                      "customer": "Elena Rostova (Failure Test)",
+                      "amount": 249.99,
+                      "status": 200,
+                      "node-start": {
+                        "startedAt": "2026-11-04T09:43:06.221Z",
+                        "initialPayload": {
+                          "orderId": "ORD-4398",
+                          "customer": "Elena Rostova (Failure Test)",
+                          "amount": 249.99,
+                          "status": 200
+                        }
+                      },
+                      "startedAt": "2026-11-04T09:43:06.221Z",
+                      "initialPayload": {
+                        "orderId": "ORD-4398",
+                        "customer": "Elena Rostova (Failure Test)",
+                        "amount": 249.99,
+                        "status": 200
+                      }
+                    }
+                  }
+                },
+                "statusText": "OK (Mocked Distributed Service)",
+                "endpoint": "https://api.example.com/v1/payments/capture",
+                "method": "POST",
+                "data": {
+                  "success": true,
+                  "timestamp": "2026-11-04T09:43:06.660Z",
+                  "resourceId": "res_b1a076",
+                  "processed": true,
+                  "echo": {
+                    "orderId": "ORD-4398",
+                    "customer": "Elena Rostova (Failure Test)",
+                    "amount": 249.99,
+                    "status": 200,
+                    "node-start": {
+                      "startedAt": "2026-11-04T09:43:06.221Z",
+                      "initialPayload": {
+                        "orderId": "ORD-4398",
+                        "customer": "Elena Rostova (Failure Test)",
+                        "amount": 249.99,
+                        "status": 200
+                      }
+                    },
+                    "startedAt": "2026-11-04T09:43:06.221Z",
+                    "initialPayload": {
+                      "orderId": "ORD-4398",
+                      "customer": "Elena Rostova (Failure Test)",
+                      "amount": 249.99,
+                      "status": 200
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "completedAt": "2026-11-04T09:43:07.096Z",
+          "compensationStatus": "SUCCESS"
+        },
+        "node-condition": {
+          "id": "nexec_fe6358295f23",
+          "executionId": "exec_wdrplers",
+          "nodeId": "node-condition",
+          "nodeType": "CONDITION",
+          "nodeLabel": "Evaluate Inventory Status",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: Evaluate Inventory Status (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 402ms."
+          ],
+          "startedAt": "2026-11-04T09:43:07.110Z",
+          "output": {
+            "conditionField": "status",
+            "actualValue": 200,
+            "operator": "==",
+            "targetVal": "200",
+            "conditionPassed": true
+          },
+          "completedAt": "2026-11-04T09:43:07.515Z"
+        },
+        "node-shipment": {
+          "id": "nexec_111492bff53a",
+          "executionId": "exec_wdrplers",
+          "nodeId": "node-shipment",
+          "nodeType": "HTTP_REQUEST",
+          "nodeLabel": "Create Carrier Shipment & Waybill",
+          "status": "FAILED",
+          "attempts": 3,
+          "maxAttempts": 3,
+          "logs": [
+            "[EXEC] Executing node: Create Carrier Shipment & Waybill (Worker: Worker Alpha (US-East))",
+            "[ERROR] Attempt 1 failed: Simulated Failure Triggered on 'Create Carrier Shipment & Waybill' (status: 500)",
+            "[BACKOFF] Waiting 1099ms before retry 2...",
+            "[RETRY] Attempt 2 of 3...",
+            "[ERROR] Attempt 2 failed: Simulated Failure Triggered on 'Create Carrier Shipment & Waybill' (status: 500)",
+            "[BACKOFF] Waiting 2089ms before retry 3...",
+            "[RETRY] Attempt 3 of 3...",
+            "[ERROR] Attempt 3 failed: Simulated Failure Triggered on 'Create Carrier Shipment & Waybill' (status: 500)",
+            "[FAILED] Node permanently failed after 3 attempt(s)."
+          ],
+          "startedAt": "2026-11-04T09:43:07.539Z",
+          "error": "Simulated Failure Triggered on 'Create Carrier Shipment & Waybill' (status: 500)",
+          "completedAt": "2026-11-04T09:43:12.191Z"
+        },
+        "node-transform": {
+          "id": "nexec_536ed739564b",
+          "executionId": "exec_wdrplers",
+          "nodeId": "node-transform",
+          "nodeType": "TRANSFORM",
+          "nodeLabel": "Generate Order Invoice & Telemetry",
+          "status": "PENDING",
+          "attempts": 0,
+          "maxAttempts": 1,
+          "logs": []
+        },
+        "node-log-fallback": {
+          "id": "nexec_c6ad2b902369",
+          "executionId": "exec_wdrplers",
+          "nodeId": "node-log-fallback",
+          "nodeType": "LOG",
+          "nodeLabel": "Log Out-of-Stock Alert",
+          "status": "SKIPPED",
+          "attempts": 0,
+          "maxAttempts": 1,
+          "logs": [
+            "Node skipped because prior conditional branch did not execute."
+          ]
+        },
+        "node-end": {
+          "id": "nexec_c12eac932105",
+          "executionId": "exec_wdrplers",
+          "nodeId": "node-end",
+          "nodeType": "END",
+          "nodeLabel": "Order Processing Complete",
+          "status": "PENDING",
+          "attempts": 0,
+          "maxAttempts": 1,
+          "logs": []
+        }
+      },
+      "compensationsExecuted": [
+        "node-inventory",
+        "node-payment"
+      ],
+      "trigger": "MANUAL",
+      "triggeredBy": "admin@acme.com",
+      "currentNodeId": "node-shipment",
+      "completedAt": "2026-11-04T09:43:13.539Z"
+    },
+    {
+      "id": "exec_qn57xwmt",
+      "workflowId": "wf_aquh1vae",
+      "workflowName": "New Workflow",
+      "tenantId": "tenant_8seup31w",
+      "status": "SUCCESS",
+      "startedAt": "2026-11-04T09:43:21.217Z",
+      "contextData": {
+        "orderId": "ORD-5542",
+        "customer": "Sarah Connor",
+        "amount": 249.99,
+        "status": "SUCCESS",
+        "node-start": {
+          "startedAt": "2026-11-04T09:43:21.655Z",
+          "initialPayload": {
+            "orderId": "ORD-5542",
+            "customer": "Sarah Connor",
+            "amount": 249.99,
+            "status": 200
+          }
+        },
+        "startedAt": "2026-11-04T09:43:21.655Z",
+        "initialPayload": {
+          "orderId": "ORD-5542",
+          "customer": "Sarah Connor",
+          "amount": 249.99,
+          "status": 200
+        },
+        "node-end": {
+          "finishedAt": "2026-11-04T09:43:22.090Z",
+          "status": "SUCCESS"
+        },
+        "finishedAt": "2026-11-04T09:43:22.090Z"
+      },
+      "nodeExecutions": {
+        "node-start": {
+          "id": "nexec_3f001144d570",
+          "executionId": "exec_qn57xwmt",
+          "nodeId": "node-start",
+          "nodeType": "START",
+          "nodeLabel": "Start Trigger",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: Start Trigger (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 406ms."
+          ],
+          "startedAt": "2026-11-04T09:43:21.245Z",
+          "output": {
+            "startedAt": "2026-11-04T09:43:21.655Z",
+            "initialPayload": {
+              "orderId": "ORD-5542",
+              "customer": "Sarah Connor",
+              "amount": 249.99,
+              "status": 200
+            }
+          },
+          "completedAt": "2026-11-04T09:43:21.655Z"
+        },
+        "node-end": {
+          "id": "nexec_60547172b3d0",
+          "executionId": "exec_qn57xwmt",
+          "nodeId": "node-end",
+          "nodeType": "END",
+          "nodeLabel": "End Transaction",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: End Transaction (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 415ms."
+          ],
+          "startedAt": "2026-11-04T09:43:21.669Z",
+          "output": {
+            "finishedAt": "2026-11-04T09:43:22.090Z",
+            "status": "SUCCESS"
+          },
+          "completedAt": "2026-11-04T09:43:22.090Z"
+        }
+      },
+      "compensationsExecuted": [],
+      "trigger": "MANUAL",
+      "triggeredBy": "admin@acme.com",
+      "currentNodeId": "node-end",
+      "completedAt": "2026-11-04T09:43:22.097Z"
+    },
+    {
+      "id": "exec_7uhnkrlw",
+      "workflowId": "wf_5svtfgwq",
+      "workflowName": "E-Commerce Order Processing & Saga Compensation",
+      "tenantId": "tenant_8seup31w",
+      "status": "SUCCESS",
+      "startedAt": "2026-11-04T09:50:13.909Z",
+      "contextData": {
+        "orderId": "ORD-7271",
+        "customer": "Marcus Vance",
+        "amount": 249.99,
+        "status": "SUCCESS",
+        "node-start": {
+          "startedAt": "2026-11-04T09:50:14.328Z",
+          "initialPayload": {
+            "orderId": "ORD-7271",
+            "customer": "Marcus Vance",
+            "amount": 249.99,
+            "status": 200
+          }
+        },
+        "startedAt": "2026-11-04T09:50:14.328Z",
+        "initialPayload": {
+          "orderId": "ORD-7271",
+          "customer": "Marcus Vance",
+          "amount": 249.99,
+          "status": 200
+        },
+        "node-payment": {
+          "status": 200,
+          "statusText": "OK (Mocked Distributed Service)",
+          "endpoint": "https://api.example.com/v1/payments/capture",
+          "method": "POST",
+          "data": {
+            "success": true,
+            "timestamp": "2026-11-04T09:50:14.770Z",
+            "resourceId": "res_aedc94",
+            "processed": true,
+            "echo": {
+              "orderId": "ORD-7271",
+              "customer": "Marcus Vance",
+              "amount": 249.99,
+              "status": 200,
+              "node-start": {
+                "startedAt": "2026-11-04T09:50:14.328Z",
+                "initialPayload": {
+                  "orderId": "ORD-7271",
+                  "customer": "Marcus Vance",
+                  "amount": 249.99,
+                  "status": 200
+                }
+              },
+              "startedAt": "2026-11-04T09:50:14.328Z",
+              "initialPayload": {
+                "orderId": "ORD-7271",
+                "customer": "Marcus Vance",
+                "amount": 249.99,
+                "status": 200
+              }
+            }
+          }
+        },
+        "statusText": "OK (Mocked Distributed Service)",
+        "endpoint": "https://api.example.com/v1/logistics/shipments",
+        "method": "POST",
+        "data": {
+          "success": true,
+          "timestamp": "2026-11-04T09:50:16.057Z",
+          "resourceId": "res_d6992d",
+          "processed": true,
+          "echo": {
+            "orderId": "ORD-7271",
+            "customer": "Marcus Vance",
+            "amount": 249.99,
+            "status": 200,
+            "node-start": {
+              "startedAt": "2026-11-04T09:50:14.328Z",
+              "initialPayload": {
+                "orderId": "ORD-7271",
+                "customer": "Marcus Vance",
+                "amount": 249.99,
+                "status": 200
+              }
+            },
+            "startedAt": "2026-11-04T09:50:14.328Z",
+            "initialPayload": {
+              "orderId": "ORD-7271",
+              "customer": "Marcus Vance",
+              "amount": 249.99,
+              "status": 200
+            },
+            "node-payment": {
+              "status": 200,
+              "statusText": "OK (Mocked Distributed Service)",
+              "endpoint": "https://api.example.com/v1/payments/capture",
+              "method": "POST",
+              "data": {
+                "success": true,
+                "timestamp": "2026-11-04T09:50:14.770Z",
+                "resourceId": "res_aedc94",
+                "processed": true,
+                "echo": {
+                  "orderId": "ORD-7271",
+                  "customer": "Marcus Vance",
+                  "amount": 249.99,
+                  "status": 200,
+                  "node-start": {
+                    "startedAt": "2026-11-04T09:50:14.328Z",
+                    "initialPayload": {
+                      "orderId": "ORD-7271",
+                      "customer": "Marcus Vance",
+                      "amount": 249.99,
+                      "status": 200
+                    }
+                  },
+                  "startedAt": "2026-11-04T09:50:14.328Z",
+                  "initialPayload": {
+                    "orderId": "ORD-7271",
+                    "customer": "Marcus Vance",
+                    "amount": 249.99,
+                    "status": 200
+                  }
+                }
+              }
+            },
+            "statusText": "OK (Mocked Distributed Service)",
+            "endpoint": "https://api.example.com/v1/inventory/reserve",
+            "method": "POST",
+            "data": {
+              "success": true,
+              "timestamp": "2026-11-04T09:50:15.198Z",
+              "resourceId": "res_6d79a1",
+              "processed": true,
+              "echo": {
+                "orderId": "ORD-7271",
+                "customer": "Marcus Vance",
+                "amount": 249.99,
+                "status": 200,
+                "node-start": {
+                  "startedAt": "2026-11-04T09:50:14.328Z",
+                  "initialPayload": {
+                    "orderId": "ORD-7271",
+                    "customer": "Marcus Vance",
+                    "amount": 249.99,
+                    "status": 200
+                  }
+                },
+                "startedAt": "2026-11-04T09:50:14.328Z",
+                "initialPayload": {
+                  "orderId": "ORD-7271",
+                  "customer": "Marcus Vance",
+                  "amount": 249.99,
+                  "status": 200
+                },
+                "node-payment": {
+                  "status": 200,
+                  "statusText": "OK (Mocked Distributed Service)",
+                  "endpoint": "https://api.example.com/v1/payments/capture",
+                  "method": "POST",
+                  "data": {
+                    "success": true,
+                    "timestamp": "2026-11-04T09:50:14.770Z",
+                    "resourceId": "res_aedc94",
+                    "processed": true,
+                    "echo": {
+                      "orderId": "ORD-7271",
+                      "customer": "Marcus Vance",
+                      "amount": 249.99,
+                      "status": 200,
+                      "node-start": {
+                        "startedAt": "2026-11-04T09:50:14.328Z",
+                        "initialPayload": {
+                          "orderId": "ORD-7271",
+                          "customer": "Marcus Vance",
+                          "amount": 249.99,
+                          "status": 200
+                        }
+                      },
+                      "startedAt": "2026-11-04T09:50:14.328Z",
+                      "initialPayload": {
+                        "orderId": "ORD-7271",
+                        "customer": "Marcus Vance",
+                        "amount": 249.99,
+                        "status": 200
+                      }
+                    }
+                  }
+                },
+                "statusText": "OK (Mocked Distributed Service)",
+                "endpoint": "https://api.example.com/v1/payments/capture",
+                "method": "POST",
+                "data": {
+                  "success": true,
+                  "timestamp": "2026-11-04T09:50:14.770Z",
+                  "resourceId": "res_aedc94",
+                  "processed": true,
+                  "echo": {
+                    "orderId": "ORD-7271",
+                    "customer": "Marcus Vance",
+                    "amount": 249.99,
+                    "status": 200,
+                    "node-start": {
+                      "startedAt": "2026-11-04T09:50:14.328Z",
+                      "initialPayload": {
+                        "orderId": "ORD-7271",
+                        "customer": "Marcus Vance",
+                        "amount": 249.99,
+                        "status": 200
+                      }
+                    },
+                    "startedAt": "2026-11-04T09:50:14.328Z",
+                    "initialPayload": {
+                      "orderId": "ORD-7271",
+                      "customer": "Marcus Vance",
+                      "amount": 249.99,
+                      "status": 200
+                    }
+                  }
+                }
+              }
+            },
+            "node-inventory": {
+              "status": 200,
+              "statusText": "OK (Mocked Distributed Service)",
+              "endpoint": "https://api.example.com/v1/inventory/reserve",
+              "method": "POST",
+              "data": {
+                "success": true,
+                "timestamp": "2026-11-04T09:50:15.198Z",
+                "resourceId": "res_6d79a1",
+                "processed": true,
+                "echo": {
+                  "orderId": "ORD-7271",
+                  "customer": "Marcus Vance",
+                  "amount": 249.99,
+                  "status": 200,
+                  "node-start": {
+                    "startedAt": "2026-11-04T09:50:14.328Z",
+                    "initialPayload": {
+                      "orderId": "ORD-7271",
+                      "customer": "Marcus Vance",
+                      "amount": 249.99,
+                      "status": 200
+                    }
+                  },
+                  "startedAt": "2026-11-04T09:50:14.328Z",
+                  "initialPayload": {
+                    "orderId": "ORD-7271",
+                    "customer": "Marcus Vance",
+                    "amount": 249.99,
+                    "status": 200
+                  },
+                  "node-payment": {
+                    "status": 200,
+                    "statusText": "OK (Mocked Distributed Service)",
+                    "endpoint": "https://api.example.com/v1/payments/capture",
+                    "method": "POST",
+                    "data": {
+                      "success": true,
+                      "timestamp": "2026-11-04T09:50:14.770Z",
+                      "resourceId": "res_aedc94",
+                      "processed": true,
+                      "echo": {
+                        "orderId": "ORD-7271",
+                        "customer": "Marcus Vance",
+                        "amount": 249.99,
+                        "status": 200,
+                        "node-start": {
+                          "startedAt": "2026-11-04T09:50:14.328Z",
+                          "initialPayload": {
+                            "orderId": "ORD-7271",
+                            "customer": "Marcus Vance",
+                            "amount": 249.99,
+                            "status": 200
+                          }
+                        },
+                        "startedAt": "2026-11-04T09:50:14.328Z",
+                        "initialPayload": {
+                          "orderId": "ORD-7271",
+                          "customer": "Marcus Vance",
+                          "amount": 249.99,
+                          "status": 200
+                        }
+                      }
+                    }
+                  },
+                  "statusText": "OK (Mocked Distributed Service)",
+                  "endpoint": "https://api.example.com/v1/payments/capture",
+                  "method": "POST",
+                  "data": {
+                    "success": true,
+                    "timestamp": "2026-11-04T09:50:14.770Z",
+                    "resourceId": "res_aedc94",
+                    "processed": true,
+                    "echo": {
+                      "orderId": "ORD-7271",
+                      "customer": "Marcus Vance",
+                      "amount": 249.99,
+                      "status": 200,
+                      "node-start": {
+                        "startedAt": "2026-11-04T09:50:14.328Z",
+                        "initialPayload": {
+                          "orderId": "ORD-7271",
+                          "customer": "Marcus Vance",
+                          "amount": 249.99,
+                          "status": 200
+                        }
+                      },
+                      "startedAt": "2026-11-04T09:50:14.328Z",
+                      "initialPayload": {
+                        "orderId": "ORD-7271",
+                        "customer": "Marcus Vance",
+                        "amount": 249.99,
+                        "status": 200
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "node-condition": {
+              "conditionField": "status",
+              "actualValue": 200,
+              "operator": "==",
+              "targetVal": "200",
+              "conditionPassed": true
+            },
+            "conditionField": "status",
+            "actualValue": 200,
+            "operator": "==",
+            "targetVal": "200",
+            "conditionPassed": true
+          }
+        },
+        "node-inventory": {
+          "status": 200,
+          "statusText": "OK (Mocked Distributed Service)",
+          "endpoint": "https://api.example.com/v1/inventory/reserve",
+          "method": "POST",
+          "data": {
+            "success": true,
+            "timestamp": "2026-11-04T09:50:15.198Z",
+            "resourceId": "res_6d79a1",
+            "processed": true,
+            "echo": {
+              "orderId": "ORD-7271",
+              "customer": "Marcus Vance",
+              "amount": 249.99,
+              "status": 200,
+              "node-start": {
+                "startedAt": "2026-11-04T09:50:14.328Z",
+                "initialPayload": {
+                  "orderId": "ORD-7271",
+                  "customer": "Marcus Vance",
+                  "amount": 249.99,
+                  "status": 200
+                }
+              },
+              "startedAt": "2026-11-04T09:50:14.328Z",
+              "initialPayload": {
+                "orderId": "ORD-7271",
+                "customer": "Marcus Vance",
+                "amount": 249.99,
+                "status": 200
+              },
+              "node-payment": {
+                "status": 200,
+                "statusText": "OK (Mocked Distributed Service)",
+                "endpoint": "https://api.example.com/v1/payments/capture",
+                "method": "POST",
+                "data": {
+                  "success": true,
+                  "timestamp": "2026-11-04T09:50:14.770Z",
+                  "resourceId": "res_aedc94",
+                  "processed": true,
+                  "echo": {
+                    "orderId": "ORD-7271",
+                    "customer": "Marcus Vance",
+                    "amount": 249.99,
+                    "status": 200,
+                    "node-start": {
+                      "startedAt": "2026-11-04T09:50:14.328Z",
+                      "initialPayload": {
+                        "orderId": "ORD-7271",
+                        "customer": "Marcus Vance",
+                        "amount": 249.99,
+                        "status": 200
+                      }
+                    },
+                    "startedAt": "2026-11-04T09:50:14.328Z",
+                    "initialPayload": {
+                      "orderId": "ORD-7271",
+                      "customer": "Marcus Vance",
+                      "amount": 249.99,
+                      "status": 200
+                    }
+                  }
+                }
+              },
+              "statusText": "OK (Mocked Distributed Service)",
+              "endpoint": "https://api.example.com/v1/payments/capture",
+              "method": "POST",
+              "data": {
+                "success": true,
+                "timestamp": "2026-11-04T09:50:14.770Z",
+                "resourceId": "res_aedc94",
+                "processed": true,
+                "echo": {
+                  "orderId": "ORD-7271",
+                  "customer": "Marcus Vance",
+                  "amount": 249.99,
+                  "status": 200,
+                  "node-start": {
+                    "startedAt": "2026-11-04T09:50:14.328Z",
+                    "initialPayload": {
+                      "orderId": "ORD-7271",
+                      "customer": "Marcus Vance",
+                      "amount": 249.99,
+                      "status": 200
+                    }
+                  },
+                  "startedAt": "2026-11-04T09:50:14.328Z",
+                  "initialPayload": {
+                    "orderId": "ORD-7271",
+                    "customer": "Marcus Vance",
+                    "amount": 249.99,
+                    "status": 200
+                  }
+                }
+              }
+            }
+          }
+        },
+        "node-condition": {
+          "conditionField": "status",
+          "actualValue": 200,
+          "operator": "==",
+          "targetVal": "200",
+          "conditionPassed": true
+        },
+        "conditionField": "status",
+        "actualValue": 200,
+        "operator": "==",
+        "targetVal": "200",
+        "conditionPassed": true,
+        "node-shipment": {
+          "status": 200,
+          "statusText": "OK (Mocked Distributed Service)",
+          "endpoint": "https://api.example.com/v1/logistics/shipments",
+          "method": "POST",
+          "data": {
+            "success": true,
+            "timestamp": "2026-11-04T09:50:16.057Z",
+            "resourceId": "res_d6992d",
+            "processed": true,
+            "echo": {
+              "orderId": "ORD-7271",
+              "customer": "Marcus Vance",
+              "amount": 249.99,
+              "status": 200,
+              "node-start": {
+                "startedAt": "2026-11-04T09:50:14.328Z",
+                "initialPayload": {
+                  "orderId": "ORD-7271",
+                  "customer": "Marcus Vance",
+                  "amount": 249.99,
+                  "status": 200
+                }
+              },
+              "startedAt": "2026-11-04T09:50:14.328Z",
+              "initialPayload": {
+                "orderId": "ORD-7271",
+                "customer": "Marcus Vance",
+                "amount": 249.99,
+                "status": 200
+              },
+              "node-payment": {
+                "status": 200,
+                "statusText": "OK (Mocked Distributed Service)",
+                "endpoint": "https://api.example.com/v1/payments/capture",
+                "method": "POST",
+                "data": {
+                  "success": true,
+                  "timestamp": "2026-11-04T09:50:14.770Z",
+                  "resourceId": "res_aedc94",
+                  "processed": true,
+                  "echo": {
+                    "orderId": "ORD-7271",
+                    "customer": "Marcus Vance",
+                    "amount": 249.99,
+                    "status": 200,
+                    "node-start": {
+                      "startedAt": "2026-11-04T09:50:14.328Z",
+                      "initialPayload": {
+                        "orderId": "ORD-7271",
+                        "customer": "Marcus Vance",
+                        "amount": 249.99,
+                        "status": 200
+                      }
+                    },
+                    "startedAt": "2026-11-04T09:50:14.328Z",
+                    "initialPayload": {
+                      "orderId": "ORD-7271",
+                      "customer": "Marcus Vance",
+                      "amount": 249.99,
+                      "status": 200
+                    }
+                  }
+                }
+              },
+              "statusText": "OK (Mocked Distributed Service)",
+              "endpoint": "https://api.example.com/v1/inventory/reserve",
+              "method": "POST",
+              "data": {
+                "success": true,
+                "timestamp": "2026-11-04T09:50:15.198Z",
+                "resourceId": "res_6d79a1",
+                "processed": true,
+                "echo": {
+                  "orderId": "ORD-7271",
+                  "customer": "Marcus Vance",
+                  "amount": 249.99,
+                  "status": 200,
+                  "node-start": {
+                    "startedAt": "2026-11-04T09:50:14.328Z",
+                    "initialPayload": {
+                      "orderId": "ORD-7271",
+                      "customer": "Marcus Vance",
+                      "amount": 249.99,
+                      "status": 200
+                    }
+                  },
+                  "startedAt": "2026-11-04T09:50:14.328Z",
+                  "initialPayload": {
+                    "orderId": "ORD-7271",
+                    "customer": "Marcus Vance",
+                    "amount": 249.99,
+                    "status": 200
+                  },
+                  "node-payment": {
+                    "status": 200,
+                    "statusText": "OK (Mocked Distributed Service)",
+                    "endpoint": "https://api.example.com/v1/payments/capture",
+                    "method": "POST",
+                    "data": {
+                      "success": true,
+                      "timestamp": "2026-11-04T09:50:14.770Z",
+                      "resourceId": "res_aedc94",
+                      "processed": true,
+                      "echo": {
+                        "orderId": "ORD-7271",
+                        "customer": "Marcus Vance",
+                        "amount": 249.99,
+                        "status": 200,
+                        "node-start": {
+                          "startedAt": "2026-11-04T09:50:14.328Z",
+                          "initialPayload": {
+                            "orderId": "ORD-7271",
+                            "customer": "Marcus Vance",
+                            "amount": 249.99,
+                            "status": 200
+                          }
+                        },
+                        "startedAt": "2026-11-04T09:50:14.328Z",
+                        "initialPayload": {
+                          "orderId": "ORD-7271",
+                          "customer": "Marcus Vance",
+                          "amount": 249.99,
+                          "status": 200
+                        }
+                      }
+                    }
+                  },
+                  "statusText": "OK (Mocked Distributed Service)",
+                  "endpoint": "https://api.example.com/v1/payments/capture",
+                  "method": "POST",
+                  "data": {
+                    "success": true,
+                    "timestamp": "2026-11-04T09:50:14.770Z",
+                    "resourceId": "res_aedc94",
+                    "processed": true,
+                    "echo": {
+                      "orderId": "ORD-7271",
+                      "customer": "Marcus Vance",
+                      "amount": 249.99,
+                      "status": 200,
+                      "node-start": {
+                        "startedAt": "2026-11-04T09:50:14.328Z",
+                        "initialPayload": {
+                          "orderId": "ORD-7271",
+                          "customer": "Marcus Vance",
+                          "amount": 249.99,
+                          "status": 200
+                        }
+                      },
+                      "startedAt": "2026-11-04T09:50:14.328Z",
+                      "initialPayload": {
+                        "orderId": "ORD-7271",
+                        "customer": "Marcus Vance",
+                        "amount": 249.99,
+                        "status": 200
+                      }
+                    }
+                  }
+                }
+              },
+              "node-inventory": {
+                "status": 200,
+                "statusText": "OK (Mocked Distributed Service)",
+                "endpoint": "https://api.example.com/v1/inventory/reserve",
+                "method": "POST",
+                "data": {
+                  "success": true,
+                  "timestamp": "2026-11-04T09:50:15.198Z",
+                  "resourceId": "res_6d79a1",
+                  "processed": true,
+                  "echo": {
+                    "orderId": "ORD-7271",
+                    "customer": "Marcus Vance",
+                    "amount": 249.99,
+                    "status": 200,
+                    "node-start": {
+                      "startedAt": "2026-11-04T09:50:14.328Z",
+                      "initialPayload": {
+                        "orderId": "ORD-7271",
+                        "customer": "Marcus Vance",
+                        "amount": 249.99,
+                        "status": 200
+                      }
+                    },
+                    "startedAt": "2026-11-04T09:50:14.328Z",
+                    "initialPayload": {
+                      "orderId": "ORD-7271",
+                      "customer": "Marcus Vance",
+                      "amount": 249.99,
+                      "status": 200
+                    },
+                    "node-payment": {
+                      "status": 200,
+                      "statusText": "OK (Mocked Distributed Service)",
+                      "endpoint": "https://api.example.com/v1/payments/capture",
+                      "method": "POST",
+                      "data": {
+                        "success": true,
+                        "timestamp": "2026-11-04T09:50:14.770Z",
+                        "resourceId": "res_aedc94",
+                        "processed": true,
+                        "echo": {
+                          "orderId": "ORD-7271",
+                          "customer": "Marcus Vance",
+                          "amount": 249.99,
+                          "status": 200,
+                          "node-start": {
+                            "startedAt": "2026-11-04T09:50:14.328Z",
+                            "initialPayload": {
+                              "orderId": "ORD-7271",
+                              "customer": "Marcus Vance",
+                              "amount": 249.99,
+                              "status": 200
+                            }
+                          },
+                          "startedAt": "2026-11-04T09:50:14.328Z",
+                          "initialPayload": {
+                            "orderId": "ORD-7271",
+                            "customer": "Marcus Vance",
+                            "amount": 249.99,
+                            "status": 200
+                          }
+                        }
+                      }
+                    },
+                    "statusText": "OK (Mocked Distributed Service)",
+                    "endpoint": "https://api.example.com/v1/payments/capture",
+                    "method": "POST",
+                    "data": {
+                      "success": true,
+                      "timestamp": "2026-11-04T09:50:14.770Z",
+                      "resourceId": "res_aedc94",
+                      "processed": true,
+                      "echo": {
+                        "orderId": "ORD-7271",
+                        "customer": "Marcus Vance",
+                        "amount": 249.99,
+                        "status": 200,
+                        "node-start": {
+                          "startedAt": "2026-11-04T09:50:14.328Z",
+                          "initialPayload": {
+                            "orderId": "ORD-7271",
+                            "customer": "Marcus Vance",
+                            "amount": 249.99,
+                            "status": 200
+                          }
+                        },
+                        "startedAt": "2026-11-04T09:50:14.328Z",
+                        "initialPayload": {
+                          "orderId": "ORD-7271",
+                          "customer": "Marcus Vance",
+                          "amount": 249.99,
+                          "status": 200
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "node-condition": {
+                "conditionField": "status",
+                "actualValue": 200,
+                "operator": "==",
+                "targetVal": "200",
+                "conditionPassed": true
+              },
+              "conditionField": "status",
+              "actualValue": 200,
+              "operator": "==",
+              "targetVal": "200",
+              "conditionPassed": true
+            }
+          }
+        },
+        "node-transform": {
+          "invoiceId": "INV-106692",
+          "subtotal": 249.99,
+          "tax": 20.62,
+          "totalCharged": 270.61,
+          "fulfillmentCenter": "FC-AUSTIN-04",
+          "generatedAt": "2026-11-04T09:50:16.484Z"
+        },
+        "invoiceId": "INV-106692",
+        "subtotal": 249.99,
+        "tax": 20.62,
+        "totalCharged": 270.61,
+        "fulfillmentCenter": "FC-AUSTIN-04",
+        "generatedAt": "2026-11-04T09:50:16.484Z",
+        "node-end": {
+          "finishedAt": "2026-11-04T09:50:16.902Z",
+          "status": "SUCCESS"
+        },
+        "finishedAt": "2026-11-04T09:50:16.902Z"
+      },
+      "nodeExecutions": {
+        "node-start": {
+          "id": "nexec_f20100644e89",
+          "executionId": "exec_7uhnkrlw",
+          "nodeId": "node-start",
+          "nodeType": "START",
+          "nodeLabel": "Receive Order Event",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: Receive Order Event (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 401ms."
+          ],
+          "startedAt": "2026-11-04T09:50:13.924Z",
+          "output": {
+            "startedAt": "2026-11-04T09:50:14.328Z",
+            "initialPayload": {
+              "orderId": "ORD-7271",
+              "customer": "Marcus Vance",
+              "amount": 249.99,
+              "status": 200
+            }
+          },
+          "completedAt": "2026-11-04T09:50:14.328Z"
+        },
+        "node-payment": {
+          "id": "nexec_d4bae335deda",
+          "executionId": "exec_7uhnkrlw",
+          "nodeId": "node-payment",
+          "nodeType": "HTTP_REQUEST",
+          "nodeLabel": "Authorize & Capture Payment",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 2,
+          "logs": [
+            "[EXEC] Executing node: Authorize & Capture Payment (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 404ms."
+          ],
+          "startedAt": "2026-11-04T09:50:14.362Z",
+          "output": {
+            "status": 200,
+            "statusText": "OK (Mocked Distributed Service)",
+            "endpoint": "https://api.example.com/v1/payments/capture",
+            "method": "POST",
+            "data": {
+              "success": true,
+              "timestamp": "2026-11-04T09:50:14.770Z",
+              "resourceId": "res_aedc94",
+              "processed": true,
+              "echo": {
+                "orderId": "ORD-7271",
+                "customer": "Marcus Vance",
+                "amount": 249.99,
+                "status": 200,
+                "node-start": {
+                  "startedAt": "2026-11-04T09:50:14.328Z",
+                  "initialPayload": {
+                    "orderId": "ORD-7271",
+                    "customer": "Marcus Vance",
+                    "amount": 249.99,
+                    "status": 200
+                  }
+                },
+                "startedAt": "2026-11-04T09:50:14.328Z",
+                "initialPayload": {
+                  "orderId": "ORD-7271",
+                  "customer": "Marcus Vance",
+                  "amount": 249.99,
+                  "status": 200
+                }
+              }
+            }
+          },
+          "completedAt": "2026-11-04T09:50:14.770Z"
+        },
+        "node-inventory": {
+          "id": "nexec_90324fdd9cff",
+          "executionId": "exec_7uhnkrlw",
+          "nodeId": "node-inventory",
+          "nodeType": "HTTP_REQUEST",
+          "nodeLabel": "Reserve Warehouse Inventory",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 3,
+          "logs": [
+            "[EXEC] Executing node: Reserve Warehouse Inventory (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 409ms."
+          ],
+          "startedAt": "2026-11-04T09:50:14.786Z",
+          "output": {
+            "status": 200,
+            "statusText": "OK (Mocked Distributed Service)",
+            "endpoint": "https://api.example.com/v1/inventory/reserve",
+            "method": "POST",
+            "data": {
+              "success": true,
+              "timestamp": "2026-11-04T09:50:15.198Z",
+              "resourceId": "res_6d79a1",
+              "processed": true,
+              "echo": {
+                "orderId": "ORD-7271",
+                "customer": "Marcus Vance",
+                "amount": 249.99,
+                "status": 200,
+                "node-start": {
+                  "startedAt": "2026-11-04T09:50:14.328Z",
+                  "initialPayload": {
+                    "orderId": "ORD-7271",
+                    "customer": "Marcus Vance",
+                    "amount": 249.99,
+                    "status": 200
+                  }
+                },
+                "startedAt": "2026-11-04T09:50:14.328Z",
+                "initialPayload": {
+                  "orderId": "ORD-7271",
+                  "customer": "Marcus Vance",
+                  "amount": 249.99,
+                  "status": 200
+                },
+                "node-payment": {
+                  "status": 200,
+                  "statusText": "OK (Mocked Distributed Service)",
+                  "endpoint": "https://api.example.com/v1/payments/capture",
+                  "method": "POST",
+                  "data": {
+                    "success": true,
+                    "timestamp": "2026-11-04T09:50:14.770Z",
+                    "resourceId": "res_aedc94",
+                    "processed": true,
+                    "echo": {
+                      "orderId": "ORD-7271",
+                      "customer": "Marcus Vance",
+                      "amount": 249.99,
+                      "status": 200,
+                      "node-start": {
+                        "startedAt": "2026-11-04T09:50:14.328Z",
+                        "initialPayload": {
+                          "orderId": "ORD-7271",
+                          "customer": "Marcus Vance",
+                          "amount": 249.99,
+                          "status": 200
+                        }
+                      },
+                      "startedAt": "2026-11-04T09:50:14.328Z",
+                      "initialPayload": {
+                        "orderId": "ORD-7271",
+                        "customer": "Marcus Vance",
+                        "amount": 249.99,
+                        "status": 200
+                      }
+                    }
+                  }
+                },
+                "statusText": "OK (Mocked Distributed Service)",
+                "endpoint": "https://api.example.com/v1/payments/capture",
+                "method": "POST",
+                "data": {
+                  "success": true,
+                  "timestamp": "2026-11-04T09:50:14.770Z",
+                  "resourceId": "res_aedc94",
+                  "processed": true,
+                  "echo": {
+                    "orderId": "ORD-7271",
+                    "customer": "Marcus Vance",
+                    "amount": 249.99,
+                    "status": 200,
+                    "node-start": {
+                      "startedAt": "2026-11-04T09:50:14.328Z",
+                      "initialPayload": {
+                        "orderId": "ORD-7271",
+                        "customer": "Marcus Vance",
+                        "amount": 249.99,
+                        "status": 200
+                      }
+                    },
+                    "startedAt": "2026-11-04T09:50:14.328Z",
+                    "initialPayload": {
+                      "orderId": "ORD-7271",
+                      "customer": "Marcus Vance",
+                      "amount": 249.99,
+                      "status": 200
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "completedAt": "2026-11-04T09:50:15.198Z"
+        },
+        "node-condition": {
+          "id": "nexec_260c5c04d3f6",
+          "executionId": "exec_7uhnkrlw",
+          "nodeId": "node-condition",
+          "nodeType": "CONDITION",
+          "nodeLabel": "Evaluate Inventory Status",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: Evaluate Inventory Status (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 412ms."
+          ],
+          "startedAt": "2026-11-04T09:50:15.217Z",
+          "output": {
+            "conditionField": "status",
+            "actualValue": 200,
+            "operator": "==",
+            "targetVal": "200",
+            "conditionPassed": true
+          },
+          "completedAt": "2026-11-04T09:50:15.633Z"
+        },
+        "node-shipment": {
+          "id": "nexec_cf8b2fcb9387",
+          "executionId": "exec_7uhnkrlw",
+          "nodeId": "node-shipment",
+          "nodeType": "HTTP_REQUEST",
+          "nodeLabel": "Create Carrier Shipment & Waybill",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 3,
+          "logs": [
+            "[EXEC] Executing node: Create Carrier Shipment & Waybill (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 405ms."
+          ],
+          "startedAt": "2026-11-04T09:50:15.649Z",
+          "output": {
+            "status": 200,
+            "statusText": "OK (Mocked Distributed Service)",
+            "endpoint": "https://api.example.com/v1/logistics/shipments",
+            "method": "POST",
+            "data": {
+              "success": true,
+              "timestamp": "2026-11-04T09:50:16.057Z",
+              "resourceId": "res_d6992d",
+              "processed": true,
+              "echo": {
+                "orderId": "ORD-7271",
+                "customer": "Marcus Vance",
+                "amount": 249.99,
+                "status": 200,
+                "node-start": {
+                  "startedAt": "2026-11-04T09:50:14.328Z",
+                  "initialPayload": {
+                    "orderId": "ORD-7271",
+                    "customer": "Marcus Vance",
+                    "amount": 249.99,
+                    "status": 200
+                  }
+                },
+                "startedAt": "2026-11-04T09:50:14.328Z",
+                "initialPayload": {
+                  "orderId": "ORD-7271",
+                  "customer": "Marcus Vance",
+                  "amount": 249.99,
+                  "status": 200
+                },
+                "node-payment": {
+                  "status": 200,
+                  "statusText": "OK (Mocked Distributed Service)",
+                  "endpoint": "https://api.example.com/v1/payments/capture",
+                  "method": "POST",
+                  "data": {
+                    "success": true,
+                    "timestamp": "2026-11-04T09:50:14.770Z",
+                    "resourceId": "res_aedc94",
+                    "processed": true,
+                    "echo": {
+                      "orderId": "ORD-7271",
+                      "customer": "Marcus Vance",
+                      "amount": 249.99,
+                      "status": 200,
+                      "node-start": {
+                        "startedAt": "2026-11-04T09:50:14.328Z",
+                        "initialPayload": {
+                          "orderId": "ORD-7271",
+                          "customer": "Marcus Vance",
+                          "amount": 249.99,
+                          "status": 200
+                        }
+                      },
+                      "startedAt": "2026-11-04T09:50:14.328Z",
+                      "initialPayload": {
+                        "orderId": "ORD-7271",
+                        "customer": "Marcus Vance",
+                        "amount": 249.99,
+                        "status": 200
+                      }
+                    }
+                  }
+                },
+                "statusText": "OK (Mocked Distributed Service)",
+                "endpoint": "https://api.example.com/v1/inventory/reserve",
+                "method": "POST",
+                "data": {
+                  "success": true,
+                  "timestamp": "2026-11-04T09:50:15.198Z",
+                  "resourceId": "res_6d79a1",
+                  "processed": true,
+                  "echo": {
+                    "orderId": "ORD-7271",
+                    "customer": "Marcus Vance",
+                    "amount": 249.99,
+                    "status": 200,
+                    "node-start": {
+                      "startedAt": "2026-11-04T09:50:14.328Z",
+                      "initialPayload": {
+                        "orderId": "ORD-7271",
+                        "customer": "Marcus Vance",
+                        "amount": 249.99,
+                        "status": 200
+                      }
+                    },
+                    "startedAt": "2026-11-04T09:50:14.328Z",
+                    "initialPayload": {
+                      "orderId": "ORD-7271",
+                      "customer": "Marcus Vance",
+                      "amount": 249.99,
+                      "status": 200
+                    },
+                    "node-payment": {
+                      "status": 200,
+                      "statusText": "OK (Mocked Distributed Service)",
+                      "endpoint": "https://api.example.com/v1/payments/capture",
+                      "method": "POST",
+                      "data": {
+                        "success": true,
+                        "timestamp": "2026-11-04T09:50:14.770Z",
+                        "resourceId": "res_aedc94",
+                        "processed": true,
+                        "echo": {
+                          "orderId": "ORD-7271",
+                          "customer": "Marcus Vance",
+                          "amount": 249.99,
+                          "status": 200,
+                          "node-start": {
+                            "startedAt": "2026-11-04T09:50:14.328Z",
+                            "initialPayload": {
+                              "orderId": "ORD-7271",
+                              "customer": "Marcus Vance",
+                              "amount": 249.99,
+                              "status": 200
+                            }
+                          },
+                          "startedAt": "2026-11-04T09:50:14.328Z",
+                          "initialPayload": {
+                            "orderId": "ORD-7271",
+                            "customer": "Marcus Vance",
+                            "amount": 249.99,
+                            "status": 200
+                          }
+                        }
+                      }
+                    },
+                    "statusText": "OK (Mocked Distributed Service)",
+                    "endpoint": "https://api.example.com/v1/payments/capture",
+                    "method": "POST",
+                    "data": {
+                      "success": true,
+                      "timestamp": "2026-11-04T09:50:14.770Z",
+                      "resourceId": "res_aedc94",
+                      "processed": true,
+                      "echo": {
+                        "orderId": "ORD-7271",
+                        "customer": "Marcus Vance",
+                        "amount": 249.99,
+                        "status": 200,
+                        "node-start": {
+                          "startedAt": "2026-11-04T09:50:14.328Z",
+                          "initialPayload": {
+                            "orderId": "ORD-7271",
+                            "customer": "Marcus Vance",
+                            "amount": 249.99,
+                            "status": 200
+                          }
+                        },
+                        "startedAt": "2026-11-04T09:50:14.328Z",
+                        "initialPayload": {
+                          "orderId": "ORD-7271",
+                          "customer": "Marcus Vance",
+                          "amount": 249.99,
+                          "status": 200
+                        }
+                      }
+                    }
+                  }
+                },
+                "node-inventory": {
+                  "status": 200,
+                  "statusText": "OK (Mocked Distributed Service)",
+                  "endpoint": "https://api.example.com/v1/inventory/reserve",
+                  "method": "POST",
+                  "data": {
+                    "success": true,
+                    "timestamp": "2026-11-04T09:50:15.198Z",
+                    "resourceId": "res_6d79a1",
+                    "processed": true,
+                    "echo": {
+                      "orderId": "ORD-7271",
+                      "customer": "Marcus Vance",
+                      "amount": 249.99,
+                      "status": 200,
+                      "node-start": {
+                        "startedAt": "2026-11-04T09:50:14.328Z",
+                        "initialPayload": {
+                          "orderId": "ORD-7271",
+                          "customer": "Marcus Vance",
+                          "amount": 249.99,
+                          "status": 200
+                        }
+                      },
+                      "startedAt": "2026-11-04T09:50:14.328Z",
+                      "initialPayload": {
+                        "orderId": "ORD-7271",
+                        "customer": "Marcus Vance",
+                        "amount": 249.99,
+                        "status": 200
+                      },
+                      "node-payment": {
+                        "status": 200,
+                        "statusText": "OK (Mocked Distributed Service)",
+                        "endpoint": "https://api.example.com/v1/payments/capture",
+                        "method": "POST",
+                        "data": {
+                          "success": true,
+                          "timestamp": "2026-11-04T09:50:14.770Z",
+                          "resourceId": "res_aedc94",
+                          "processed": true,
+                          "echo": {
+                            "orderId": "ORD-7271",
+                            "customer": "Marcus Vance",
+                            "amount": 249.99,
+                            "status": 200,
+                            "node-start": {
+                              "startedAt": "2026-11-04T09:50:14.328Z",
+                              "initialPayload": {
+                                "orderId": "ORD-7271",
+                                "customer": "Marcus Vance",
+                                "amount": 249.99,
+                                "status": 200
+                              }
+                            },
+                            "startedAt": "2026-11-04T09:50:14.328Z",
+                            "initialPayload": {
+                              "orderId": "ORD-7271",
+                              "customer": "Marcus Vance",
+                              "amount": 249.99,
+                              "status": 200
+                            }
+                          }
+                        }
+                      },
+                      "statusText": "OK (Mocked Distributed Service)",
+                      "endpoint": "https://api.example.com/v1/payments/capture",
+                      "method": "POST",
+                      "data": {
+                        "success": true,
+                        "timestamp": "2026-11-04T09:50:14.770Z",
+                        "resourceId": "res_aedc94",
+                        "processed": true,
+                        "echo": {
+                          "orderId": "ORD-7271",
+                          "customer": "Marcus Vance",
+                          "amount": 249.99,
+                          "status": 200,
+                          "node-start": {
+                            "startedAt": "2026-11-04T09:50:14.328Z",
+                            "initialPayload": {
+                              "orderId": "ORD-7271",
+                              "customer": "Marcus Vance",
+                              "amount": 249.99,
+                              "status": 200
+                            }
+                          },
+                          "startedAt": "2026-11-04T09:50:14.328Z",
+                          "initialPayload": {
+                            "orderId": "ORD-7271",
+                            "customer": "Marcus Vance",
+                            "amount": 249.99,
+                            "status": 200
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "node-condition": {
+                  "conditionField": "status",
+                  "actualValue": 200,
+                  "operator": "==",
+                  "targetVal": "200",
+                  "conditionPassed": true
+                },
+                "conditionField": "status",
+                "actualValue": 200,
+                "operator": "==",
+                "targetVal": "200",
+                "conditionPassed": true
+              }
+            }
+          },
+          "completedAt": "2026-11-04T09:50:16.057Z"
+        },
+        "node-transform": {
+          "id": "nexec_bbff7c99bba8",
+          "executionId": "exec_7uhnkrlw",
+          "nodeId": "node-transform",
+          "nodeType": "TRANSFORM",
+          "nodeLabel": "Generate Order Invoice & Telemetry",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: Generate Order Invoice & Telemetry (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 410ms."
+          ],
+          "startedAt": "2026-11-04T09:50:16.070Z",
+          "output": {
+            "invoiceId": "INV-106692",
+            "subtotal": 249.99,
+            "tax": 20.62,
+            "totalCharged": 270.61,
+            "fulfillmentCenter": "FC-AUSTIN-04",
+            "generatedAt": "2026-11-04T09:50:16.484Z"
+          },
+          "completedAt": "2026-11-04T09:50:16.484Z"
+        },
+        "node-log-fallback": {
+          "id": "nexec_c5357ec734fe",
+          "executionId": "exec_7uhnkrlw",
+          "nodeId": "node-log-fallback",
+          "nodeType": "LOG",
+          "nodeLabel": "Log Out-of-Stock Alert",
+          "status": "SKIPPED",
+          "attempts": 0,
+          "maxAttempts": 1,
+          "logs": [
+            "Node skipped because prior conditional branch did not execute."
+          ]
+        },
+        "node-end": {
+          "id": "nexec_64cb9502f657",
+          "executionId": "exec_7uhnkrlw",
+          "nodeId": "node-end",
+          "nodeType": "END",
+          "nodeLabel": "Order Processing Complete",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: Order Processing Complete (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 401ms."
+          ],
+          "startedAt": "2026-11-04T09:50:16.498Z",
+          "output": {
+            "finishedAt": "2026-11-04T09:50:16.902Z",
+            "status": "SUCCESS"
+          },
+          "completedAt": "2026-11-04T09:50:16.902Z"
+        }
+      },
+      "compensationsExecuted": [],
+      "trigger": "MANUAL",
+      "triggeredBy": "admin@acme.com",
+      "currentNodeId": "node-end",
+      "completedAt": "2026-11-04T09:50:16.909Z"
+    },
+    {
+      "id": "exec_r1wbmz3a",
+      "workflowId": "wf_5svtfgwq",
+      "workflowName": "E-Commerce Order Processing & Saga Compensation",
+      "tenantId": "tenant_8seup31w",
+      "status": "COMPENSATED",
+      "startedAt": "2026-11-04T09:50:20.696Z",
+      "contextData": {
+        "orderId": "ORD-7755",
+        "customer": "Elena Rostova (Failure Test)",
+        "amount": 249.99,
+        "status": 200,
+        "node-start": {
+          "startedAt": "2026-11-04T09:50:21.119Z",
+          "initialPayload": {
+            "orderId": "ORD-7755",
+            "customer": "Elena Rostova (Failure Test)",
+            "amount": 249.99,
+            "status": 200
+          }
+        },
+        "startedAt": "2026-11-04T09:50:21.119Z",
+        "initialPayload": {
+          "orderId": "ORD-7755",
+          "customer": "Elena Rostova (Failure Test)",
+          "amount": 249.99,
+          "status": 200
+        },
+        "node-payment": {
+          "status": 200,
+          "statusText": "OK (Mocked Distributed Service)",
+          "endpoint": "https://api.example.com/v1/payments/capture",
+          "method": "POST",
+          "data": {
+            "success": true,
+            "timestamp": "2026-11-04T09:50:21.542Z",
+            "resourceId": "res_fd5c1d",
+            "processed": true,
+            "echo": {
+              "orderId": "ORD-7755",
+              "customer": "Elena Rostova (Failure Test)",
+              "amount": 249.99,
+              "status": 200,
+              "node-start": {
+                "startedAt": "2026-11-04T09:50:21.119Z",
+                "initialPayload": {
+                  "orderId": "ORD-7755",
+                  "customer": "Elena Rostova (Failure Test)",
+                  "amount": 249.99,
+                  "status": 200
+                }
+              },
+              "startedAt": "2026-11-04T09:50:21.119Z",
+              "initialPayload": {
+                "orderId": "ORD-7755",
+                "customer": "Elena Rostova (Failure Test)",
+                "amount": 249.99,
+                "status": 200
+              }
+            }
+          }
+        },
+        "statusText": "OK (Mocked Distributed Service)",
+        "endpoint": "https://api.example.com/v1/inventory/reserve",
+        "method": "POST",
+        "data": {
+          "success": true,
+          "timestamp": "2026-11-04T09:50:21.977Z",
+          "resourceId": "res_997c43",
+          "processed": true,
+          "echo": {
+            "orderId": "ORD-7755",
+            "customer": "Elena Rostova (Failure Test)",
+            "amount": 249.99,
+            "status": 200,
+            "node-start": {
+              "startedAt": "2026-11-04T09:50:21.119Z",
+              "initialPayload": {
+                "orderId": "ORD-7755",
+                "customer": "Elena Rostova (Failure Test)",
+                "amount": 249.99,
+                "status": 200
+              }
+            },
+            "startedAt": "2026-11-04T09:50:21.119Z",
+            "initialPayload": {
+              "orderId": "ORD-7755",
+              "customer": "Elena Rostova (Failure Test)",
+              "amount": 249.99,
+              "status": 200
+            },
+            "node-payment": {
+              "status": 200,
+              "statusText": "OK (Mocked Distributed Service)",
+              "endpoint": "https://api.example.com/v1/payments/capture",
+              "method": "POST",
+              "data": {
+                "success": true,
+                "timestamp": "2026-11-04T09:50:21.542Z",
+                "resourceId": "res_fd5c1d",
+                "processed": true,
+                "echo": {
+                  "orderId": "ORD-7755",
+                  "customer": "Elena Rostova (Failure Test)",
+                  "amount": 249.99,
+                  "status": 200,
+                  "node-start": {
+                    "startedAt": "2026-11-04T09:50:21.119Z",
+                    "initialPayload": {
+                      "orderId": "ORD-7755",
+                      "customer": "Elena Rostova (Failure Test)",
+                      "amount": 249.99,
+                      "status": 200
+                    }
+                  },
+                  "startedAt": "2026-11-04T09:50:21.119Z",
+                  "initialPayload": {
+                    "orderId": "ORD-7755",
+                    "customer": "Elena Rostova (Failure Test)",
+                    "amount": 249.99,
+                    "status": 200
+                  }
+                }
+              }
+            },
+            "statusText": "OK (Mocked Distributed Service)",
+            "endpoint": "https://api.example.com/v1/payments/capture",
+            "method": "POST",
+            "data": {
+              "success": true,
+              "timestamp": "2026-11-04T09:50:21.542Z",
+              "resourceId": "res_fd5c1d",
+              "processed": true,
+              "echo": {
+                "orderId": "ORD-7755",
+                "customer": "Elena Rostova (Failure Test)",
+                "amount": 249.99,
+                "status": 200,
+                "node-start": {
+                  "startedAt": "2026-11-04T09:50:21.119Z",
+                  "initialPayload": {
+                    "orderId": "ORD-7755",
+                    "customer": "Elena Rostova (Failure Test)",
+                    "amount": 249.99,
+                    "status": 200
+                  }
+                },
+                "startedAt": "2026-11-04T09:50:21.119Z",
+                "initialPayload": {
+                  "orderId": "ORD-7755",
+                  "customer": "Elena Rostova (Failure Test)",
+                  "amount": 249.99,
+                  "status": 200
+                }
+              }
+            }
+          }
+        },
+        "node-inventory": {
+          "status": 200,
+          "statusText": "OK (Mocked Distributed Service)",
+          "endpoint": "https://api.example.com/v1/inventory/reserve",
+          "method": "POST",
+          "data": {
+            "success": true,
+            "timestamp": "2026-11-04T09:50:21.977Z",
+            "resourceId": "res_997c43",
+            "processed": true,
+            "echo": {
+              "orderId": "ORD-7755",
+              "customer": "Elena Rostova (Failure Test)",
+              "amount": 249.99,
+              "status": 200,
+              "node-start": {
+                "startedAt": "2026-11-04T09:50:21.119Z",
+                "initialPayload": {
+                  "orderId": "ORD-7755",
+                  "customer": "Elena Rostova (Failure Test)",
+                  "amount": 249.99,
+                  "status": 200
+                }
+              },
+              "startedAt": "2026-11-04T09:50:21.119Z",
+              "initialPayload": {
+                "orderId": "ORD-7755",
+                "customer": "Elena Rostova (Failure Test)",
+                "amount": 249.99,
+                "status": 200
+              },
+              "node-payment": {
+                "status": 200,
+                "statusText": "OK (Mocked Distributed Service)",
+                "endpoint": "https://api.example.com/v1/payments/capture",
+                "method": "POST",
+                "data": {
+                  "success": true,
+                  "timestamp": "2026-11-04T09:50:21.542Z",
+                  "resourceId": "res_fd5c1d",
+                  "processed": true,
+                  "echo": {
+                    "orderId": "ORD-7755",
+                    "customer": "Elena Rostova (Failure Test)",
+                    "amount": 249.99,
+                    "status": 200,
+                    "node-start": {
+                      "startedAt": "2026-11-04T09:50:21.119Z",
+                      "initialPayload": {
+                        "orderId": "ORD-7755",
+                        "customer": "Elena Rostova (Failure Test)",
+                        "amount": 249.99,
+                        "status": 200
+                      }
+                    },
+                    "startedAt": "2026-11-04T09:50:21.119Z",
+                    "initialPayload": {
+                      "orderId": "ORD-7755",
+                      "customer": "Elena Rostova (Failure Test)",
+                      "amount": 249.99,
+                      "status": 200
+                    }
+                  }
+                }
+              },
+              "statusText": "OK (Mocked Distributed Service)",
+              "endpoint": "https://api.example.com/v1/payments/capture",
+              "method": "POST",
+              "data": {
+                "success": true,
+                "timestamp": "2026-11-04T09:50:21.542Z",
+                "resourceId": "res_fd5c1d",
+                "processed": true,
+                "echo": {
+                  "orderId": "ORD-7755",
+                  "customer": "Elena Rostova (Failure Test)",
+                  "amount": 249.99,
+                  "status": 200,
+                  "node-start": {
+                    "startedAt": "2026-11-04T09:50:21.119Z",
+                    "initialPayload": {
+                      "orderId": "ORD-7755",
+                      "customer": "Elena Rostova (Failure Test)",
+                      "amount": 249.99,
+                      "status": 200
+                    }
+                  },
+                  "startedAt": "2026-11-04T09:50:21.119Z",
+                  "initialPayload": {
+                    "orderId": "ORD-7755",
+                    "customer": "Elena Rostova (Failure Test)",
+                    "amount": 249.99,
+                    "status": 200
+                  }
+                }
+              }
+            }
+          }
+        },
+        "node-condition": {
+          "conditionField": "status",
+          "actualValue": 200,
+          "operator": "==",
+          "targetVal": "200",
+          "conditionPassed": true
+        },
+        "conditionField": "status",
+        "actualValue": 200,
+        "operator": "==",
+        "targetVal": "200",
+        "conditionPassed": true
+      },
+      "nodeExecutions": {
+        "node-start": {
+          "id": "nexec_d95a9272d1b0",
+          "executionId": "exec_r1wbmz3a",
+          "nodeId": "node-start",
+          "nodeType": "START",
+          "nodeLabel": "Receive Order Event",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: Receive Order Event (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 407ms."
+          ],
+          "startedAt": "2026-11-04T09:50:20.709Z",
+          "output": {
+            "startedAt": "2026-11-04T09:50:21.119Z",
+            "initialPayload": {
+              "orderId": "ORD-7755",
+              "customer": "Elena Rostova (Failure Test)",
+              "amount": 249.99,
+              "status": 200
+            }
+          },
+          "completedAt": "2026-11-04T09:50:21.119Z"
+        },
+        "node-payment": {
+          "id": "nexec_e1f4182b90d0",
+          "executionId": "exec_r1wbmz3a",
+          "nodeId": "node-payment",
+          "nodeType": "HTTP_REQUEST",
+          "nodeLabel": "Authorize & Capture Payment",
+          "status": "COMPENSATED",
+          "attempts": 1,
+          "maxAttempts": 2,
+          "logs": [
+            "[EXEC] Executing node: Authorize & Capture Payment (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 405ms.",
+            "[SAGA] Initiating rollback compensation: Refund Payment Transaction",
+            "[SAGA SUCCESS] Simulated rollback executed: Refund $249.99 to customer credit card via payment gateway (fetch failed)"
+          ],
+          "startedAt": "2026-11-04T09:50:21.133Z",
+          "output": {
+            "status": 200,
+            "statusText": "OK (Mocked Distributed Service)",
+            "endpoint": "https://api.example.com/v1/payments/capture",
+            "method": "POST",
+            "data": {
+              "success": true,
+              "timestamp": "2026-11-04T09:50:21.542Z",
+              "resourceId": "res_fd5c1d",
+              "processed": true,
+              "echo": {
+                "orderId": "ORD-7755",
+                "customer": "Elena Rostova (Failure Test)",
+                "amount": 249.99,
+                "status": 200,
+                "node-start": {
+                  "startedAt": "2026-11-04T09:50:21.119Z",
+                  "initialPayload": {
+                    "orderId": "ORD-7755",
+                    "customer": "Elena Rostova (Failure Test)",
+                    "amount": 249.99,
+                    "status": 200
+                  }
+                },
+                "startedAt": "2026-11-04T09:50:21.119Z",
+                "initialPayload": {
+                  "orderId": "ORD-7755",
+                  "customer": "Elena Rostova (Failure Test)",
+                  "amount": 249.99,
+                  "status": 200
+                }
+              }
+            }
+          },
+          "completedAt": "2026-11-04T09:50:21.542Z",
+          "compensationStatus": "SUCCESS"
+        },
+        "node-inventory": {
+          "id": "nexec_2abfc240c9cb",
+          "executionId": "exec_r1wbmz3a",
+          "nodeId": "node-inventory",
+          "nodeType": "HTTP_REQUEST",
+          "nodeLabel": "Reserve Warehouse Inventory",
+          "status": "COMPENSATED",
+          "attempts": 1,
+          "maxAttempts": 3,
+          "logs": [
+            "[EXEC] Executing node: Reserve Warehouse Inventory (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 414ms.",
+            "[SAGA] Initiating rollback compensation: Release Reserved Inventory",
+            "[SAGA SUCCESS] Simulated rollback executed: Released 1 unit of SKU-QUANTUM-X back to active inventory pool (fetch failed)"
+          ],
+          "startedAt": "2026-11-04T09:50:21.560Z",
+          "output": {
+            "status": 200,
+            "statusText": "OK (Mocked Distributed Service)",
+            "endpoint": "https://api.example.com/v1/inventory/reserve",
+            "method": "POST",
+            "data": {
+              "success": true,
+              "timestamp": "2026-11-04T09:50:21.977Z",
+              "resourceId": "res_997c43",
+              "processed": true,
+              "echo": {
+                "orderId": "ORD-7755",
+                "customer": "Elena Rostova (Failure Test)",
+                "amount": 249.99,
+                "status": 200,
+                "node-start": {
+                  "startedAt": "2026-11-04T09:50:21.119Z",
+                  "initialPayload": {
+                    "orderId": "ORD-7755",
+                    "customer": "Elena Rostova (Failure Test)",
+                    "amount": 249.99,
+                    "status": 200
+                  }
+                },
+                "startedAt": "2026-11-04T09:50:21.119Z",
+                "initialPayload": {
+                  "orderId": "ORD-7755",
+                  "customer": "Elena Rostova (Failure Test)",
+                  "amount": 249.99,
+                  "status": 200
+                },
+                "node-payment": {
+                  "status": 200,
+                  "statusText": "OK (Mocked Distributed Service)",
+                  "endpoint": "https://api.example.com/v1/payments/capture",
+                  "method": "POST",
+                  "data": {
+                    "success": true,
+                    "timestamp": "2026-11-04T09:50:21.542Z",
+                    "resourceId": "res_fd5c1d",
+                    "processed": true,
+                    "echo": {
+                      "orderId": "ORD-7755",
+                      "customer": "Elena Rostova (Failure Test)",
+                      "amount": 249.99,
+                      "status": 200,
+                      "node-start": {
+                        "startedAt": "2026-11-04T09:50:21.119Z",
+                        "initialPayload": {
+                          "orderId": "ORD-7755",
+                          "customer": "Elena Rostova (Failure Test)",
+                          "amount": 249.99,
+                          "status": 200
+                        }
+                      },
+                      "startedAt": "2026-11-04T09:50:21.119Z",
+                      "initialPayload": {
+                        "orderId": "ORD-7755",
+                        "customer": "Elena Rostova (Failure Test)",
+                        "amount": 249.99,
+                        "status": 200
+                      }
+                    }
+                  }
+                },
+                "statusText": "OK (Mocked Distributed Service)",
+                "endpoint": "https://api.example.com/v1/payments/capture",
+                "method": "POST",
+                "data": {
+                  "success": true,
+                  "timestamp": "2026-11-04T09:50:21.542Z",
+                  "resourceId": "res_fd5c1d",
+                  "processed": true,
+                  "echo": {
+                    "orderId": "ORD-7755",
+                    "customer": "Elena Rostova (Failure Test)",
+                    "amount": 249.99,
+                    "status": 200,
+                    "node-start": {
+                      "startedAt": "2026-11-04T09:50:21.119Z",
+                      "initialPayload": {
+                        "orderId": "ORD-7755",
+                        "customer": "Elena Rostova (Failure Test)",
+                        "amount": 249.99,
+                        "status": 200
+                      }
+                    },
+                    "startedAt": "2026-11-04T09:50:21.119Z",
+                    "initialPayload": {
+                      "orderId": "ORD-7755",
+                      "customer": "Elena Rostova (Failure Test)",
+                      "amount": 249.99,
+                      "status": 200
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "completedAt": "2026-11-04T09:50:21.977Z",
+          "compensationStatus": "SUCCESS"
+        },
+        "node-condition": {
+          "id": "nexec_3d2ede38bb3a",
+          "executionId": "exec_r1wbmz3a",
+          "nodeId": "node-condition",
+          "nodeType": "CONDITION",
+          "nodeLabel": "Evaluate Inventory Status",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: Evaluate Inventory Status (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 405ms."
+          ],
+          "startedAt": "2026-11-04T09:50:21.991Z",
+          "output": {
+            "conditionField": "status",
+            "actualValue": 200,
+            "operator": "==",
+            "targetVal": "200",
+            "conditionPassed": true
+          },
+          "completedAt": "2026-11-04T09:50:22.399Z"
+        },
+        "node-shipment": {
+          "id": "nexec_dce42ae6968a",
+          "executionId": "exec_r1wbmz3a",
+          "nodeId": "node-shipment",
+          "nodeType": "HTTP_REQUEST",
+          "nodeLabel": "Create Carrier Shipment & Waybill",
+          "status": "FAILED",
+          "attempts": 3,
+          "maxAttempts": 3,
+          "logs": [
+            "[EXEC] Executing node: Create Carrier Shipment & Waybill (Worker: Worker Alpha (US-East))",
+            "[ERROR] Attempt 1 failed: Simulated Failure Triggered on 'Create Carrier Shipment & Waybill' (status: 500)",
+            "[BACKOFF] Waiting 1021ms before retry 2...",
+            "[RETRY] Attempt 2 of 3...",
+            "[ERROR] Attempt 2 failed: Simulated Failure Triggered on 'Create Carrier Shipment & Waybill' (status: 500)",
+            "[BACKOFF] Waiting 2111ms before retry 3...",
+            "[RETRY] Attempt 3 of 3...",
+            "[ERROR] Attempt 3 failed: Simulated Failure Triggered on 'Create Carrier Shipment & Waybill' (status: 500)",
+            "[FAILED] Node permanently failed after 3 attempt(s)."
+          ],
+          "startedAt": "2026-11-04T09:50:22.416Z",
+          "error": "Simulated Failure Triggered on 'Create Carrier Shipment & Waybill' (status: 500)",
+          "completedAt": "2026-11-04T09:50:26.917Z"
+        },
+        "node-transform": {
+          "id": "nexec_55c91cefc34e",
+          "executionId": "exec_r1wbmz3a",
+          "nodeId": "node-transform",
+          "nodeType": "TRANSFORM",
+          "nodeLabel": "Generate Order Invoice & Telemetry",
+          "status": "PENDING",
+          "attempts": 0,
+          "maxAttempts": 1,
+          "logs": []
+        },
+        "node-log-fallback": {
+          "id": "nexec_f0d5fc81cc63",
+          "executionId": "exec_r1wbmz3a",
+          "nodeId": "node-log-fallback",
+          "nodeType": "LOG",
+          "nodeLabel": "Log Out-of-Stock Alert",
+          "status": "SKIPPED",
+          "attempts": 0,
+          "maxAttempts": 1,
+          "logs": [
+            "Node skipped because prior conditional branch did not execute."
+          ]
+        },
+        "node-end": {
+          "id": "nexec_c63901c0d9c5",
+          "executionId": "exec_r1wbmz3a",
+          "nodeId": "node-end",
+          "nodeType": "END",
+          "nodeLabel": "Order Processing Complete",
+          "status": "PENDING",
+          "attempts": 0,
+          "maxAttempts": 1,
+          "logs": []
+        }
+      },
+      "compensationsExecuted": [
+        "node-inventory",
+        "node-payment"
+      ],
+      "trigger": "MANUAL",
+      "triggeredBy": "admin@acme.com",
+      "currentNodeId": "node-shipment",
+      "completedAt": "2026-11-04T09:50:28.220Z"
+    },
+    {
+      "id": "exec_yfprmk8n",
+      "workflowId": "wf_g299r5ng",
+      "workflowName": "New Workflow",
+      "tenantId": "tenant_8seup31w",
+      "status": "SUCCESS",
+      "startedAt": "2026-11-04T09:50:38.304Z",
+      "contextData": {
+        "orderId": "ORD-5542",
+        "customer": "Sarah Connor",
+        "amount": 249.99,
+        "status": "SUCCESS",
+        "node-start": {
+          "startedAt": "2026-11-04T09:50:38.739Z",
+          "initialPayload": {
+            "orderId": "ORD-5542",
+            "customer": "Sarah Connor",
+            "amount": 249.99,
+            "status": 200
+          }
+        },
+        "startedAt": "2026-11-04T09:50:38.739Z",
+        "initialPayload": {
+          "orderId": "ORD-5542",
+          "customer": "Sarah Connor",
+          "amount": 249.99,
+          "status": 200
+        },
+        "node-end": {
+          "finishedAt": "2026-11-04T09:50:39.179Z",
+          "status": "SUCCESS"
+        },
+        "finishedAt": "2026-11-04T09:50:39.179Z"
+      },
+      "nodeExecutions": {
+        "node-start": {
+          "id": "nexec_49ebce9367e7",
+          "executionId": "exec_yfprmk8n",
+          "nodeId": "node-start",
+          "nodeType": "START",
+          "nodeLabel": "Start Trigger",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: Start Trigger (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 402ms."
+          ],
+          "startedAt": "2026-11-04T09:50:38.328Z",
+          "output": {
+            "startedAt": "2026-11-04T09:50:38.739Z",
+            "initialPayload": {
+              "orderId": "ORD-5542",
+              "customer": "Sarah Connor",
+              "amount": 249.99,
+              "status": 200
+            }
+          },
+          "completedAt": "2026-11-04T09:50:38.739Z"
+        },
+        "node-end": {
+          "id": "nexec_fbb279bbfa9d",
+          "executionId": "exec_yfprmk8n",
+          "nodeId": "node-end",
+          "nodeType": "END",
+          "nodeLabel": "End Transaction",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: End Transaction (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 407ms."
+          ],
+          "startedAt": "2026-11-04T09:50:38.769Z",
+          "output": {
+            "finishedAt": "2026-11-04T09:50:39.179Z",
+            "status": "SUCCESS"
+          },
+          "completedAt": "2026-11-04T09:50:39.179Z"
+        }
+      },
+      "compensationsExecuted": [],
+      "trigger": "MANUAL",
+      "triggeredBy": "admin@acme.com",
+      "currentNodeId": "node-end",
+      "completedAt": "2026-11-04T09:50:39.187Z"
     }
   ],
   "nodeExecutions": [],
@@ -6875,6 +10873,172 @@
         "trigger": "MANUAL"
       },
       "timestamp": "2026-11-02T20:17:37.877Z"
+    },
+    {
+      "id": "audit_hq8hoxwa",
+      "tenantId": "tenant_8seup31w",
+      "userId": "usr_hrxzhz1x",
+      "userEmail": "admin@acme.com",
+      "action": "WORKFLOW_UPDATED",
+      "resource": "Workflow",
+      "resourceId": "wf_5svtfgwq",
+      "metadata": {
+        "name": "E-Commerce Order Processing & Saga Compensation",
+        "version": 8
+      },
+      "timestamp": "2026-11-04T09:42:59.782Z"
+    },
+    {
+      "id": "audit_duh5ju8l",
+      "tenantId": "tenant_8seup31w",
+      "userId": "usr_hrxzhz1x",
+      "userEmail": "admin@acme.com",
+      "action": "WORKFLOW_EXECUTED",
+      "resource": "WorkflowExecution",
+      "resourceId": "exec_jy6mfxsb",
+      "metadata": {
+        "workflowId": "wf_5svtfgwq",
+        "trigger": "MANUAL"
+      },
+      "timestamp": "2026-11-04T09:42:59.835Z"
+    },
+    {
+      "id": "audit_0hw1lpwd",
+      "tenantId": "tenant_8seup31w",
+      "userId": "usr_hrxzhz1x",
+      "userEmail": "admin@acme.com",
+      "action": "WORKFLOW_UPDATED",
+      "resource": "Workflow",
+      "resourceId": "wf_5svtfgwq",
+      "metadata": {
+        "name": "E-Commerce Order Processing & Saga Compensation",
+        "version": 9
+      },
+      "timestamp": "2026-11-04T09:43:05.796Z"
+    },
+    {
+      "id": "audit_i16glqfs",
+      "tenantId": "tenant_8seup31w",
+      "userId": "usr_hrxzhz1x",
+      "userEmail": "admin@acme.com",
+      "action": "WORKFLOW_EXECUTED",
+      "resource": "WorkflowExecution",
+      "resourceId": "exec_wdrplers",
+      "metadata": {
+        "workflowId": "wf_5svtfgwq",
+        "trigger": "MANUAL"
+      },
+      "timestamp": "2026-11-04T09:43:05.816Z"
+    },
+    {
+      "id": "audit_cfx8wbqb",
+      "tenantId": "tenant_8seup31w",
+      "userId": "usr_hrxzhz1x",
+      "userEmail": "admin@acme.com",
+      "action": "WORKFLOW_CREATED",
+      "resource": "Workflow",
+      "resourceId": "wf_aquh1vae",
+      "metadata": {
+        "name": "New Workflow"
+      },
+      "timestamp": "2026-11-04T09:43:21.200Z"
+    },
+    {
+      "id": "audit_yx293ukl",
+      "tenantId": "tenant_8seup31w",
+      "userId": "usr_hrxzhz1x",
+      "userEmail": "admin@acme.com",
+      "action": "WORKFLOW_EXECUTED",
+      "resource": "WorkflowExecution",
+      "resourceId": "exec_qn57xwmt",
+      "metadata": {
+        "workflowId": "wf_aquh1vae",
+        "trigger": "MANUAL"
+      },
+      "timestamp": "2026-11-04T09:43:21.249Z"
+    },
+    {
+      "id": "audit_vh4xo81p",
+      "tenantId": "tenant_8seup31w",
+      "userId": "usr_hrxzhz1x",
+      "userEmail": "admin@acme.com",
+      "action": "WORKFLOW_UPDATED",
+      "resource": "Workflow",
+      "resourceId": "wf_5svtfgwq",
+      "metadata": {
+        "name": "E-Commerce Order Processing & Saga Compensation",
+        "version": 10
+      },
+      "timestamp": "2026-11-04T09:50:13.895Z"
+    },
+    {
+      "id": "audit_tddifu4h",
+      "tenantId": "tenant_8seup31w",
+      "userId": "usr_hrxzhz1x",
+      "userEmail": "admin@acme.com",
+      "action": "WORKFLOW_EXECUTED",
+      "resource": "WorkflowExecution",
+      "resourceId": "exec_7uhnkrlw",
+      "metadata": {
+        "workflowId": "wf_5svtfgwq",
+        "trigger": "MANUAL"
+      },
+      "timestamp": "2026-11-04T09:50:13.927Z"
+    },
+    {
+      "id": "audit_kag5v9w4",
+      "tenantId": "tenant_8seup31w",
+      "userId": "usr_hrxzhz1x",
+      "userEmail": "admin@acme.com",
+      "action": "WORKFLOW_UPDATED",
+      "resource": "Workflow",
+      "resourceId": "wf_5svtfgwq",
+      "metadata": {
+        "name": "E-Commerce Order Processing & Saga Compensation",
+        "version": 11
+      },
+      "timestamp": "2026-11-04T09:50:20.686Z"
+    },
+    {
+      "id": "audit_7cnlbz2d",
+      "tenantId": "tenant_8seup31w",
+      "userId": "usr_hrxzhz1x",
+      "userEmail": "admin@acme.com",
+      "action": "WORKFLOW_EXECUTED",
+      "resource": "WorkflowExecution",
+      "resourceId": "exec_r1wbmz3a",
+      "metadata": {
+        "workflowId": "wf_5svtfgwq",
+        "trigger": "MANUAL"
+      },
+      "timestamp": "2026-11-04T09:50:20.712Z"
+    },
+    {
+      "id": "audit_yxp2gd7w",
+      "tenantId": "tenant_8seup31w",
+      "userId": "usr_hrxzhz1x",
+      "userEmail": "admin@acme.com",
+      "action": "WORKFLOW_CREATED",
+      "resource": "Workflow",
+      "resourceId": "wf_g299r5ng",
+      "metadata": {
+        "name": "New Workflow"
+      },
+      "timestamp": "2026-11-04T09:50:38.283Z"
+    },
+    {
+      "id": "audit_sztaivai",
+      "tenantId": "tenant_8seup31w",
+      "userId": "usr_hrxzhz1x",
+      "userEmail": "admin@acme.com",
+      "action": "WORKFLOW_EXECUTED",
+      "resource": "WorkflowExecution",
+      "resourceId": "exec_yfprmk8n",
+      "metadata": {
+        "workflowId": "wf_g299r5ng",
+        "trigger": "MANUAL"
+      },
+      "timestamp": "2026-11-04T09:50:38.337Z"
     }
   ],
   "dlq": [
@@ -7723,6 +11887,558 @@
       "error": "Simulated Failure Triggered on 'Create Carrier Shipment & Waybill' (status: 500)",
       "status": "UNRESOLVED",
       "createdAt": "2026-11-02T20:17:27.111Z"
+    },
+    {
+      "id": "dlq_to0lq4zu",
+      "tenantId": "tenant_8seup31w",
+      "workflowId": "wf_5svtfgwq",
+      "workflowName": "E-Commerce Order Processing & Saga Compensation",
+      "executionId": "exec_wdrplers",
+      "nodeId": "node-shipment",
+      "nodeLabel": "Create Carrier Shipment & Waybill",
+      "payload": {
+        "orderId": "ORD-4398",
+        "customer": "Elena Rostova (Failure Test)",
+        "amount": 249.99,
+        "status": 200,
+        "node-start": {
+          "startedAt": "2026-11-04T09:43:06.221Z",
+          "initialPayload": {
+            "orderId": "ORD-4398",
+            "customer": "Elena Rostova (Failure Test)",
+            "amount": 249.99,
+            "status": 200
+          }
+        },
+        "startedAt": "2026-11-04T09:43:06.221Z",
+        "initialPayload": {
+          "orderId": "ORD-4398",
+          "customer": "Elena Rostova (Failure Test)",
+          "amount": 249.99,
+          "status": 200
+        },
+        "node-payment": {
+          "status": 200,
+          "statusText": "OK (Mocked Distributed Service)",
+          "endpoint": "https://api.example.com/v1/payments/capture",
+          "method": "POST",
+          "data": {
+            "success": true,
+            "timestamp": "2026-11-04T09:43:06.660Z",
+            "resourceId": "res_b1a076",
+            "processed": true,
+            "echo": {
+              "orderId": "ORD-4398",
+              "customer": "Elena Rostova (Failure Test)",
+              "amount": 249.99,
+              "status": 200,
+              "node-start": {
+                "startedAt": "2026-11-04T09:43:06.221Z",
+                "initialPayload": {
+                  "orderId": "ORD-4398",
+                  "customer": "Elena Rostova (Failure Test)",
+                  "amount": 249.99,
+                  "status": 200
+                }
+              },
+              "startedAt": "2026-11-04T09:43:06.221Z",
+              "initialPayload": {
+                "orderId": "ORD-4398",
+                "customer": "Elena Rostova (Failure Test)",
+                "amount": 249.99,
+                "status": 200
+              }
+            }
+          }
+        },
+        "statusText": "OK (Mocked Distributed Service)",
+        "endpoint": "https://api.example.com/v1/inventory/reserve",
+        "method": "POST",
+        "data": {
+          "success": true,
+          "timestamp": "2026-11-04T09:43:07.095Z",
+          "resourceId": "res_47fcae",
+          "processed": true,
+          "echo": {
+            "orderId": "ORD-4398",
+            "customer": "Elena Rostova (Failure Test)",
+            "amount": 249.99,
+            "status": 200,
+            "node-start": {
+              "startedAt": "2026-11-04T09:43:06.221Z",
+              "initialPayload": {
+                "orderId": "ORD-4398",
+                "customer": "Elena Rostova (Failure Test)",
+                "amount": 249.99,
+                "status": 200
+              }
+            },
+            "startedAt": "2026-11-04T09:43:06.221Z",
+            "initialPayload": {
+              "orderId": "ORD-4398",
+              "customer": "Elena Rostova (Failure Test)",
+              "amount": 249.99,
+              "status": 200
+            },
+            "node-payment": {
+              "status": 200,
+              "statusText": "OK (Mocked Distributed Service)",
+              "endpoint": "https://api.example.com/v1/payments/capture",
+              "method": "POST",
+              "data": {
+                "success": true,
+                "timestamp": "2026-11-04T09:43:06.660Z",
+                "resourceId": "res_b1a076",
+                "processed": true,
+                "echo": {
+                  "orderId": "ORD-4398",
+                  "customer": "Elena Rostova (Failure Test)",
+                  "amount": 249.99,
+                  "status": 200,
+                  "node-start": {
+                    "startedAt": "2026-11-04T09:43:06.221Z",
+                    "initialPayload": {
+                      "orderId": "ORD-4398",
+                      "customer": "Elena Rostova (Failure Test)",
+                      "amount": 249.99,
+                      "status": 200
+                    }
+                  },
+                  "startedAt": "2026-11-04T09:43:06.221Z",
+                  "initialPayload": {
+                    "orderId": "ORD-4398",
+                    "customer": "Elena Rostova (Failure Test)",
+                    "amount": 249.99,
+                    "status": 200
+                  }
+                }
+              }
+            },
+            "statusText": "OK (Mocked Distributed Service)",
+            "endpoint": "https://api.example.com/v1/payments/capture",
+            "method": "POST",
+            "data": {
+              "success": true,
+              "timestamp": "2026-11-04T09:43:06.660Z",
+              "resourceId": "res_b1a076",
+              "processed": true,
+              "echo": {
+                "orderId": "ORD-4398",
+                "customer": "Elena Rostova (Failure Test)",
+                "amount": 249.99,
+                "status": 200,
+                "node-start": {
+                  "startedAt": "2026-11-04T09:43:06.221Z",
+                  "initialPayload": {
+                    "orderId": "ORD-4398",
+                    "customer": "Elena Rostova (Failure Test)",
+                    "amount": 249.99,
+                    "status": 200
+                  }
+                },
+                "startedAt": "2026-11-04T09:43:06.221Z",
+                "initialPayload": {
+                  "orderId": "ORD-4398",
+                  "customer": "Elena Rostova (Failure Test)",
+                  "amount": 249.99,
+                  "status": 200
+                }
+              }
+            }
+          }
+        },
+        "node-inventory": {
+          "status": 200,
+          "statusText": "OK (Mocked Distributed Service)",
+          "endpoint": "https://api.example.com/v1/inventory/reserve",
+          "method": "POST",
+          "data": {
+            "success": true,
+            "timestamp": "2026-11-04T09:43:07.095Z",
+            "resourceId": "res_47fcae",
+            "processed": true,
+            "echo": {
+              "orderId": "ORD-4398",
+              "customer": "Elena Rostova (Failure Test)",
+              "amount": 249.99,
+              "status": 200,
+              "node-start": {
+                "startedAt": "2026-11-04T09:43:06.221Z",
+                "initialPayload": {
+                  "orderId": "ORD-4398",
+                  "customer": "Elena Rostova (Failure Test)",
+                  "amount": 249.99,
+                  "status": 200
+                }
+              },
+              "startedAt": "2026-11-04T09:43:06.221Z",
+              "initialPayload": {
+                "orderId": "ORD-4398",
+                "customer": "Elena Rostova (Failure Test)",
+                "amount": 249.99,
+                "status": 200
+              },
+              "node-payment": {
+                "status": 200,
+                "statusText": "OK (Mocked Distributed Service)",
+                "endpoint": "https://api.example.com/v1/payments/capture",
+                "method": "POST",
+                "data": {
+                  "success": true,
+                  "timestamp": "2026-11-04T09:43:06.660Z",
+                  "resourceId": "res_b1a076",
+                  "processed": true,
+                  "echo": {
+                    "orderId": "ORD-4398",
+                    "customer": "Elena Rostova (Failure Test)",
+                    "amount": 249.99,
+                    "status": 200,
+                    "node-start": {
+                      "startedAt": "2026-11-04T09:43:06.221Z",
+                      "initialPayload": {
+                        "orderId": "ORD-4398",
+                        "customer": "Elena Rostova (Failure Test)",
+                        "amount": 249.99,
+                        "status": 200
+                      }
+                    },
+                    "startedAt": "2026-11-04T09:43:06.221Z",
+                    "initialPayload": {
+                      "orderId": "ORD-4398",
+                      "customer": "Elena Rostova (Failure Test)",
+                      "amount": 249.99,
+                      "status": 200
+                    }
+                  }
+                }
+              },
+              "statusText": "OK (Mocked Distributed Service)",
+              "endpoint": "https://api.example.com/v1/payments/capture",
+              "method": "POST",
+              "data": {
+                "success": true,
+                "timestamp": "2026-11-04T09:43:06.660Z",
+                "resourceId": "res_b1a076",
+                "processed": true,
+                "echo": {
+                  "orderId": "ORD-4398",
+                  "customer": "Elena Rostova (Failure Test)",
+                  "amount": 249.99,
+                  "status": 200,
+                  "node-start": {
+                    "startedAt": "2026-11-04T09:43:06.221Z",
+                    "initialPayload": {
+                      "orderId": "ORD-4398",
+                      "customer": "Elena Rostova (Failure Test)",
+                      "amount": 249.99,
+                      "status": 200
+                    }
+                  },
+                  "startedAt": "2026-11-04T09:43:06.221Z",
+                  "initialPayload": {
+                    "orderId": "ORD-4398",
+                    "customer": "Elena Rostova (Failure Test)",
+                    "amount": 249.99,
+                    "status": 200
+                  }
+                }
+              }
+            }
+          }
+        },
+        "node-condition": {
+          "conditionField": "status",
+          "actualValue": 200,
+          "operator": "==",
+          "targetVal": "200",
+          "conditionPassed": true
+        },
+        "conditionField": "status",
+        "actualValue": 200,
+        "operator": "==",
+        "targetVal": "200",
+        "conditionPassed": true
+      },
+      "attempts": 3,
+      "error": "Simulated Failure Triggered on 'Create Carrier Shipment & Waybill' (status: 500)",
+      "status": "UNRESOLVED",
+      "createdAt": "2026-11-04T09:43:12.197Z"
+    },
+    {
+      "id": "dlq_i9qc2ioa",
+      "tenantId": "tenant_8seup31w",
+      "workflowId": "wf_5svtfgwq",
+      "workflowName": "E-Commerce Order Processing & Saga Compensation",
+      "executionId": "exec_r1wbmz3a",
+      "nodeId": "node-shipment",
+      "nodeLabel": "Create Carrier Shipment & Waybill",
+      "payload": {
+        "orderId": "ORD-7755",
+        "customer": "Elena Rostova (Failure Test)",
+        "amount": 249.99,
+        "status": 200,
+        "node-start": {
+          "startedAt": "2026-11-04T09:50:21.119Z",
+          "initialPayload": {
+            "orderId": "ORD-7755",
+            "customer": "Elena Rostova (Failure Test)",
+            "amount": 249.99,
+            "status": 200
+          }
+        },
+        "startedAt": "2026-11-04T09:50:21.119Z",
+        "initialPayload": {
+          "orderId": "ORD-7755",
+          "customer": "Elena Rostova (Failure Test)",
+          "amount": 249.99,
+          "status": 200
+        },
+        "node-payment": {
+          "status": 200,
+          "statusText": "OK (Mocked Distributed Service)",
+          "endpoint": "https://api.example.com/v1/payments/capture",
+          "method": "POST",
+          "data": {
+            "success": true,
+            "timestamp": "2026-11-04T09:50:21.542Z",
+            "resourceId": "res_fd5c1d",
+            "processed": true,
+            "echo": {
+              "orderId": "ORD-7755",
+              "customer": "Elena Rostova (Failure Test)",
+              "amount": 249.99,
+              "status": 200,
+              "node-start": {
+                "startedAt": "2026-11-04T09:50:21.119Z",
+                "initialPayload": {
+                  "orderId": "ORD-7755",
+                  "customer": "Elena Rostova (Failure Test)",
+                  "amount": 249.99,
+                  "status": 200
+                }
+              },
+              "startedAt": "2026-11-04T09:50:21.119Z",
+              "initialPayload": {
+                "orderId": "ORD-7755",
+                "customer": "Elena Rostova (Failure Test)",
+                "amount": 249.99,
+                "status": 200
+              }
+            }
+          }
+        },
+        "statusText": "OK (Mocked Distributed Service)",
+        "endpoint": "https://api.example.com/v1/inventory/reserve",
+        "method": "POST",
+        "data": {
+          "success": true,
+          "timestamp": "2026-11-04T09:50:21.977Z",
+          "resourceId": "res_997c43",
+          "processed": true,
+          "echo": {
+            "orderId": "ORD-7755",
+            "customer": "Elena Rostova (Failure Test)",
+            "amount": 249.99,
+            "status": 200,
+            "node-start": {
+              "startedAt": "2026-11-04T09:50:21.119Z",
+              "initialPayload": {
+                "orderId": "ORD-7755",
+                "customer": "Elena Rostova (Failure Test)",
+                "amount": 249.99,
+                "status": 200
+              }
+            },
+            "startedAt": "2026-11-04T09:50:21.119Z",
+            "initialPayload": {
+              "orderId": "ORD-7755",
+              "customer": "Elena Rostova (Failure Test)",
+              "amount": 249.99,
+              "status": 200
+            },
+            "node-payment": {
+              "status": 200,
+              "statusText": "OK (Mocked Distributed Service)",
+              "endpoint": "https://api.example.com/v1/payments/capture",
+              "method": "POST",
+              "data": {
+                "success": true,
+                "timestamp": "2026-11-04T09:50:21.542Z",
+                "resourceId": "res_fd5c1d",
+                "processed": true,
+                "echo": {
+                  "orderId": "ORD-7755",
+                  "customer": "Elena Rostova (Failure Test)",
+                  "amount": 249.99,
+                  "status": 200,
+                  "node-start": {
+                    "startedAt": "2026-11-04T09:50:21.119Z",
+                    "initialPayload": {
+                      "orderId": "ORD-7755",
+                      "customer": "Elena Rostova (Failure Test)",
+                      "amount": 249.99,
+                      "status": 200
+                    }
+                  },
+                  "startedAt": "2026-11-04T09:50:21.119Z",
+                  "initialPayload": {
+                    "orderId": "ORD-7755",
+                    "customer": "Elena Rostova (Failure Test)",
+                    "amount": 249.99,
+                    "status": 200
+                  }
+                }
+              }
+            },
+            "statusText": "OK (Mocked Distributed Service)",
+            "endpoint": "https://api.example.com/v1/payments/capture",
+            "method": "POST",
+            "data": {
+              "success": true,
+              "timestamp": "2026-11-04T09:50:21.542Z",
+              "resourceId": "res_fd5c1d",
+              "processed": true,
+              "echo": {
+                "orderId": "ORD-7755",
+                "customer": "Elena Rostova (Failure Test)",
+                "amount": 249.99,
+                "status": 200,
+                "node-start": {
+                  "startedAt": "2026-11-04T09:50:21.119Z",
+                  "initialPayload": {
+                    "orderId": "ORD-7755",
+                    "customer": "Elena Rostova (Failure Test)",
+                    "amount": 249.99,
+                    "status": 200
+                  }
+                },
+                "startedAt": "2026-11-04T09:50:21.119Z",
+                "initialPayload": {
+                  "orderId": "ORD-7755",
+                  "customer": "Elena Rostova (Failure Test)",
+                  "amount": 249.99,
+                  "status": 200
+                }
+              }
+            }
+          }
+        },
+        "node-inventory": {
+          "status": 200,
+          "statusText": "OK (Mocked Distributed Service)",
+          "endpoint": "https://api.example.com/v1/inventory/reserve",
+          "method": "POST",
+          "data": {
+            "success": true,
+            "timestamp": "2026-11-04T09:50:21.977Z",
+            "resourceId": "res_997c43",
+            "processed": true,
+            "echo": {
+              "orderId": "ORD-7755",
+              "customer": "Elena Rostova (Failure Test)",
+              "amount": 249.99,
+              "status": 200,
+              "node-start": {
+                "startedAt": "2026-11-04T09:50:21.119Z",
+                "initialPayload": {
+                  "orderId": "ORD-7755",
+                  "customer": "Elena Rostova (Failure Test)",
+                  "amount": 249.99,
+                  "status": 200
+                }
+              },
+              "startedAt": "2026-11-04T09:50:21.119Z",
+              "initialPayload": {
+                "orderId": "ORD-7755",
+                "customer": "Elena Rostova (Failure Test)",
+                "amount": 249.99,
+                "status": 200
+              },
+              "node-payment": {
+                "status": 200,
+                "statusText": "OK (Mocked Distributed Service)",
+                "endpoint": "https://api.example.com/v1/payments/capture",
+                "method": "POST",
+                "data": {
+                  "success": true,
+                  "timestamp": "2026-11-04T09:50:21.542Z",
+                  "resourceId": "res_fd5c1d",
+                  "processed": true,
+                  "echo": {
+                    "orderId": "ORD-7755",
+                    "customer": "Elena Rostova (Failure Test)",
+                    "amount": 249.99,
+                    "status": 200,
+                    "node-start": {
+                      "startedAt": "2026-11-04T09:50:21.119Z",
+                      "initialPayload": {
+                        "orderId": "ORD-7755",
+                        "customer": "Elena Rostova (Failure Test)",
+                        "amount": 249.99,
+                        "status": 200
+                      }
+                    },
+                    "startedAt": "2026-11-04T09:50:21.119Z",
+                    "initialPayload": {
+                      "orderId": "ORD-7755",
+                      "customer": "Elena Rostova (Failure Test)",
+                      "amount": 249.99,
+                      "status": 200
+                    }
+                  }
+                }
+              },
+              "statusText": "OK (Mocked Distributed Service)",
+              "endpoint": "https://api.example.com/v1/payments/capture",
+              "method": "POST",
+              "data": {
+                "success": true,
+                "timestamp": "2026-11-04T09:50:21.542Z",
+                "resourceId": "res_fd5c1d",
+                "processed": true,
+                "echo": {
+                  "orderId": "ORD-7755",
+                  "customer": "Elena Rostova (Failure Test)",
+                  "amount": 249.99,
+                  "status": 200,
+                  "node-start": {
+                    "startedAt": "2026-11-04T09:50:21.119Z",
+                    "initialPayload": {
+                      "orderId": "ORD-7755",
+                      "customer": "Elena Rostova (Failure Test)",
+                      "amount": 249.99,
+                      "status": 200
+                    }
+                  },
+                  "startedAt": "2026-11-04T09:50:21.119Z",
+                  "initialPayload": {
+                    "orderId": "ORD-7755",
+                    "customer": "Elena Rostova (Failure Test)",
+                    "amount": 249.99,
+                    "status": 200
+                  }
+                }
+              }
+            }
+          }
+        },
+        "node-condition": {
+          "conditionField": "status",
+          "actualValue": 200,
+          "operator": "==",
+          "targetVal": "200",
+          "conditionPassed": true
+        },
+        "conditionField": "status",
+        "actualValue": 200,
+        "operator": "==",
+        "targetVal": "200",
+        "conditionPassed": true
+      },
+      "attempts": 3,
+      "error": "Simulated Failure Triggered on 'Create Carrier Shipment & Waybill' (status: 500)",
+      "status": "UNRESOLVED",
+      "createdAt": "2026-11-04T09:50:26.928Z"
     }
   ],
   "workers": [
@@ -7730,31 +12446,31 @@
       "id": "worker-alpha-01",
       "name": "Worker Alpha (US-East)",
       "status": "IDLE",
-      "completedJobs": 40,
+      "completedJobs": 33,
       "failedJobs": 3,
       "latencyMs": 180,
-      "startedAt": "2026-11-02T16:17:03.143Z",
-      "lastHeartbeat": "2026-11-02T20:18:03.180Z"
+      "startedAt": "2026-11-04T05:49:59.863Z",
+      "lastHeartbeat": "2026-11-04T09:50:44.883Z"
     },
     {
       "id": "worker-beta-02",
       "name": "Worker Beta (EU-Central)",
       "status": "IDLE",
       "completedJobs": 28,
-      "failedJobs": 0,
-      "latencyMs": 30,
-      "startedAt": "2026-11-02T16:17:03.147Z",
-      "lastHeartbeat": "2026-11-02T20:18:03.186Z"
+      "failedJobs": 2,
+      "latencyMs": 18,
+      "startedAt": "2026-11-04T05:49:59.865Z",
+      "lastHeartbeat": "2026-11-04T09:50:44.890Z"
     },
     {
       "id": "worker-gamma-03",
       "name": "Worker Gamma (AP-South)",
       "status": "IDLE",
-      "completedJobs": 22,
-      "failedJobs": 0,
-      "latencyMs": 24,
-      "startedAt": "2026-11-02T16:17:03.148Z",
-      "lastHeartbeat": "2026-11-02T20:18:03.189Z"
+      "completedJobs": 27,
+      "failedJobs": 2,
+      "latencyMs": 30,
+      "startedAt": "2026-11-04T05:49:59.867Z",
+      "lastHeartbeat": "2026-11-04T09:50:44.898Z"
     }
   ]
 }
