@@ -83,10 +83,9 @@ docker-compose up --build
 
 | Role | Name | Email | Password | Organization |
 | :--- | :--- | :--- | :--- | :--- |
-| **TENANT_ADMIN** | Tejas | `tejas@acme.com` | `Tejas123!` | Acme Logistics Global |
-| **TENANT_ADMIN** | Amaan | `amaan@cyberdyne.com` | `Amaan123!` | Cyberdyne Systems Corp |
-| **TENANT_ADMIN** | Priyanka | `priyanka@quantum.io` | `Priyanka123!` | Quantum Dynamics Corp |
-| **TENANT_ADMIN** | Rinkle Sharma | `rinkle@helios.net` | `Rinkle123!` | Helios Cloud Systems |
+| **TENANT_ADMIN** | Sarah Connor | `admin@acme.com` | `AcmeAdmin123!` | Acme Logistics Global |
+| **TENANT_USER** | Kyle Reese | `operator@acme.com` | `Operator123!` | Acme Logistics Global |
+| **TENANT_ADMIN** | Miles Dyson | `admin@cyberdyne.com` | `Cyber123!` | Cyberdyne Systems Corp |
 | **SUPER_ADMIN** | System Administrator | `superadmin@orchestration.engine` | `Admin123!` | Platform Global |
 
 ---

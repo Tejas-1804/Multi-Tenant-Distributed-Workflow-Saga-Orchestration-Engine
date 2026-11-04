@@ -10,23 +10,21 @@ import {
   Building,
   LogOut,
   RefreshCw,
-  UserPlus,
 } from 'lucide-react';
 import { useAuth, DEMO_PERSONAS } from '../context/AuthContext.tsx';
+import ThemeToggle from './ThemeToggle';
 
 interface NavbarProps {
   isWsConnected: boolean;
   workerCount: number;
-  onNavigateTab?: (tab: any) => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ isWsConnected, workerCount, onNavigateTab }) => {
+export const Navbar: React.FC<NavbarProps> = ({ isWsConnected, workerCount }) => {
   const { user, tenant, switchPersona, logout } = useAuth();
   const [showPersonaMenu, setShowPersonaMenu] = useState(false);
 
   return (
     <header className="h-16 border-b border-zinc-800 bg-zinc-950 px-6 flex items-center justify-between z-30 sticky top-0">
-      {/* Brand & Platform Identity */}
       <div className="flex items-center gap-3">
         <div className="w-9 h-9 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shadow-sm shadow-emerald-950">
           <Workflow className="w-5 h-5" />
@@ -48,9 +46,7 @@ export const Navbar: React.FC<NavbarProps> = ({ isWsConnected, workerCount, onNa
         </div>
       </div>
 
-      {/* Cluster Health & Live WebSocket Indicator */}
       <div className="flex items-center gap-4">
-        {/* Live WebSocket Status */}
         <div className="flex items-center gap-2 px-3 py-1.5 rounded-md border border-zinc-800 bg-zinc-900/60 text-xs">
           <span
             className={`w-2 h-2 rounded-full ${
@@ -62,13 +58,11 @@ export const Navbar: React.FC<NavbarProps> = ({ isWsConnected, workerCount, onNa
           </span>
         </div>
 
-        {/* Worker Pool Status */}
         <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-md border border-zinc-800 bg-zinc-900/60 text-xs text-zinc-300 font-mono">
           <Server className="w-3.5 h-3.5 text-cyan-400" />
           <span>{workerCount} WORKERS ACTIVE</span>
         </div>
 
-        {/* Active Tenant Badge */}
         <div className="flex items-center gap-2 px-3 py-1.5 rounded-md border border-zinc-800 bg-zinc-900/80 text-xs">
           <Building className="w-3.5 h-3.5 text-zinc-400" />
           <div className="flex flex-col text-left">
@@ -77,7 +71,6 @@ export const Navbar: React.FC<NavbarProps> = ({ isWsConnected, workerCount, onNa
           </div>
         </div>
 
-        {/* Persona Switcher Dropdown (Essential for Testing Multi-Tenancy & Roles) */}
         <div className="relative">
           <button
             onClick={() => setShowPersonaMenu(!showPersonaMenu)}
@@ -128,25 +121,13 @@ export const Navbar: React.FC<NavbarProps> = ({ isWsConnected, workerCount, onNa
                 ))}
               </div>
 
-              <div className="pt-1 mt-1 border-t border-zinc-800 space-y-0.5">
-                {onNavigateTab && (
-                  <button
-                    onClick={() => {
-                      onNavigateTab('auth');
-                      setShowPersonaMenu(false);
-                    }}
-                    className="w-full text-left px-2.5 py-1.5 rounded text-emerald-400 hover:bg-emerald-950/30 flex items-center gap-2 cursor-pointer"
-                  >
-                    <UserPlus className="w-3.5 h-3.5" />
-                    <span>Register New Workspace</span>
-                  </button>
-                )}
+              <div className="pt-1 mt-1 border-t border-zinc-800">
                 <button
                   onClick={() => {
                     logout();
                     setShowPersonaMenu(false);
                   }}
-                  className="w-full text-left px-2.5 py-1.5 rounded text-rose-400 hover:bg-rose-950/30 flex items-center gap-2 cursor-pointer"
+                  className="w-full text-left px-2.5 py-1.5 rounded text-rose-400 hover:bg-rose-950/30 flex items-center gap-2"
                 >
                   <LogOut className="w-3.5 h-3.5" />
                   <span>Log out</span>

@@ -11,9 +11,9 @@ import { DLQPage } from './pages/DLQPage.tsx';
 import { ApiKeysPage } from './pages/ApiKeysPage.tsx';
 import { AuditLogsPage } from './pages/AuditLogsPage.tsx';
 import { AdminPage } from './pages/AdminPage.tsx';
-import { AuthPage } from './pages/AuthPage.tsx';
 import { useWebSocket } from './hooks/useWebSocket.ts';
 import api from './services/api.ts';
+import ArchitecturePage from './pages/ArchitecturePage'
 
 function AppContent() {
   const { user, tenant, isLoading } = useAuth();
@@ -23,10 +23,8 @@ function AppContent() {
   const [dlqCount, setDlqCount] = useState<number>(0);
   const [workerCount, setWorkerCount] = useState<number>(3);
 
-  // Connect WebSocket to active tenant
   const { isConnected, lastEvent } = useWebSocket(tenant?.id);
 
-  // Fetch initial telemetry for navbar & badges
   useEffect(() => {
     if (!tenant?.id) return;
     const fetchBadges = async () => {
@@ -40,7 +38,6 @@ function AppContent() {
           setWorkerCount(statsRes.data.workers.length);
         }
       } catch (err) {
-        // silently fallback
       }
     };
     fetchBadges();
@@ -48,7 +45,6 @@ function AppContent() {
     return () => clearInterval(interval);
   }, [tenant?.id]);
 
-  // Handle incoming live events
   useEffect(() => {
     if (lastEvent?.type === 'DLQ_JOB_ADDED') {
       setDlqCount(prev => prev + 1);
@@ -66,11 +62,6 @@ function AppContent() {
     );
   }
 
-  // If user is not authenticated, render dedicated Login / Registration screen
-  if (!user) {
-    return <AuthPage initialMode="login" />;
-  }
-
   const handleOpenWorkflowBuilder = (workflowId?: string) => {
     setActiveWorkflowId(workflowId || null);
     setCurrentTab('builder');
@@ -83,16 +74,11 @@ function AppContent() {
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col font-sans selection:bg-emerald-500/20 selection:text-emerald-300">
-      {/* Top Enterprise Header */}
-      <Navbar
-        isWsConnected={isConnected}
-        workerCount={workerCount}
-        onNavigateTab={tab => setCurrentTab(tab)}
-      />
 
-      {/* Main Container */}
+      <Navbar isWsConnected={isConnected} workerCount={workerCount} />
+
       <div className="flex-1 flex overflow-hidden">
-        {/* Navigation Sidebar */}
+
         <Sidebar
           currentTab={currentTab}
           onSelectTab={tab => {
@@ -102,7 +88,6 @@ function AppContent() {
           dlqCount={dlqCount}
         />
 
-        {/* Dynamic Page Views */}
         <main className="flex-1 overflow-y-auto bg-zinc-950">
           {currentTab === 'dashboard' && (
             <DashboardPage
@@ -148,8 +133,6 @@ function AppContent() {
           {currentTab === 'audit' && <AuditLogsPage />}
 
           {currentTab === 'admin' && <AdminPage />}
-
-          {currentTab === 'auth' && <AuthPage initialMode="register" />}
         </main>
       </div>
     </div>
