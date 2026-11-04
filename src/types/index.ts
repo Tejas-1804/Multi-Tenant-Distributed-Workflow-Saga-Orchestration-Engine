@@ -35,11 +35,50 @@ export interface Tenant {
   id: string;
   name: string;
   slug: string;
+  domain: string;
   plan: 'FREE' | 'PRO' | 'ENTERPRISE';
   rateLimitPerMinute: number;
   status: 'ACTIVE' | 'SUSPENDED';
+  activeWorkflows?: number;
+  activeExecutions?: number;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface WorkflowTemplate {
+  id: string;
+  name: string;
+  category: 'E-Commerce' | 'User Ops' | 'Finance' | 'DevOps' | 'Security' | 'Integration';
+  description: string;
+  tags: string[];
+  nodesCount: number;
+  estimatedRuntime: string;
+  workflow: {
+    nodes: WorkflowNode[];
+    edges: WorkflowEdge[];
+  };
+}
+
+export interface SystemAlert {
+  id: string;
+  tenantId?: string;
+  title: string;
+  message: string;
+  severity: 'CRITICAL' | 'WARNING' | 'INFO';
+  service: 'API Server' | 'Database' | 'Message Queue' | 'Workers' | 'Workflow Engine';
+  status: 'ACTIVE' | 'ACKNOWLEDGED' | 'RESOLVED';
+  timestamp: string;
+  executionId?: string;
+  workflowId?: string;
+}
+
+export interface ServiceHealthItem {
+  id: string;
+  name: 'API Server' | 'Database' | 'Message Queue' | 'Workers';
+  status: 'Healthy' | 'Degraded' | 'Down';
+  latencyMs: number;
+  uptime: string;
+  details?: string;
 }
 
 export interface User {
@@ -157,13 +196,14 @@ export interface WorkflowExecution {
   status: ExecutionStatus;
   startedAt: string;
   completedAt?: string;
+  duration?: string;
   currentNodeId?: string;
   error?: string;
   contextData: Record<string, any>;
   nodeExecutions: Record<string, WorkflowNodeExecution>;
   compensationsExecuted: string[];
-  trigger: 'MANUAL' | 'API' | 'WEBHOOK' | 'SCHEDULE' | 'CHANGE_STREAM';
-  triggeredBy: string;
+  trigger?: 'MANUAL' | 'API' | 'WEBHOOK' | 'SCHEDULE' | 'CHANGE_STREAM' | 'EVENT' | 'CRON' | string;
+  triggeredBy?: string;
 }
 
 export interface APIKey {

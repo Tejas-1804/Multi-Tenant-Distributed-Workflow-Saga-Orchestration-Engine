@@ -18,6 +18,11 @@ import apiKeyRoutes from './server/routes/apikey.routes.ts';
 import dlqRoutes from './server/routes/dlq.routes.ts';
 import adminRoutes from './server/routes/admin.routes.ts';
 import auditRoutes from './server/routes/audit.routes.ts';
+import templateRoutes from './server/routes/template.routes.ts';
+import alertRoutes from './server/routes/alert.routes.ts';
+import workerRoutes from './server/routes/worker.routes.ts';
+import monitoringRoutes from './server/routes/monitoring.routes.ts';
+import dashboardRoutes from './server/routes/dashboard.routes.ts';
 
 // Environment configuration
 const PORT = parseInt(process.env.PORT || '3000', 10);
@@ -110,6 +115,11 @@ async function startServer(): Promise<void> {
   app.use('/api/dlq', dlqRoutes);
   app.use('/api/admin', adminRoutes);
   app.use('/api/audit-logs', auditRoutes);
+  app.use('/api/templates', templateRoutes);
+  app.use('/api/alerts', alertRoutes);
+  app.use('/api/workers', workerRoutes);
+  app.use('/api/monitoring', monitoringRoutes);
+  app.use('/api/dashboard', dashboardRoutes);
 
   // Health check endpoint
   app.get('/api/health', (req: Request, res: Response) => {

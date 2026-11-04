@@ -6,10 +6,11 @@
 import { validateWorkflowDAG } from '../server/validator.ts';
 import { calculateBackoffDelay, isRetryableError } from '../server/engine/retry.ts';
 import { executeSandboxedTransform } from '../server/engine/sandbox.ts';
-import { hashApiKey, generateApiKey } from '../server/auth.ts';
+import { hashApiKey, generateApiKey, hashPassword, comparePassword } from '../server/auth.ts';
+import { db } from '../server/db.ts';
 
-function runTestSuite() {
-  console.log('🧪 Starting Workflow & Saga Engine Automated Test Suite...\n');
+async function runTestSuite() {
+  console.log('🧪 Starting NexusFlow Workflow & Saga Engine Automated Test Suite...\n');
   let passed = 0;
   let failed = 0;
 
@@ -100,6 +101,48 @@ function runTestSuite() {
   const calculatedHash = hashApiKey(keyObj.rawKey);
   assert(calculatedHash === keyObj.keyHash, 'SHA-256 hash matches verification algorithm');
   assert(keyObj.rawKey !== keyObj.keyHash, 'Raw secret is never stored directly');
+
+  // TEST 8: Tejas Reddy Password Hashing & Auth Verification
+  console.log('\n[5] Identity & Tenant Isolation Tests:');
+  const tejasHash = await hashPassword('Tejas123!');
+  const isMatch = await comparePassword('Tejas123!', tejasHash);
+  const isWrongMatch = await comparePassword('WrongPassword!', tejasHash);
+  assert(isMatch, 'Tejas Reddy password correctly verified against bcrypt hash');
+  assert(!isWrongMatch, 'Incorrect password rejected by bcrypt verification');
+
+  // TEST 9: Multi-Tenant Data Isolation Test
+  const dharmaTenant = db.tenants.create({
+    name: 'Dharma Test Org',
+    slug: 'dharma-test',
+    domain: 'dharma.nexusflow.io',
+    plan: 'ENTERPRISE',
+    rateLimitPerMinute: 5000,
+    status: 'ACTIVE',
+  });
+
+  const otherTenant = db.tenants.create({
+    name: 'Acme Test Org',
+    slug: 'acme-test',
+    domain: 'acme.nexusflow.io',
+    plan: 'PRO',
+    rateLimitPerMinute: 1000,
+    status: 'ACTIVE',
+  });
+
+  const dharmaWf = db.workflows.create({
+    tenantId: dharmaTenant.id,
+    name: 'Dharma Internal Workflow',
+    description: 'Proprietary pipeline',
+    status: 'ACTIVE',
+    createdBy: 'tejasreddy1808@gmail.com',
+    nodes: [],
+    edges: [],
+  });
+
+  const accessedByDharma = db.workflows.findById(dharmaWf.id, dharmaTenant.id);
+  const accessedByOtherTenant = db.workflows.findById(dharmaWf.id, otherTenant.id);
+  assert(!!accessedByDharma, 'Dharma tenant can access its own workflow');
+  assert(!accessedByOtherTenant, 'Cross-tenant access blocked: other tenant cannot read Dharma workflow');
 
   console.log(`\n==============================================`);
   console.log(`Test Results: ${passed} passed, ${failed} failed.`);

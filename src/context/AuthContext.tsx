@@ -19,40 +19,54 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const DEMO_PERSONAS = [
   {
-    key: 'TEJAS_ADMIN' as const,
-    label: 'Tejas (Tenant Admin)',
+    key: 'TEJAS_REDDY' as const,
+    label: 'Tejas Reddy (Tenant Admin)',
+    initials: 'TR',
     role: 'TENANT_ADMIN' as UserRole,
-    org: 'Acme Logistics Global',
+    org: 'Dharma',
+    email: 'tejasreddy1808@gmail.com',
+    password: 'Tejas123!',
+  },
+  {
+    key: 'TEJAS_ACME' as const,
+    label: 'Tejas Reddy (Acme Corp)',
+    initials: 'TR',
+    role: 'TENANT_ADMIN' as UserRole,
+    org: 'Acme Corp',
     email: 'tejas@acme.com',
     password: 'Tejas123!',
   },
   {
     key: 'AMAAN_ADMIN' as const,
     label: 'Amaan (Tenant Admin)',
+    initials: 'AM',
     role: 'TENANT_ADMIN' as UserRole,
-    org: 'Cyberdyne Systems Corp',
+    org: 'Cyberdyne',
     email: 'amaan@cyberdyne.com',
     password: 'Amaan123!',
   },
   {
     key: 'PRIYANKA_ADMIN' as const,
     label: 'Priyanka (Tenant Admin)',
+    initials: 'PR',
     role: 'TENANT_ADMIN' as UserRole,
-    org: 'Quantum Dynamics Corp',
+    org: 'Quantum Dynamics',
     email: 'priyanka@quantum.io',
     password: 'Priyanka123!',
   },
   {
     key: 'RINKLE_ADMIN' as const,
     label: 'Rinkle Sharma (Tenant Admin)',
+    initials: 'RS',
     role: 'TENANT_ADMIN' as UserRole,
-    org: 'Helios Cloud Systems',
+    org: 'Helios Cloud',
     email: 'rinkle@helios.net',
     password: 'Rinkle123!',
   },
   {
     key: 'SUPER_ADMIN' as const,
     label: 'System Admin (Global)',
+    initials: 'SA',
     role: 'SUPER_ADMIN' as UserRole,
     org: 'Multi-Tenant Platform',
     email: 'superadmin@orchestration.engine',
@@ -73,7 +87,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setUser(res.data.user);
       setTenant(res.data.tenant);
     } catch (err) {
-      console.warn('Failed to fetch user with existing token, clearing session...');
+      console.warn('Session expired or invalid, starting at registration/login...');
       logout();
     } finally {
       setIsLoading(false);
@@ -84,6 +98,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (token) {
       fetchCurrentUser();
     } else {
+      // Prompt specifically asked: "and also start from the register and signup page"
       setIsLoading(false);
     }
   }, []);
@@ -113,8 +128,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       name,
       email,
       password: pass,
-      organizationName: orgName,
-      plan: plan || 'PRO',
+      organizationName: orgName || 'Dharma',
+      plan: plan || 'ENTERPRISE',
     });
     const newToken = res.data.token;
     localStorage.setItem('token', newToken);

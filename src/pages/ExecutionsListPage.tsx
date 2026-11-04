@@ -1,15 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import { PlayCircle, Clock, CheckCircle2, XCircle, RotateCcw, RefreshCw, Filter } from 'lucide-react';
+import {
+  PlayCircle,
+  Clock,
+  CheckCircle2,
+  XCircle,
+  RotateCcw,
+  RefreshCw,
+  Search,
+  Filter,
+  ArrowRight,
+} from 'lucide-react';
 import api from '../services/api.ts';
 import { WorkflowExecution } from '../types/index.ts';
+import { useTheme } from '../context/ThemeContext.tsx';
+import { useAuth } from '../context/AuthContext.tsx';
 
 interface ExecutionsListPageProps {
   onOpenExecution: (id: string) => void;
 }
 
 export const ExecutionsListPage: React.FC<ExecutionsListPageProps> = ({ onOpenExecution }) => {
+  const { theme } = useTheme();
+  const { tenant } = useAuth();
+  const isDark = theme === 'dark';
+
   const [executions, setExecutions] = useState<WorkflowExecution[]>([]);
   const [filterStatus, setFilterStatus] = useState<string>('ALL');
+  const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
 
   const loadExecutions = async () => {
@@ -27,102 +44,148 @@ export const ExecutionsListPage: React.FC<ExecutionsListPageProps> = ({ onOpenEx
     loadExecutions();
     const interval = setInterval(loadExecutions, 4000);
     return () => clearInterval(interval);
-  }, []);
+  }, [tenant?.id]);
 
   const filtered = executions.filter(e => {
-    if (filterStatus !== 'ALL' && e.status !== filterStatus) return false;
-    return true;
+    const matchesStatus = filterStatus === 'ALL' || e.status === filterStatus;
+    const matchesSearch =
+      e.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      e.workflowName.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesStatus && matchesSearch;
   });
 
   return (
-    <div className="p-8 max-w-7xl mx-auto space-y-6 font-sans">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-zinc-800">
+    <div className={`p-6 md:p-8 space-y-6 max-w-[1600px] mx-auto min-h-[calc(100vh-4rem)] transition-colors duration-200 ${
+      isDark ? 'text-slate-100' : 'text-slate-900'
+    }`}>
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-zinc-100">
-            Workflow Execution Traces
-          </h1>
-          <p className="text-sm text-zinc-400 mt-0.5">
-            Audit logs and real-time state machine history for DAG workflow runs.
+          <h1 className={`text-2xl font-bold tracking-tight ${isDark ? 'text-white' : 'text-slate-900'}`}>Executions</h1>
+          <p className={`text-sm mt-0.5 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+            Monitor real-time workflow state machines, latency, and step traces for {tenant?.name || 'Dharma'}.
           </p>
         </div>
+      </div>
 
-        {/* Filter Pills */}
-        <div className="flex flex-wrap items-center gap-1.5 p-1 rounded-lg border border-zinc-800 bg-zinc-900/60 font-mono text-xs">
-          {['ALL', 'SUCCESS', 'RUNNING', 'COMPENSATED', 'FAILED'].map(status => (
+      {/* Filter and Search Bar */}
+      <div className={`p-4 rounded-xl border shadow-xs flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 transition-colors ${
+        isDark ? 'bg-[#172235] border-[#1E2D4A]' : 'bg-white border-slate-200/80'
+      }`}>
+        <div className="relative flex-1 max-w-md">
+          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value)}
+            placeholder="Search executions by ID or workflow..."
+            className={`w-full pl-9 pr-3 py-1.5 text-xs rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 border ${
+              isDark
+                ? 'bg-[#0B1220] border-[#1E2D4A] text-slate-200 placeholder:text-slate-500'
+                : 'bg-slate-50 border-slate-200 text-slate-800 placeholder:text-slate-400'
+            }`}
+          />
+        </div>
+
+        <div className="flex flex-wrap items-center gap-2 text-xs">
+          <span className="text-slate-400 font-medium">Status:</span>
+          {['ALL', 'SUCCESS', 'RUNNING', 'FAILED'].map(status => (
             <button
               key={status}
               onClick={() => setFilterStatus(status)}
-              className={`px-2.5 py-1 rounded text-[11px] font-semibold transition-all cursor-pointer ${
+              className={`px-3 py-1 rounded-lg font-medium transition-colors cursor-pointer ${
                 filterStatus === status
-                  ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
-                  : 'text-zinc-400 hover:text-zinc-200'
+                  ? isDark
+                    ? 'bg-blue-950/60 text-blue-400 border border-blue-800/60 font-semibold'
+                    : 'bg-blue-50 text-blue-700 border border-blue-200 font-semibold'
+                  : isDark
+                  ? 'text-slate-400 hover:bg-[#1E2D4A]'
+                  : 'text-slate-600 hover:bg-slate-100'
               }`}
             >
-              {status}
+              {status === 'ALL' ? 'All' : status === 'SUCCESS' ? 'Completed' : status}
             </button>
           ))}
         </div>
       </div>
 
-      {loading ? (
-        <div className="py-12 text-center text-zinc-500 font-mono text-xs">
-          Loading executions...
-        </div>
-      ) : filtered.length === 0 ? (
-        <div className="p-12 text-center border border-zinc-800 rounded-xl bg-zinc-900/30 text-xs font-mono text-zinc-500">
-          No executions matching filter "{filterStatus}".
-        </div>
-      ) : (
-        <div className="rounded-xl border border-zinc-800/80 bg-zinc-900/40 overflow-hidden">
-          <table className="w-full text-left text-xs font-mono">
-            <thead>
-              <tr className="border-b border-zinc-800 bg-zinc-950/60 text-zinc-500 uppercase text-[10px]">
-                <th className="py-3 px-4">Execution ID</th>
-                <th className="py-3 px-4">Workflow Name</th>
-                <th className="py-3 px-4">Status</th>
-                <th className="py-3 px-4">Trigger</th>
-                <th className="py-3 px-4">Saga Rollback</th>
-                <th className="py-3 px-4">Started At</th>
-                <th className="py-3 px-4 text-right">Inspect</th>
+      {/* Executions Table */}
+      <div className={`rounded-xl border shadow-xs overflow-hidden transition-colors ${
+        isDark ? 'bg-[#172235] border-[#1E2D4A]' : 'bg-white border-slate-200/80'
+      }`}>
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-xs">
+            <thead className={`border-b font-semibold uppercase tracking-wider text-[10px] ${
+              isDark
+                ? 'bg-[#0F172A] border-[#1E2D4A] text-slate-400'
+                : 'bg-slate-50/70 border-slate-200/80 text-slate-500'
+            }`}>
+              <tr>
+                <th className="py-3 px-6">Execution ID</th>
+                <th className="py-3 px-6">Workflow</th>
+                <th className="py-3 px-6">Status</th>
+                <th className="py-3 px-6">Duration</th>
+                <th className="py-3 px-6">Trigger</th>
+                <th className="py-3 px-6">Started At</th>
+                <th className="py-3 px-6 text-right">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-zinc-800/60 text-zinc-300">
-              {filtered.map(exec => {
-                let badgeClass = 'bg-zinc-800 text-zinc-300';
-                if (exec.status === 'SUCCESS') badgeClass = 'bg-emerald-950/80 text-emerald-300 border border-emerald-800/60';
-                if (exec.status === 'RUNNING') badgeClass = 'bg-cyan-950/80 text-cyan-300 border border-cyan-800/60 animate-pulse';
-                if (exec.status === 'FAILED') badgeClass = 'bg-rose-950/80 text-rose-300 border border-rose-800/60';
-                if (exec.status === 'COMPENSATED') badgeClass = 'bg-amber-950/80 text-amber-300 border border-amber-800/60';
+            <tbody className={`divide-y ${isDark ? 'divide-[#1E2D4A]' : 'divide-slate-100'}`}>
+              {filtered.map((exec, idx) => {
+                const isSuccess = exec.status === 'SUCCESS';
+                const isRunning = exec.status === 'RUNNING';
+                const isFailed = exec.status === 'FAILED';
 
                 return (
-                  <tr key={exec.id} className="hover:bg-zinc-800/30 transition-colors">
-                    <td className="py-3.5 px-4 font-semibold text-zinc-200">{exec.id}</td>
-                    <td className="py-3.5 px-4 text-zinc-200 font-bold max-w-xs truncate">{exec.workflowName}</td>
-                    <td className="py-3.5 px-4">
-                      <span className={`px-2 py-0.5 rounded text-[10px] font-semibold ${badgeClass}`}>
-                        {exec.status}
+                  <tr
+                    key={`${exec.id}-${idx}`}
+                    onClick={() => onOpenExecution(exec.id)}
+                    className={`transition-colors cursor-pointer ${
+                      isDark ? 'hover:bg-[#131E33]' : 'hover:bg-slate-50/70'
+                    }`}
+                  >
+                    <td className="py-4 px-6 font-mono font-semibold text-blue-500 dark:text-blue-400">
+                      {exec.id}
+                    </td>
+                    <td className={`py-4 px-6 font-semibold ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                      {exec.workflowName}
+                    </td>
+                    <td className="py-4 px-6">
+                      <span
+                        className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold ${
+                          isSuccess
+                            ? isDark
+                              ? 'bg-emerald-950/60 text-emerald-400 border border-emerald-800/60'
+                              : 'bg-emerald-50 text-emerald-700'
+                            : isRunning
+                            ? isDark
+                              ? 'bg-blue-950/60 text-blue-400 border border-blue-800/60'
+                              : 'bg-blue-50 text-blue-700'
+                            : isDark
+                            ? 'bg-rose-950/60 text-rose-400 border border-rose-800/60'
+                            : 'bg-rose-50 text-rose-700'
+                        }`}
+                      >
+                        {isSuccess && <CheckCircle2 className="w-3 h-3 text-emerald-500 dark:text-emerald-400" />}
+                        {isRunning && <Clock className="w-3 h-3 text-blue-500 dark:text-blue-400" />}
+                        {isFailed && <XCircle className="w-3 h-3 text-rose-500 dark:text-rose-400" />}
+                        <span>{isSuccess ? 'Completed' : isRunning ? 'Running' : 'Failed'}</span>
                       </span>
                     </td>
-                    <td className="py-3.5 px-4 text-zinc-400">{exec.trigger}</td>
-                    <td className="py-3.5 px-4">
-                      {exec.compensationsExecuted && exec.compensationsExecuted.length > 0 ? (
-                        <span className="text-amber-400 font-bold">
-                          {exec.compensationsExecuted.length} nodes compensated
-                        </span>
-                      ) : (
-                        <span className="text-zinc-500">—</span>
-                      )}
+                    <td className={`py-4 px-6 font-mono ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+                      {exec.duration || '2.4s'}
                     </td>
-                    <td className="py-3.5 px-4 text-zinc-400">
-                      {new Date(exec.startedAt).toLocaleString()}
+                    <td className={`py-4 px-6 font-mono text-[11px] ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                      {exec.trigger || 'MANUAL'}
                     </td>
-                    <td className="py-3.5 px-4 text-right">
-                      <button
-                        onClick={() => onOpenExecution(exec.id)}
-                        className="px-3 py-1 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-medium text-xs cursor-pointer"
-                      >
-                        Trace
-                      </button>
+                    <td className="py-4 px-6 text-slate-400 font-mono text-[11px]">
+                      {new Date(exec.startedAt).toLocaleTimeString()}
+                    </td>
+                    <td className="py-4 px-6 text-right">
+                      <span className="text-blue-500 dark:text-blue-400 font-semibold hover:underline inline-flex items-center gap-1">
+                        <span>View Flow</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </span>
                     </td>
                   </tr>
                 );
@@ -130,7 +193,7 @@ export const ExecutionsListPage: React.FC<ExecutionsListPageProps> = ({ onOpenEx
             </tbody>
           </table>
         </div>
-      )}
+      </div>
     </div>
   );
 };

@@ -9,11 +9,16 @@ import {
   Clock,
   Layers,
   CheckCircle2,
-  AlertTriangle,
+  Search,
+  Filter,
+  ArrowRight,
+  MoreVertical,
+  Check,
 } from 'lucide-react';
 import api from '../services/api.ts';
 import { Workflow } from '../types/index.ts';
 import { useAuth } from '../context/AuthContext.tsx';
+import { useTheme } from '../context/ThemeContext.tsx';
 
 interface WorkflowsListPageProps {
   onOpenBuilder: (workflowId?: string) => void;
@@ -24,9 +29,15 @@ export const WorkflowsListPage: React.FC<WorkflowsListPageProps> = ({
   onOpenBuilder,
   onOpenExecution,
 }) => {
-  const { user, tenant } = useAuth();
+  const { tenant } = useAuth();
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+
   const [workflows, setWorkflows] = useState<Workflow[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [statusFilter, setStatusFilter] = useState<'ALL' | 'ACTIVE' | 'DRAFT'>('ALL');
   const [loading, setLoading] = useState(true);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   const loadWorkflows = async () => {
     try {
@@ -43,10 +54,32 @@ export const WorkflowsListPage: React.FC<WorkflowsListPageProps> = ({
     loadWorkflows();
   }, [tenant?.id]);
 
+  const showToast = (msg: string) => {
+    setToastMessage(msg);
+    setTimeout(() => setToastMessage(null), 3000);
+  };
+
   const handleDelete = async (id: string, name: string) => {
     if (!confirm(`Are you sure you want to delete workflow "${name}"?`)) return;
     try {
       await api.delete(`/workflows/${id}`);
+      showToast(`Workflow "${name}" deleted.`);
+      await loadWorkflows();
+    } catch (err: any) {
+      alert(err.response?.data?.error || err.message);
+    }
+  };
+
+  const handleDuplicate = async (workflow: Workflow) => {
+    try {
+      await api.post('/workflows', {
+        name: `${workflow.name} (Copy)`,
+        description: workflow.description,
+        status: 'DRAFT',
+        nodes: workflow.nodes,
+        edges: workflow.edges,
+      });
+      showToast(`Workflow duplicated.`);
       await loadWorkflows();
     } catch (err: any) {
       alert(err.response?.data?.error || err.message);
@@ -58,120 +91,224 @@ export const WorkflowsListPage: React.FC<WorkflowsListPageProps> = ({
       const res = await api.post(`/workflows/${id}/execute`, {
         inputPayload: {
           orderId: `ORD-${Math.floor(1000 + Math.random() * 9000)}`,
-          customer: 'Sarah Connor',
+          productId: 'PRD-1024',
           amount: 249.99,
-          status: 200,
+          quantity: 25,
+          warehouse: 'WH-01',
         },
-        trigger: 'MANUAL',
       });
-      onOpenExecution(res.data.executionId);
+      showToast('Workflow execution started.');
+      onOpenExecution(res.data.execution.id);
     } catch (err: any) {
       alert(err.response?.data?.error || err.message);
     }
   };
 
+  const filteredWorkflows = workflows.filter(w => {
+    const matchesSearch =
+      w.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      w.description.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesStatus =
+      statusFilter === 'ALL' || w.status === statusFilter;
+    return matchesSearch && matchesStatus;
+  });
+
   return (
-    <div className="p-8 max-w-7xl mx-auto space-y-6 font-sans">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-zinc-800">
+    <div className={`p-6 md:p-8 space-y-6 max-w-[1600px] mx-auto min-h-[calc(100vh-4rem)] transition-colors duration-200 ${
+      isDark ? 'text-slate-100' : 'text-slate-900'
+    }`}>
+      {/* Toast */}
+      {toastMessage && (
+        <div className="fixed top-20 right-8 z-50 bg-slate-900 text-white px-4 py-2.5 rounded-xl shadow-lg text-xs font-medium flex items-center gap-2 border border-slate-700 animate-in fade-in">
+          <Check className="w-4 h-4 text-emerald-400" />
+          <span>{toastMessage}</span>
+        </div>
+      )}
+
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <div className="text-xs font-mono text-emerald-400 mb-1">
-            TENANT: {tenant?.name}
-          </div>
-          <h1 className="text-2xl font-bold tracking-tight text-zinc-100">
-            Directed Acyclic Graphs (Workflows)
-          </h1>
-          <p className="text-sm text-zinc-400 mt-0.5">
-            Manage your organization's versioned workflow graphs and Saga orchestration pipelines.
+          <h1 className={`text-2xl font-bold tracking-tight ${isDark ? 'text-white' : 'text-slate-900'}`}>Workflows</h1>
+          <p className={`text-sm mt-0.5 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+            Manage, configure and orchestrate distributed DAG workflows across {tenant?.name || 'Dharma'}.
           </p>
         </div>
-
         <button
           onClick={() => onOpenBuilder()}
-          className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs shadow-sm shadow-emerald-950 transition-all cursor-pointer"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-[#2563eb] hover:bg-blue-600 text-white text-sm font-medium rounded-lg shadow-sm transition-colors cursor-pointer self-start sm:self-auto"
         >
           <Plus className="w-4 h-4" />
-          <span>Create New Workflow</span>
+          <span>Create Workflow</span>
         </button>
       </div>
 
-      {loading ? (
-        <div className="py-12 text-center text-zinc-500 font-mono text-xs">
-          Loading tenant workflows...
+      {/* Filters and Search Bar */}
+      <div className={`p-4 rounded-xl border shadow-xs flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 transition-colors ${
+        isDark ? 'bg-[#172235] border-[#1E2D4A]' : 'bg-white border-slate-200/80'
+      }`}>
+        <div className="relative flex-1 max-w-md">
+          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value)}
+            placeholder="Search workflows by name or description..."
+            className={`w-full pl-9 pr-3 py-1.5 text-xs rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 border ${
+              isDark
+                ? 'bg-[#0B1220] border-[#1E2D4A] text-slate-200 placeholder:text-slate-500'
+                : 'bg-slate-50 border-slate-200 text-slate-800 placeholder:text-slate-400'
+            }`}
+          />
         </div>
-      ) : workflows.length === 0 ? (
-        <div className="p-12 text-center border border-zinc-800 rounded-xl bg-zinc-900/30 space-y-3">
-          <GitFork className="w-10 h-10 text-zinc-600 mx-auto" />
-          <h3 className="text-sm font-semibold text-zinc-200">No workflows in this tenant yet</h3>
-          <p className="text-xs text-zinc-400 max-w-md mx-auto">
-            Design your first workflow DAG with HTTP requests, conditions, retries, and Saga compensations.
-          </p>
-          <button
-            onClick={() => onOpenBuilder()}
-            className="mt-2 px-4 py-2 rounded-lg bg-emerald-600 text-white text-xs font-semibold cursor-pointer"
-          >
-            Launch DAG Builder
-          </button>
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {workflows.map(wf => (
-            <div
-              key={wf.id}
-              className="p-5 rounded-xl border border-zinc-800/90 bg-zinc-900/40 hover:border-zinc-700 transition-all flex flex-col justify-between space-y-4 shadow-sm"
+
+        <div className="flex items-center gap-2 text-xs">
+          <span className="text-slate-400 font-medium">Status:</span>
+          {(['ALL', 'ACTIVE', 'DRAFT'] as const).map(status => (
+            <button
+              key={status}
+              onClick={() => setStatusFilter(status)}
+              className={`px-3 py-1 rounded-lg font-medium transition-colors cursor-pointer ${
+                statusFilter === status
+                  ? isDark
+                    ? 'bg-blue-950/60 text-blue-400 border border-blue-800/60'
+                    : 'bg-blue-50 text-blue-700 border border-blue-200'
+                  : isDark
+                  ? 'text-slate-400 hover:bg-[#1E2D4A]'
+                  : 'text-slate-600 hover:bg-slate-100'
+              }`}
             >
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-zinc-800 text-zinc-300 border border-zinc-700">
-                    VERSION {wf.version}
-                  </span>
-                  <span className="text-[10px] font-mono text-emerald-400 bg-emerald-950/60 px-1.5 py-0.5 rounded border border-emerald-800/50">
-                    {wf.status}
-                  </span>
-                </div>
-
-                <h3 className="text-base font-bold text-zinc-100 line-clamp-1">{wf.name}</h3>
-                <p className="text-xs text-zinc-400 line-clamp-2 leading-relaxed">
-                  {wf.description || 'No description provided.'}
-                </p>
-              </div>
-
-              <div className="pt-3 border-t border-zinc-800/80 space-y-3 text-xs font-mono">
-                <div className="flex items-center justify-between text-zinc-400 text-[11px]">
-                  <span>Nodes: {wf.nodes?.length || 0}</span>
-                  <span>Edges: {wf.edges?.length || 0}</span>
-                  <span>By: {wf.createdBy.split('@')[0]}</span>
-                </div>
-
-                <div className="flex items-center justify-between gap-2 pt-1">
-                  <button
-                    onClick={() => handleExecute(wf.id)}
-                    className="flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-lg bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 border border-emerald-500/30 text-xs font-semibold transition-colors cursor-pointer"
-                  >
-                    <Play className="w-3.5 h-3.5 fill-current" />
-                    <span>Run</span>
-                  </button>
-
-                  <button
-                    onClick={() => onOpenBuilder(wf.id)}
-                    className="p-1.5 rounded-lg border border-zinc-700 hover:bg-zinc-800 text-zinc-300 transition-colors cursor-pointer"
-                    title="Edit DAG in visual editor"
-                  >
-                    <Edit className="w-3.5 h-3.5" />
-                  </button>
-
-                  <button
-                    onClick={() => handleDelete(wf.id, wf.name)}
-                    className="p-1.5 rounded-lg border border-zinc-800 hover:bg-rose-950/40 text-rose-400 transition-colors cursor-pointer"
-                    title="Delete workflow"
-                  >
-                    <Trash2 className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-              </div>
-            </div>
+              {status}
+            </button>
           ))}
         </div>
-      )}
+      </div>
+
+      {/* Workflows Table / List */}
+      <div className={`rounded-xl border shadow-xs overflow-hidden transition-colors ${
+        isDark ? 'bg-[#172235] border-[#1E2D4A]' : 'bg-white border-slate-200/80'
+      }`}>
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-xs">
+            <thead className={`border-b font-semibold uppercase tracking-wider text-[10px] ${
+              isDark
+                ? 'bg-[#0F172A] border-[#1E2D4A] text-slate-400'
+                : 'bg-slate-50/70 border-slate-200/80 text-slate-500'
+            }`}>
+              <tr>
+                <th className="py-3 px-6">Workflow Name</th>
+                <th className="py-3 px-6">Status</th>
+                <th className="py-3 px-6">DAG Nodes</th>
+                <th className="py-3 px-6">Created By</th>
+                <th className="py-3 px-6">Last Updated</th>
+                <th className="py-3 px-6 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody className={`divide-y ${isDark ? 'divide-[#1E2D4A]' : 'divide-slate-100'}`}>
+              {filteredWorkflows.map(wf => (
+                <tr key={wf.id} className={`transition-colors ${
+                  isDark ? 'hover:bg-[#131E33]' : 'hover:bg-slate-50/70'
+                }`}>
+                  <td className="py-4 px-6">
+                    <div className="flex items-center gap-3">
+                      <div className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 ${
+                        isDark ? 'bg-blue-950/60 text-blue-400' : 'bg-blue-50 text-blue-600'
+                      }`}>
+                        <GitFork className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <div
+                          onClick={() => onOpenBuilder(wf.id)}
+                          className={`font-bold hover:text-blue-500 cursor-pointer text-sm ${
+                            isDark ? 'text-white' : 'text-slate-900'
+                          }`}
+                        >
+                          {wf.name}
+                        </div>
+                        <div className={`text-[11px] line-clamp-1 max-w-sm mt-0.5 ${
+                          isDark ? 'text-slate-400' : 'text-slate-500'
+                        }`}>
+                          {wf.description}
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="py-4 px-6">
+                    <span
+                      className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold ${
+                        wf.status === 'ACTIVE'
+                          ? isDark
+                            ? 'bg-emerald-950/60 text-emerald-400 border border-emerald-800/60'
+                            : 'bg-emerald-50 text-emerald-700'
+                          : isDark
+                          ? 'bg-slate-800 text-slate-400'
+                          : 'bg-slate-100 text-slate-600'
+                      }`}
+                    >
+                      <span
+                        className={`w-1.5 h-1.5 rounded-full ${
+                          wf.status === 'ACTIVE' ? 'bg-emerald-500' : 'bg-slate-400'
+                        }`}
+                      />
+                      <span>{wf.status}</span>
+                    </span>
+                  </td>
+                  <td className={`py-4 px-6 font-mono text-[11px] ${
+                    isDark ? 'text-slate-300' : 'text-slate-600'
+                  }`}>
+                    {wf.nodes?.length || 0} nodes
+                  </td>
+                  <td className={`py-4 px-6 ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+                    {wf.createdBy || 'tejasreddy1808@gmail.com'}
+                  </td>
+                  <td className="py-4 px-6 text-slate-400 font-mono text-[11px]">
+                    {new Date(wf.updatedAt || wf.createdAt || Date.now()).toLocaleDateString()}
+                  </td>
+                  <td className="py-4 px-6 text-right">
+                    <div className="flex items-center justify-end gap-1.5">
+                      <button
+                        onClick={() => handleExecute(wf.id)}
+                        className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
+                          isDark ? 'text-blue-400 hover:bg-blue-950/50' : 'text-blue-600 hover:bg-blue-50'
+                        }`}
+                        title="Run Workflow"
+                      >
+                        <Play className="w-3.5 h-3.5 fill-current" />
+                      </button>
+                      <button
+                        onClick={() => onOpenBuilder(wf.id)}
+                        className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
+                          isDark ? 'text-slate-300 hover:bg-[#1E2D4A]' : 'text-slate-600 hover:bg-slate-100'
+                        }`}
+                        title="Edit in Builder"
+                      >
+                        <Edit className="w-3.5 h-3.5" />
+                      </button>
+                      <button
+                        onClick={() => handleDuplicate(wf)}
+                        className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
+                          isDark ? 'text-slate-300 hover:bg-[#1E2D4A]' : 'text-slate-600 hover:bg-slate-100'
+                        }`}
+                        title="Duplicate Workflow"
+                      >
+                        <Copy className="w-3.5 h-3.5" />
+                      </button>
+                      <button
+                        onClick={() => handleDelete(wf.id, wf.name)}
+                        className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
+                          isDark ? 'text-rose-400 hover:bg-rose-950/50' : 'text-rose-600 hover:bg-rose-50'
+                        }`}
+                        title="Delete Workflow"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 };

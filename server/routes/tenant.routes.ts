@@ -20,6 +20,7 @@ router.post('/', authenticateUser, authorizeRole(['SUPER_ADMIN']), (req: Authent
   const tenant = db.tenants.create({
     name,
     slug,
+    domain: req.body.domain || `${slug}.nexusflow.io`,
     plan,
     rateLimitPerMinute,
     status: 'ACTIVE',

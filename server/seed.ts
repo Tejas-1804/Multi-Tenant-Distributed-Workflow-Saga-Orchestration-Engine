@@ -4,25 +4,67 @@ import { hashPassword, hashApiKey } from './auth.ts';
 export async function seedDatabase() {
   const store = db.getStore();
 
-  console.log('🌱 Synchronizing multi-tenant database & Tenant Admins...');
+  console.log('🌱 Synchronizing NexusFlow multi-tenant database & Tenant Admins...');
 
-  // 1. Ensure Tenants
-  let acmeTenant = db.tenants.findOne({ slug: 'acme-logistics' });
-  if (!acmeTenant) {
-    acmeTenant = db.tenants.create({
-      name: 'Acme Logistics Global',
-      slug: 'acme-logistics',
-      plan: 'PRO',
-      rateLimitPerMinute: 1000,
+  // 1. Ensure Tenants: Dharma, Acme Corp, TechNova, Global Systems, Quantum Dynamics, Helios Cloud, Cyberdyne
+  let dharmaTenant = db.tenants.findOne({ slug: 'dharma' });
+  if (!dharmaTenant) {
+    dharmaTenant = db.tenants.create({
+      name: 'Dharma',
+      slug: 'dharma',
+      domain: 'dharma.nexusflow.io',
+      plan: 'ENTERPRISE',
+      rateLimitPerMinute: 5000,
+      status: 'ACTIVE',
+    });
+  } else {
+    db.tenants.update(dharmaTenant.id, {
+      name: 'Dharma',
+      slug: 'dharma',
+      domain: 'dharma.nexusflow.io',
+      plan: 'ENTERPRISE',
       status: 'ACTIVE',
     });
   }
 
-  let cyberTenant = db.tenants.findOne({ slug: 'cyberdyne' });
-  if (!cyberTenant) {
-    cyberTenant = db.tenants.create({
-      name: 'Cyberdyne Systems Corp',
-      slug: 'cyberdyne',
+  let acmeTenant = db.tenants.findOne({ slug: 'acme-corp' }) || db.tenants.findOne({ slug: 'acme-logistics' });
+  if (!acmeTenant) {
+    acmeTenant = db.tenants.create({
+      name: 'Acme Corp',
+      slug: 'acme-corp',
+      domain: 'acme.nexusflow.io',
+      plan: 'ENTERPRISE',
+      rateLimitPerMinute: 2000,
+      status: 'ACTIVE',
+    });
+  } else {
+    db.tenants.update(acmeTenant.id, {
+      name: 'Acme Corp',
+      slug: 'acme-corp',
+      domain: 'acme.nexusflow.io',
+      plan: 'ENTERPRISE',
+      status: 'ACTIVE',
+    });
+  }
+
+  let techNovaTenant = db.tenants.findOne({ slug: 'technova' });
+  if (!techNovaTenant) {
+    techNovaTenant = db.tenants.create({
+      name: 'TechNova',
+      slug: 'technova',
+      domain: 'technova.nexusflow.io',
+      plan: 'PRO',
+      rateLimitPerMinute: 1500,
+      status: 'ACTIVE',
+    });
+  }
+
+  let globalSystemsTenant = db.tenants.findOne({ slug: 'global-systems' });
+  if (!globalSystemsTenant) {
+    globalSystemsTenant = db.tenants.create({
+      name: 'Global Systems',
+      slug: 'global-systems',
+      domain: 'global.nexusflow.io',
       plan: 'ENTERPRISE',
       rateLimitPerMinute: 5000,
       status: 'ACTIVE',
@@ -32,8 +74,9 @@ export async function seedDatabase() {
   let quantumTenant = db.tenants.findOne({ slug: 'quantum-dynamics' });
   if (!quantumTenant) {
     quantumTenant = db.tenants.create({
-      name: 'Quantum Dynamics Corp',
+      name: 'Quantum Dynamics',
       slug: 'quantum-dynamics',
+      domain: 'quantum.nexusflow.io',
       plan: 'PRO',
       rateLimitPerMinute: 1000,
       status: 'ACTIVE',
@@ -43,15 +86,28 @@ export async function seedDatabase() {
   let heliosTenant = db.tenants.findOne({ slug: 'helios-cloud' });
   if (!heliosTenant) {
     heliosTenant = db.tenants.create({
-      name: 'Helios Cloud Systems',
+      name: 'Helios Cloud',
       slug: 'helios-cloud',
+      domain: 'helios.nexusflow.io',
       plan: 'ENTERPRISE',
       rateLimitPerMinute: 5000,
       status: 'ACTIVE',
     });
   }
 
-  // 2. Ensure Password Hashes
+  let cyberTenant = db.tenants.findOne({ slug: 'cyberdyne' });
+  if (!cyberTenant) {
+    cyberTenant = db.tenants.create({
+      name: 'Cyberdyne',
+      slug: 'cyberdyne',
+      domain: 'cyberdyne.nexusflow.io',
+      plan: 'ENTERPRISE',
+      rateLimitPerMinute: 5000,
+      status: 'ACTIVE',
+    });
+  }
+
+  // 2. Ensure Password Hashes for Tenant Admins: Tejas Reddy, Amaan, Priyanka, Rinkle Sharma
   const tejasPasswordHash = await hashPassword('Tejas123!');
   const amaanPasswordHash = await hashPassword('Amaan123!');
   const priyankaPasswordHash = await hashPassword('Priyanka123!');
@@ -62,7 +118,7 @@ export async function seedDatabase() {
   let superAdmin = db.users.findByEmail('superadmin@orchestration.engine');
   if (!superAdmin) {
     superAdmin = db.users.create({
-      tenantId: acmeTenant.id,
+      tenantId: dharmaTenant.id,
       name: 'Master System Administrator',
       email: 'superadmin@orchestration.engine',
       role: 'SUPER_ADMIN',
@@ -71,29 +127,43 @@ export async function seedDatabase() {
     });
   }
 
-  // 1. Tejas (Tenant Admin)
+  // Tejas Reddy (Tenant Admin for Dharma & Acme Corp)
+  let tejasReddy = db.users.findByEmail('tejasreddy1808@gmail.com');
+  if (!tejasReddy) {
+    tejasReddy = db.users.create({
+      tenantId: dharmaTenant.id,
+      name: 'Tejas Reddy',
+      email: 'tejasreddy1808@gmail.com',
+      role: 'TENANT_ADMIN',
+      status: 'ACTIVE',
+      passwordHash: tejasPasswordHash,
+    });
+  } else {
+    db.users.update(tejasReddy.id, { tenantId: dharmaTenant.id, name: 'Tejas Reddy', passwordHash: tejasPasswordHash });
+  }
+
+  // Tejas alias tejas@acme.com
   let tejasAdmin = db.users.findByEmail('tejas@acme.com');
   if (!tejasAdmin) {
     tejasAdmin = db.users.create({
       tenantId: acmeTenant.id,
-      name: 'Tejas (Tenant Admin)',
+      name: 'Tejas Reddy',
       email: 'tejas@acme.com',
       role: 'TENANT_ADMIN',
       status: 'ACTIVE',
       passwordHash: tejasPasswordHash,
     });
   } else {
-    db.users.update(tejasAdmin.id, { name: 'Tejas (Tenant Admin)', passwordHash: tejasPasswordHash });
+    db.users.update(tejasAdmin.id, { name: 'Tejas Reddy', passwordHash: tejasPasswordHash });
   }
 
-  // Also update or create admin@acme.com alias for Tejas
   let acmeAlias = db.users.findByEmail('admin@acme.com');
   if (acmeAlias) {
-    db.users.update(acmeAlias.id, { name: 'Tejas', passwordHash: tejasPasswordHash });
+    db.users.update(acmeAlias.id, { name: 'Tejas Reddy', passwordHash: tejasPasswordHash });
   } else {
     db.users.create({
       tenantId: acmeTenant.id,
-      name: 'Tejas',
+      name: 'Tejas Reddy',
       email: 'admin@acme.com',
       role: 'TENANT_ADMIN',
       status: 'ACTIVE',
@@ -101,297 +171,209 @@ export async function seedDatabase() {
     });
   }
 
-  // 2. Amaan (Tenant Admin)
+  // Amaan (Tenant Admin for Cyberdyne / TechNova)
   let amaanAdmin = db.users.findByEmail('amaan@cyberdyne.com');
   if (!amaanAdmin) {
     amaanAdmin = db.users.create({
       tenantId: cyberTenant.id,
-      name: 'Amaan (Tenant Admin)',
+      name: 'Amaan',
       email: 'amaan@cyberdyne.com',
       role: 'TENANT_ADMIN',
       status: 'ACTIVE',
       passwordHash: amaanPasswordHash,
     });
   } else {
-    db.users.update(amaanAdmin.id, { name: 'Amaan (Tenant Admin)', passwordHash: amaanPasswordHash });
+    db.users.update(amaanAdmin.id, { name: 'Amaan', passwordHash: amaanPasswordHash });
   }
 
-  // Also update or create admin@cyberdyne.com alias for Amaan
-  let cyberAlias = db.users.findByEmail('admin@cyberdyne.com');
-  if (cyberAlias) {
-    db.users.update(cyberAlias.id, { name: 'Amaan', passwordHash: amaanPasswordHash });
-  } else {
-    db.users.create({
-      tenantId: cyberTenant.id,
-      name: 'Amaan',
-      email: 'admin@cyberdyne.com',
-      role: 'TENANT_ADMIN',
-      status: 'ACTIVE',
-      passwordHash: amaanPasswordHash,
-    });
-  }
-
-  // 3. Priyanka (Tenant Admin)
+  // Priyanka (Tenant Admin for Quantum Dynamics / Global Systems)
   let priyankaAdmin = db.users.findByEmail('priyanka@quantum.io');
   if (!priyankaAdmin) {
     priyankaAdmin = db.users.create({
       tenantId: quantumTenant.id,
-      name: 'Priyanka (Tenant Admin)',
+      name: 'Priyanka',
       email: 'priyanka@quantum.io',
       role: 'TENANT_ADMIN',
       status: 'ACTIVE',
       passwordHash: priyankaPasswordHash,
     });
   } else {
-    db.users.update(priyankaAdmin.id, { name: 'Priyanka (Tenant Admin)', passwordHash: priyankaPasswordHash });
+    db.users.update(priyankaAdmin.id, { name: 'Priyanka', passwordHash: priyankaPasswordHash });
   }
 
-  // 4. Rinkle Sharma (Tenant Admin)
+  // Rinkle Sharma (Tenant Admin for Helios Cloud)
   let rinkleAdmin = db.users.findByEmail('rinkle@helios.net');
   if (!rinkleAdmin) {
     rinkleAdmin = db.users.create({
       tenantId: heliosTenant.id,
-      name: 'Rinkle Sharma (Tenant Admin)',
+      name: 'Rinkle Sharma',
       email: 'rinkle@helios.net',
       role: 'TENANT_ADMIN',
       status: 'ACTIVE',
       passwordHash: rinklePasswordHash,
     });
   } else {
-    db.users.update(rinkleAdmin.id, { name: 'Rinkle Sharma (Tenant Admin)', passwordHash: rinklePasswordHash });
+    db.users.update(rinkleAdmin.id, { name: 'Rinkle Sharma', passwordHash: rinklePasswordHash });
   }
 
-  // If workflows already exist, skip workflow re-creation
-  if (store.workflows.length > 0) {
-    console.log('✅ Tenant Admins synchronized: Tejas, Amaan, Priyanka, and Rinkle Sharma.');
-    return;
-  }
-
-  // 3. API Keys
-  const demoRawKey = 'wk_live_acme_prod_99f38e4a77194602';
-  db.apiKeys.create({
-    tenantId: acmeTenant.id,
-    name: 'Production Ingestion Gateway Key',
-    keyPrefix: 'wk_live_acme...',
-    keyHash: hashApiKey(demoRawKey),
-  });
-
-  // 4. Default Sample Workflow for Acme (Order Processing with Saga)
-  const orderSagaWorkflow = db.workflows.create({
-    tenantId: acmeTenant.id,
-    name: 'E-Commerce Order Processing & Saga Compensation',
-    description: 'Mission-critical distributed transaction executing Payment Capture, Warehouse Inventory Reservation, and Carrier Dispatch with automatic backward Saga rollback upon downstream failure.',
-    status: 'ACTIVE',
-    createdBy: tejasAdmin.email,
-    nodes: [
-      {
-        id: 'node-start',
-        type: 'START',
-        position: { x: 80, y: 160 },
-        data: {
-          label: 'Receive Order Event',
-          description: 'Triggers on incoming customer order event with cart payload',
-        },
-      },
-      {
-        id: 'node-payment',
-        type: 'HTTP_REQUEST',
-        position: { x: 340, y: 160 },
-        data: {
-          label: 'Authorize & Capture Payment',
-          description: 'Charges customer payment method via Stripe/Adyen API',
-          method: 'POST',
-          url: 'https://api.example.com/v1/payments/capture',
-          body: JSON.stringify({ orderId: '{{orderId}}', amount: '{{amount}}', currency: 'USD' }, null, 2),
-          timeoutMs: 5000,
-          retryPolicy: {
-            maxAttempts: 2,
-            initialDelayMs: 1000,
-            backoffMultiplier: 2,
-            retryOnStatuses: [500, 502, 503],
+  // Helper function to seed workflows & executions for a tenant
+  const seedWorkflowsForTenant = (targetTenant: typeof dharmaTenant, creatorEmail: string) => {
+    let orderWf = db.workflows.findOne({ tenantId: targetTenant.id, name: 'Order Processing' });
+    if (!orderWf) {
+      orderWf = db.workflows.create({
+        tenantId: targetTenant.id,
+        name: 'Order Processing',
+        description: 'Distributed order orchestration pipeline executing validation, warehouse inventory check, payment capture, and notification fallback.',
+        status: 'ACTIVE',
+        createdBy: creatorEmail,
+        nodes: [
+          {
+            id: 'node-trigger',
+            type: 'START',
+            position: { x: 280, y: 50 },
+            data: {
+              label: 'Trigger',
+              sublabel: 'New Order',
+              duration: '234ms',
+              status: 'SUCCESS',
+              description: 'Customer checkout webhook event received',
+            },
           },
-          compensation: {
-            enabled: true,
-            name: 'Refund Payment Transaction',
-            method: 'POST',
-            url: 'https://api.example.com/v1/payments/refund',
-            simulatedAction: 'Refund $249.99 to customer credit card via payment gateway',
+          {
+            id: 'node-validate',
+            type: 'TRANSFORM',
+            position: { x: 280, y: 160 },
+            data: {
+              label: 'Validate Order',
+              duration: '512ms',
+              status: 'SUCCESS',
+              description: 'Validate cart line items, pricing, and fraud risk token',
+            },
           },
-        },
-      },
-      {
-        id: 'node-inventory',
-        type: 'HTTP_REQUEST',
-        position: { x: 620, y: 160 },
-        data: {
-          label: 'Reserve Warehouse Inventory',
-          description: 'Locks physical SKU units in inventory management system',
-          method: 'POST',
-          url: 'https://api.example.com/v1/inventory/reserve',
-          body: JSON.stringify({ sku: 'SKU-QUANTUM-X', quantity: 1 }, null, 2),
-          timeoutMs: 5000,
-          retryPolicy: {
-            maxAttempts: 3,
-            initialDelayMs: 1000,
-            backoffMultiplier: 2,
+          {
+            id: 'node-inventory',
+            type: 'HTTP_REQUEST',
+            position: { x: 280, y: 280 },
+            data: {
+              label: 'Check Inventory',
+              duration: '1.2s',
+              status: 'RUNNING',
+              description: 'Query stock levels from inventory services.',
+              serviceType: 'Inventory Services / Database Query',
+              inputData: {
+                productId: 'PRD-1024',
+                quantity: 25,
+                warehouse: 'WH-01',
+              },
+              outputData: null,
+            },
           },
-          compensation: {
-            enabled: true,
-            name: 'Release Reserved Inventory',
-            method: 'POST',
-            url: 'https://api.example.com/v1/inventory/release',
-            simulatedAction: 'Released 1 unit of SKU-QUANTUM-X back to active inventory pool',
+          {
+            id: 'node-payment',
+            type: 'HTTP_REQUEST',
+            position: { x: 120, y: 440 },
+            data: {
+              label: 'Process Payment',
+              status: 'PENDING',
+              description: 'Capture pre-authorized credit card transaction',
+            },
           },
-        },
-      },
-      {
-        id: 'node-condition',
-        type: 'CONDITION',
-        position: { x: 900, y: 160 },
-        data: {
-          label: 'Evaluate Inventory Status',
-          description: 'Checks if warehouse response confirmed physical stock availability',
-          conditionField: 'status',
-          conditionOperator: '==',
-          conditionValue: '200',
-        },
-      },
-      {
-        id: 'node-shipment',
-        type: 'HTTP_REQUEST',
-        position: { x: 1180, y: 100 },
-        data: {
-          label: 'Create Carrier Shipment & Waybill',
-          description: 'Dispatches parcel via FedEx/DHL logistics API',
-          method: 'POST',
-          url: 'https://api.example.com/v1/logistics/shipments',
-          body: JSON.stringify({ service: 'PRIORITY_OVERNIGHT', weightKg: 1.2 }, null, 2),
-          timeoutMs: 5000,
-          retryPolicy: {
-            maxAttempts: 3,
-            initialDelayMs: 1000,
-            backoffMultiplier: 2,
-            retryOnStatuses: [500, 502, 503, 504],
+          {
+            id: 'node-update-inv',
+            type: 'HTTP_REQUEST',
+            position: { x: 120, y: 560 },
+            data: {
+              label: 'Update Inventory',
+              status: 'PENDING',
+              description: 'Decrement warehouse SKU quantity and lock safety stock',
+            },
           },
-          compensation: {
-            enabled: true,
-            name: 'Void Carrier Shipping Label',
-            method: 'DELETE',
-            url: 'https://api.example.com/v1/logistics/shipments/cancel',
-            simulatedAction: 'Voided carrier shipping label and cancelled pickup dispatch',
+          {
+            id: 'node-notify',
+            type: 'LOG',
+            position: { x: 440, y: 440 },
+            data: {
+              label: 'Send Notification',
+              status: 'PENDING',
+              description: 'Notify operations team or send out-of-stock customer alert',
+            },
           },
-          simulateFailure: false, // User can toggle this on to test Saga rollback!
-        },
-      },
-      {
-        id: 'node-transform',
-        type: 'TRANSFORM',
-        position: { x: 1450, y: 100 },
-        data: {
-          label: 'Generate Order Invoice & Telemetry',
-          description: 'Calculates tax, discounts and formats executive summary in VM sandbox',
-          transformScript: `// Safe sandboxed calculation
-const subtotal = input.amount || 249.99;
-const taxRate = 0.0825;
-const tax = Math.round(subtotal * taxRate * 100) / 100;
-const total = Math.round((subtotal + tax) * 100) / 100;
+        ],
+        edges: [
+          { id: 'e1', source: 'node-trigger', target: 'node-validate' },
+          { id: 'e2', source: 'node-validate', target: 'node-inventory' },
+          { id: 'e3', source: 'node-inventory', target: 'node-payment', sourceHandle: 'true', label: 'In Stock' },
+          { id: 'e4', source: 'node-inventory', target: 'node-notify', sourceHandle: 'false', label: 'Out of Stock' },
+          { id: 'e5', source: 'node-payment', target: 'node-update-inv' },
+        ],
+      });
+    }
 
-return {
-  invoiceId: "INV-" + Math.floor(100000 + Math.random() * 900000),
-  subtotal: subtotal,
-  tax: tax,
-  totalCharged: total,
-  fulfillmentCenter: "FC-AUSTIN-04",
-  generatedAt: new Date().toISOString()
-};`,
-        },
-      },
-      {
-        id: 'node-log-fallback',
-        type: 'LOG',
-        position: { x: 1180, y: 300 },
-        data: {
-          label: 'Log Out-of-Stock Alert',
-          description: 'Publishes notification when inventory check fails',
-          logMessage: 'Order entered backorder state: warehouse allocation unsuccessful',
-          logLevel: 'WARN',
-        },
-      },
-      {
-        id: 'node-end',
-        type: 'END',
-        position: { x: 1720, y: 160 },
-        data: {
-          label: 'Order Processing Complete',
-          description: 'Workflow execution succeeded and customer transaction closed',
-        },
-      },
-    ],
-    edges: [
-      { id: 'e1', source: 'node-start', target: 'node-payment' },
-      { id: 'e2', source: 'node-payment', target: 'node-inventory' },
-      { id: 'e3', source: 'node-inventory', target: 'node-condition' },
-      { id: 'e4', source: 'node-condition', target: 'node-shipment', sourceHandle: 'true', label: 'In Stock (True)' },
-      { id: 'e5', source: 'node-condition', target: 'node-log-fallback', sourceHandle: 'false', label: 'Out of Stock (False)' },
-      { id: 'e6', source: 'node-shipment', target: 'node-transform' },
-      { id: 'e7', source: 'node-transform', target: 'node-end' },
-      { id: 'e8', source: 'node-log-fallback', target: 'node-end' },
-    ],
-  });
+    const otherWorkflows = [
+      { name: 'Payment Processing', desc: 'Recurring subscription billing and settlement with Stripe' },
+      { name: 'User Registration', desc: 'User signup verification, JWT token issuance, and CRM sync' },
+      { name: 'Email Notification', desc: 'Transactional notifications, SMS alerts, and audit logging' },
+      { name: 'Inventory Update', desc: 'Multi-warehouse stock replenishment and catalog reconciliation' },
+    ];
 
-  // 5. Seed historical executions for Acme to show immediate analytics
-  const historicExec1 = db.executions.create({
-    workflowId: orderSagaWorkflow.id,
-    workflowName: orderSagaWorkflow.name,
-    tenantId: acmeTenant.id,
-    status: 'SUCCESS',
-    startedAt: new Date(Date.now() - 3600000 * 2).toISOString(),
-    completedAt: new Date(Date.now() - 3600000 * 2 + 3200).toISOString(),
-    contextData: { orderId: 'ORD-8821', amount: 189.50, status: 200 },
-    nodeExecutions: {},
-    compensationsExecuted: [],
-    trigger: 'MANUAL',
-    triggeredBy: tejasAdmin.email,
-  });
+    for (const item of otherWorkflows) {
+      if (!db.workflows.findOne({ tenantId: targetTenant.id, name: item.name })) {
+        db.workflows.create({
+          tenantId: targetTenant.id,
+          name: item.name,
+          description: item.desc,
+          status: 'ACTIVE',
+          createdBy: creatorEmail,
+          nodes: [
+            { id: 'n1', type: 'START', position: { x: 200, y: 50 }, data: { label: 'Event Trigger' } },
+            { id: 'n2', type: 'HTTP_REQUEST', position: { x: 200, y: 160 }, data: { label: 'Execute Task' } },
+            { id: 'n3', type: 'END', position: { x: 200, y: 270 }, data: { label: 'Completed' } },
+          ],
+          edges: [
+            { id: 'e1', source: 'n1', target: 'n2' },
+            { id: 'e2', source: 'n2', target: 'n3' },
+          ],
+        });
+      }
+    }
 
-  const historicExec2 = db.executions.create({
-    workflowId: orderSagaWorkflow.id,
-    workflowName: orderSagaWorkflow.name,
-    tenantId: acmeTenant.id,
-    status: 'COMPENSATED',
-    startedAt: new Date(Date.now() - 3600000 * 5).toISOString(),
-    completedAt: new Date(Date.now() - 3600000 * 5 + 4100).toISOString(),
-    contextData: { orderId: 'ORD-7742', amount: 499.00 },
-    nodeExecutions: {},
-    compensationsExecuted: ['node-inventory', 'node-payment'],
-    error: 'Carrier API responded with 503 Service Unavailable after 3 attempts',
-    trigger: 'API',
-    triggeredBy: 'api_client',
-  });
+    // Seed Executions EX-1001 through EX-1005
+    const execDefs = [
+      { id: `EX-1001-${targetTenant.slug}`, name: 'Order Processing', status: 'SUCCESS' as const, duration: '2.4s', deltaMin: 30 },
+      { id: `EX-1002-${targetTenant.slug}`, name: 'Payment Processing', status: 'RUNNING' as const, duration: '1.8s', deltaMin: 2 },
+      { id: `EX-1003-${targetTenant.slug}`, name: 'User Registration', status: 'FAILED' as const, duration: '3.2s', deltaMin: 180 },
+      { id: `EX-1004-${targetTenant.slug}`, name: 'Email Notification', status: 'SUCCESS' as const, duration: '1.5s', deltaMin: 240 },
+      { id: `EX-1005-${targetTenant.slug}`, name: 'Inventory Update', status: 'SUCCESS' as const, duration: '2.1s', deltaMin: 300 },
+    ];
 
-  // Seed sample Dead Letter Queue entry
-  db.dlq.create({
-    tenantId: acmeTenant.id,
-    workflowId: orderSagaWorkflow.id,
-    workflowName: orderSagaWorkflow.name,
-    executionId: historicExec2.id,
-    nodeId: 'node-shipment',
-    nodeLabel: 'Create Carrier Shipment & Waybill',
-    payload: { orderId: 'ORD-7742', customer: 'David Bishop', amount: 499.00 },
-    attempts: 3,
-    error: 'Carrier Dispatch Gateway timed out after max retries (3/3)',
-    status: 'UNRESOLVED',
-  });
+    for (const ed of execDefs) {
+      if (!store.executions.find(e => e.id === ed.id || (e.tenantId === targetTenant.id && e.workflowName === ed.name))) {
+        store.executions.unshift({
+          id: ed.id.startsWith('EX-100') ? ed.id.substring(0, 7) : ed.id,
+          workflowId: orderWf.id,
+          workflowName: ed.name,
+          tenantId: targetTenant.id,
+          status: ed.status,
+          startedAt: new Date(Date.now() - 1000 * 60 * ed.deltaMin).toISOString(),
+          completedAt: ed.status === 'RUNNING' ? undefined : new Date(Date.now() - 1000 * 60 * ed.deltaMin + 2000).toISOString(),
+          contextData: { productId: 'PRD-1024', quantity: 25, warehouse: 'WH-01' },
+          nodeExecutions: {},
+          compensationsExecuted: [],
+          trigger: 'WEBHOOK',
+          triggeredBy: creatorEmail,
+          duration: ed.duration,
+        });
+      }
+    }
+  };
 
-  // Audit log entries
-  db.auditLogs.create({
-    tenantId: acmeTenant.id,
-    userId: tejasAdmin.id,
-    userEmail: tejasAdmin.email,
-    action: 'SYSTEM_BOOTSTRAPPED',
-    resource: 'Tenant',
-    metadata: { tenant: acmeTenant.name },
-  });
+  // Seed both Dharma and Acme Corp
+  seedWorkflowsForTenant(dharmaTenant, 'tejasreddy1808@gmail.com');
+  seedWorkflowsForTenant(acmeTenant, 'tejas@acme.com');
 
-  console.log('✅ Seed completed successfully with 4 tenants and tenant admins: Tejas, Amaan, Priyanka, and Rinkle Sharma.');
+  // Persist store update
+  db.save();
+
+  console.log('✅ NexusFlow database seeded with tenants: Dharma, Acme Corp, TechNova, Global Systems, Quantum Dynamics, Helios Cloud, Cyberdyne.');
+  console.log('✅ Tejas Reddy (TR) initialized as Tenant Admin for Dharma.');
 }

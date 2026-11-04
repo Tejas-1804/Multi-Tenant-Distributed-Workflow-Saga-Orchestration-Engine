@@ -49,4 +49,39 @@ router.post('/:id/cancel', (req: AuthenticatedRequest, res) => {
   return res.json({ message: 'Execution cancelled', executionId: req.params.id });
 });
 
+router.post('/:id/retry', async (req: AuthenticatedRequest, res) => {
+  const execution = db.executions.findById(req.params.id, req.user!.tenantId);
+  if (!execution) {
+    return res.status(404).json({ error: 'Execution not found' });
+  }
+
+  // Spawn retry execution
+  const workflow = db.workflows.findById(execution.workflowId, req.user!.tenantId);
+  if (!workflow) {
+    return res.status(404).json({ error: 'Workflow not found' });
+  }
+
+  try {
+    const newExec = await workflowEngine.startExecution(
+      workflow,
+      execution.contextData || {},
+      req.user!.email,
+      'MANUAL'
+    );
+
+    db.auditLogs.create({
+      tenantId: req.user!.tenantId,
+      userId: req.user!.id,
+      userEmail: req.user!.email,
+      action: 'EXECUTION_RETRIED',
+      resource: 'WorkflowExecution',
+      resourceId: newExec.id,
+    });
+
+    return res.json({ message: 'Execution retried', execution: newExec });
+  } catch (err: any) {
+    return res.status(500).json({ error: err.message || 'Failed to retry execution' });
+  }
+});
+
 export default router;

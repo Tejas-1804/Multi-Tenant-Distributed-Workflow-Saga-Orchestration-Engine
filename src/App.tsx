@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext.tsx';
+import { ThemeProvider, useTheme } from './context/ThemeContext.tsx';
 import { Navbar } from './components/Navbar.tsx';
 import { Sidebar, NavTab } from './components/Sidebar.tsx';
 import { DashboardPage } from './pages/DashboardPage.tsx';
@@ -7,68 +8,47 @@ import { WorkflowBuilderPage } from './pages/WorkflowBuilderPage.tsx';
 import { WorkflowsListPage } from './pages/WorkflowsListPage.tsx';
 import { ExecutionsListPage } from './pages/ExecutionsListPage.tsx';
 import { ExecutionDetailPage } from './pages/ExecutionDetailPage.tsx';
-import { DLQPage } from './pages/DLQPage.tsx';
-import { ApiKeysPage } from './pages/ApiKeysPage.tsx';
-import { AuditLogsPage } from './pages/AuditLogsPage.tsx';
-import { AdminPage } from './pages/AdminPage.tsx';
+import { TemplatesPage } from './pages/TemplatesPage.tsx';
+import { TenantsPage } from './pages/TenantsPage.tsx';
+import { WorkersPage } from './pages/WorkersPage.tsx';
+import { MonitoringPage } from './pages/MonitoringPage.tsx';
+import { AlertsPage } from './pages/AlertsPage.tsx';
+import { SettingsPage } from './pages/SettingsPage.tsx';
 import { AuthPage } from './pages/AuthPage.tsx';
 import { useWebSocket } from './hooks/useWebSocket.ts';
 import api from './services/api.ts';
 
 function AppContent() {
   const { user, tenant, isLoading } = useAuth();
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+
   const [currentTab, setCurrentTab] = useState<NavTab>('dashboard');
   const [activeWorkflowId, setActiveWorkflowId] = useState<string | null>(null);
-  const [activeExecutionId, setActiveExecutionId] = useState<string | null>(null);
-  const [dlqCount, setDlqCount] = useState<number>(0);
-  const [workerCount, setWorkerCount] = useState<number>(3);
+  const [activeExecutionId, setActiveExecutionId] = useState<string | null>('EX-1002');
+  const [alertCount, setAlertCount] = useState<number>(3);
 
   // Connect WebSocket to active tenant
   const { isConnected, lastEvent } = useWebSocket(tenant?.id);
 
-  // Fetch initial telemetry for navbar & badges
-  useEffect(() => {
-    if (!tenant?.id) return;
-    const fetchBadges = async () => {
-      try {
-        const [dlqRes, statsRes] = await Promise.all([
-          api.get('/dlq'),
-          api.get('/admin/statistics'),
-        ]);
-        setDlqCount(dlqRes.data.filter((j: any) => j.status === 'UNRESOLVED').length);
-        if (statsRes.data?.workers) {
-          setWorkerCount(statsRes.data.workers.length);
-        }
-      } catch (err) {
-        // silently fallback
-      }
-    };
-    fetchBadges();
-    const interval = setInterval(fetchBadges, 8000);
-    return () => clearInterval(interval);
-  }, [tenant?.id]);
-
-  // Handle incoming live events
-  useEffect(() => {
-    if (lastEvent?.type === 'DLQ_JOB_ADDED') {
-      setDlqCount(prev => prev + 1);
-    }
-  }, [lastEvent]);
-
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-zinc-950 flex items-center justify-center font-mono text-xs text-zinc-400">
-        <div className="flex items-center gap-2">
-          <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
-          <span>Bootstrapping Distributed Workflow & Saga Engine...</span>
+      <div className={`min-h-screen flex items-center justify-center font-sans text-xs ${
+        isDark ? 'bg-[#0B1220] text-slate-400' : 'bg-[#f8fafc] text-slate-500'
+      }`}>
+        <div className={`flex items-center gap-2.5 px-5 py-3 rounded-xl border shadow-lg ${
+          isDark ? 'bg-[#172235] border-[#1E2D4A] text-slate-200' : 'bg-white border-slate-200 text-slate-700'
+        }`}>
+          <span className="w-2.5 h-2.5 rounded-full bg-blue-500 animate-ping" />
+          <span className="font-semibold">Connecting to NexusFlow Engine...</span>
         </div>
       </div>
     );
   }
 
-  // If user is not authenticated, render dedicated Login / Registration screen
+  // User specifically requested: "and also start from the register and signup page"
   if (!user) {
-    return <AuthPage initialMode="login" />;
+    return <AuthPage initialMode="register" />;
   }
 
   const handleOpenWorkflowBuilder = (workflowId?: string) => {
@@ -82,33 +62,51 @@ function AppContent() {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col font-sans selection:bg-emerald-500/20 selection:text-emerald-300">
-      {/* Top Enterprise Header */}
-      <Navbar
-        isWsConnected={isConnected}
-        workerCount={workerCount}
-        onNavigateTab={tab => setCurrentTab(tab)}
+    <div className={`min-h-screen flex font-sans selection:bg-blue-500/30 selection:text-blue-200 transition-colors duration-200 ${
+      isDark
+        ? 'bg-gradient-to-br from-[#0B1220] via-[#0F172A] to-[#172033] text-slate-100'
+        : 'bg-[#f8fafc] text-slate-900'
+    }`}>
+      {/* Left Deep Navy Navigation Sidebar matching #070D18 */}
+      <Sidebar
+        currentTab={currentTab}
+        onSelectTab={tab => {
+          if (tab === 'workflows') setActiveWorkflowId(null);
+          if (tab === 'executions') {
+            setActiveExecutionId('EX-1002');
+            setCurrentTab('execution-detail');
+            return;
+          }
+          setCurrentTab(tab);
+        }}
+        alertCount={alertCount}
       />
 
-      {/* Main Container */}
-      <div className="flex-1 flex overflow-hidden">
-        {/* Navigation Sidebar */}
-        <Sidebar
-          currentTab={currentTab}
-          onSelectTab={tab => {
-            if (tab === 'workflows') setActiveWorkflowId(null);
-            setCurrentTab(tab);
-          }}
-          dlqCount={dlqCount}
+      {/* Main Column */}
+      <div className="flex-1 flex flex-col min-w-0 min-h-screen overflow-x-hidden">
+        {/* Top Header */}
+        <Navbar
+          onNavigateTab={tab => setCurrentTab(tab)}
         />
 
-        {/* Dynamic Page Views */}
-        <main className="flex-1 overflow-y-auto bg-zinc-950">
+        {/* Dynamic Page Content */}
+        <main className={`flex-1 overflow-y-auto ${
+          isDark
+            ? 'bg-gradient-to-br from-[#0B1220] via-[#0F172A] to-[#172033]'
+            : 'bg-[#f8fafc]'
+        }`}>
           {currentTab === 'dashboard' && (
             <DashboardPage
               onOpenWorkflowBuilder={handleOpenWorkflowBuilder}
               onOpenExecutionDetail={handleOpenExecutionDetail}
-              onNavigateTab={tab => setCurrentTab(tab)}
+              onNavigateTab={tab => {
+                if (tab === 'executions') {
+                  setActiveExecutionId('EX-1002');
+                  setCurrentTab('execution-detail');
+                } else {
+                  setCurrentTab(tab);
+                }
+              }}
             />
           )}
 
@@ -131,23 +129,29 @@ function AppContent() {
             <ExecutionsListPage onOpenExecution={handleOpenExecutionDetail} />
           )}
 
-          {currentTab === 'execution-detail' && activeExecutionId && (
+          {currentTab === 'execution-detail' && (
             <ExecutionDetailPage
-              executionId={activeExecutionId}
+              executionId={activeExecutionId || 'EX-1002'}
               onBack={() => setCurrentTab('executions')}
               onOpenWorkflow={handleOpenWorkflowBuilder}
             />
           )}
 
-          {currentTab === 'dlq' && (
-            <DLQPage onOpenExecution={handleOpenExecutionDetail} />
+          {currentTab === 'templates' && (
+            <TemplatesPage
+              onInstantiateTemplate={wfId => handleOpenWorkflowBuilder(wfId)}
+            />
           )}
 
-          {currentTab === 'apikeys' && <ApiKeysPage />}
+          {currentTab === 'tenants' && <TenantsPage />}
 
-          {currentTab === 'audit' && <AuditLogsPage />}
+          {currentTab === 'workers' && <WorkersPage />}
 
-          {currentTab === 'admin' && <AdminPage />}
+          {currentTab === 'monitoring' && <MonitoringPage />}
+
+          {currentTab === 'alerts' && <AlertsPage />}
+
+          {currentTab === 'settings' && <SettingsPage />}
 
           {currentTab === 'auth' && <AuthPage initialMode="register" />}
         </main>
@@ -158,8 +162,10 @@ function AppContent() {
 
 export default function App() {
   return (
-    <AuthProvider>
-      <AppContent />
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
+    </ThemeProvider>
   );
 }

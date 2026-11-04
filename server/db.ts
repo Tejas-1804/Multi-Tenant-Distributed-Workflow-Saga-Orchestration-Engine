@@ -53,6 +53,15 @@ function initStorage() {
     if (fs.existsSync(DB_FILE)) {
       const data = fs.readFileSync(DB_FILE, 'utf-8');
       store = JSON.parse(data);
+      // Auto-deduplicate executions on load to ensure absolute key uniqueness
+      if (store.executions && Array.isArray(store.executions)) {
+        const seen = new Set<string>();
+        store.executions = store.executions.filter(e => {
+          if (!e.id || seen.has(e.id)) return false;
+          seen.add(e.id);
+          return true;
+        });
+      }
     }
   } catch (err) {
     console.error('Failed to read db file, initializing fresh store:', err);
@@ -138,7 +147,7 @@ export const db = {
       dbEvents.emit('change', { collection: 'users', operationType: 'insert', document: user });
       return user;
     },
-    update: (id: string, updates: Partial<User>) => {
+    update: (id: string, updates: Partial<User & { passwordHash?: string }>) => {
       const idx = store.users.findIndex(u => u.id === id);
       if (idx === -1) return null;
       store.users[idx] = { ...store.users[idx], ...updates, updatedAt: new Date().toISOString() };
@@ -155,6 +164,14 @@ export const db = {
         if (filter.status && w.status !== filter.status) return false;
         return true;
       });
+    },
+    findOne: (filter: { tenantId?: string; name?: string; status?: string } = {}) => {
+      return store.workflows.find(w => {
+        if (filter.tenantId && w.tenantId !== filter.tenantId) return false;
+        if (filter.name && w.name !== filter.name) return false;
+        if (filter.status && w.status !== filter.status) return false;
+        return true;
+      }) || null;
     },
     findById: (id: string, tenantId?: string) => {
       const wf = store.workflows.find(w => w.id === id);
@@ -355,4 +372,5 @@ export const db = {
       saveStorage();
     },
   },
+  save: saveStorage,
 };

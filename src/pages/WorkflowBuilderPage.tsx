@@ -25,6 +25,7 @@ import {
   Layers,
   Sparkles,
   Info,
+  Check,
 } from 'lucide-react';
 import api from '../services/api.ts';
 import { CustomWorkflowNode } from '../workflow/CustomWorkflowNode.tsx';
@@ -71,9 +72,15 @@ export const WorkflowBuilderPage: React.FC<WorkflowBuilderPageProps> = ({
   const [saving, setSaving] = useState(false);
   const [executing, setExecuting] = useState(false);
   const [showExecuteModal, setShowExecuteModal] = useState(false);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [executePayload, setExecutePayload] = useState(
     JSON.stringify({ orderId: 'ORD-5542', customer: 'Sarah Connor', amount: 249.99, status: 200 }, null, 2)
   );
+
+  const showToast = (msg: string) => {
+    setToastMessage(msg);
+    setTimeout(() => setToastMessage(null), 3000);
+  };
 
   // Load existing workflow or initialize starter nodes
   useEffect(() => {
@@ -101,8 +108,8 @@ export const WorkflowBuilderPage: React.FC<WorkflowBuilderPageProps> = ({
           label: e.label,
           type: 'smoothstep',
           animated: true,
-          markerEnd: { type: MarkerType.ArrowClosed, color: '#10b981' },
-          style: { stroke: '#10b981', strokeWidth: 2 },
+          markerEnd: { type: MarkerType.ArrowClosed, color: '#2563eb' },
+          style: { stroke: '#2563eb', strokeWidth: 2 },
         }));
 
         setNodes(rfNodes);
@@ -116,25 +123,72 @@ export const WorkflowBuilderPage: React.FC<WorkflowBuilderPageProps> = ({
         {
           id: 'node-start',
           type: 'START',
-          position: { x: 100, y: 150 },
-          data: { label: 'Start Trigger', description: 'Receives initial payload' },
+          position: { x: 250, y: 50 },
+          data: { label: 'Start Trigger', description: 'Receives initial event payload' },
         },
         {
-          id: 'node-end',
-          type: 'END',
-          position: { x: 500, y: 150 },
-          data: { label: 'End Transaction', description: 'Marks execution SUCCESS' },
+          id: 'node-validate',
+          type: 'TRANSFORM',
+          position: { x: 250, y: 180 },
+          data: { label: 'Validate Order', description: 'Verify schema and tax exemptions' },
+        },
+        {
+          id: 'node-inventory',
+          type: 'HTTP_REQUEST',
+          position: { x: 250, y: 310 },
+          data: { label: 'Check Inventory', description: 'Query warehouse stock levels' },
+        },
+        {
+          id: 'node-payment',
+          type: 'HTTP_REQUEST',
+          position: { x: 100, y: 460 },
+          data: { label: 'Process Payment', description: 'Authorize card transaction' },
+        },
+        {
+          id: 'node-notify',
+          type: 'LOG',
+          position: { x: 400, y: 460 },
+          data: { label: 'Send Notification', description: 'Dispatch customer alert' },
         },
       ];
       const initialEdges: Edge[] = [
         {
-          id: 'edge-1',
+          id: 'e1',
           source: 'node-start',
-          target: 'node-end',
+          target: 'node-validate',
+          type: 'smoothstep',
+          animated: true,
+          markerEnd: { type: MarkerType.ArrowClosed, color: '#2563eb' },
+          style: { stroke: '#2563eb', strokeWidth: 2 },
+        },
+        {
+          id: 'e2',
+          source: 'node-validate',
+          target: 'node-inventory',
+          type: 'smoothstep',
+          animated: true,
+          markerEnd: { type: MarkerType.ArrowClosed, color: '#2563eb' },
+          style: { stroke: '#2563eb', strokeWidth: 2 },
+        },
+        {
+          id: 'e3',
+          source: 'node-inventory',
+          target: 'node-payment',
+          label: 'In Stock',
           type: 'smoothstep',
           animated: true,
           markerEnd: { type: MarkerType.ArrowClosed, color: '#10b981' },
           style: { stroke: '#10b981', strokeWidth: 2 },
+        },
+        {
+          id: 'e4',
+          source: 'node-inventory',
+          target: 'node-notify',
+          label: 'Out of Stock',
+          type: 'smoothstep',
+          animated: true,
+          markerEnd: { type: MarkerType.ArrowClosed, color: '#ef4444' },
+          style: { stroke: '#ef4444', strokeWidth: 2 },
         },
       ];
       setNodes(initialNodes);
@@ -142,46 +196,41 @@ export const WorkflowBuilderPage: React.FC<WorkflowBuilderPageProps> = ({
     }
   }, [workflowId]);
 
+  // Connect edges
   const onConnect = useCallback(
     (params: Connection) => {
-      const isCondition = nodes.find(n => n.id === params.source)?.type === 'CONDITION';
-      const edgeLabel = params.sourceHandle === 'true' ? 'True' : params.sourceHandle === 'false' ? 'False' : undefined;
+      const isConditionTrue = params.sourceHandle === 'true';
+      const isConditionFalse = params.sourceHandle === 'false';
+
+      const strokeColor = isConditionTrue ? '#10b981' : isConditionFalse ? '#ef4444' : '#2563eb';
+      const label = isConditionTrue ? 'In Stock' : isConditionFalse ? 'Out of Stock' : undefined;
 
       const newEdge: Edge = {
         ...params,
-        id: `e-${params.source}-${params.target}-${params.sourceHandle || 'def'}`,
+        id: `e-${params.source}-${params.target}-${Date.now()}`,
         type: 'smoothstep',
         animated: true,
-        label: edgeLabel,
-        markerEnd: { type: MarkerType.ArrowClosed, color: '#10b981' },
-        style: { stroke: '#10b981', strokeWidth: 2 },
+        label,
+        markerEnd: { type: MarkerType.ArrowClosed, color: strokeColor },
+        style: { stroke: strokeColor, strokeWidth: 2 },
       };
       setEdges(eds => addEdge(newEdge, eds));
     },
-    [nodes, setEdges]
+    [setEdges]
   );
 
-  const onNodeClick = useCallback((_: any, node: Node) => {
+  // Click on node
+  const onNodeClick = useCallback((_: React.MouseEvent, node: Node) => {
     setSelectedNodeId(node.id);
   }, []);
 
+  // Click on canvas background deselects
   const onPaneClick = useCallback(() => {
     setSelectedNodeId(null);
   }, []);
 
-  const selectedNode = useMemo(() => {
-    if (!selectedNodeId) return null;
-    const n = nodes.find(node => node.id === selectedNodeId);
-    if (!n) return null;
-    return {
-      id: n.id,
-      type: n.type as NodeType,
-      position: n.position,
-      data: n.data as unknown as WorkflowNodeData,
-    };
-  }, [selectedNodeId, nodes]);
-
-  const handleUpdateNode = useCallback((nodeId: string, updatedData: Partial<WorkflowNodeData>) => {
+  // Update node data from config drawer
+  const handleUpdateNode = (nodeId: string, updatedData: Partial<WorkflowNodeData>) => {
     setNodes(nds =>
       nds.map(node => {
         if (node.id === nodeId) {
@@ -196,56 +245,51 @@ export const WorkflowBuilderPage: React.FC<WorkflowBuilderPageProps> = ({
         return node;
       })
     );
-  }, [setNodes]);
+  };
 
-  const handleDeleteNode = useCallback((nodeId: string) => {
-    setNodes(nds => nds.filter(n => n.id !== nodeId));
-    setEdges(eds => eds.filter(e => e.source !== nodeId && e.target !== nodeId));
+  // Delete node
+  const handleDeleteNode = (nodeId: string) => {
+    setNodes(nds => nds.filter(node => node.id !== nodeId));
+    setEdges(eds => eds.filter(edge => edge.source !== nodeId && edge.target !== nodeId));
     setSelectedNodeId(null);
-  }, [setNodes, setEdges]);
+  };
 
-  const handleDuplicateNode = useCallback((nodeId: string) => {
-    const node = nodes.find(n => n.id === nodeId);
-    if (!node) return;
-    const newId = `node_${Math.random().toString(36).substring(2, 7)}`;
-    const duplicate: Node = {
-      ...node,
+  // Duplicate node
+  const handleDuplicateNode = (nodeId: string) => {
+    const nodeToDup = nodes.find(n => n.id === nodeId);
+    if (!nodeToDup) return;
+
+    const newId = `node-${Date.now()}`;
+    const newNode: Node = {
+      ...nodeToDup,
       id: newId,
-      position: { x: node.position.x + 40, y: node.position.y + 40 },
-      data: {
-        ...JSON.parse(JSON.stringify(node.data)),
-        label: `${(node.data as any).label} (Copy)`,
+      position: {
+        x: nodeToDup.position.x + 40,
+        y: nodeToDup.position.y + 40,
       },
-      selected: false,
+      data: {
+        ...nodeToDup.data,
+        label: `${(nodeToDup.data as any).label || 'Node'} (Copy)`,
+      },
     };
-    setNodes(nds => [...nds, duplicate]);
+
+    setNodes(nds => [...nds, newNode]);
     setSelectedNodeId(newId);
-  }, [nodes, setNodes]);
+  };
 
-  // Add new node from Left Palette
+  // Add new node from palette
   const addNode = (type: NodeType) => {
-    const id = `node_${type.toLowerCase()}_${Math.random().toString(36).substring(2, 6)}`;
-    const labels: Record<NodeType, string> = {
-      START: 'Start Trigger',
-      HTTP_REQUEST: 'HTTP API Service',
-      CONDITION: 'Conditional Branch',
-      DELAY: 'Delay Timer',
-      TRANSFORM: 'Transform Payload',
-      WEBHOOK: 'Webhook Listener',
-      LOG: 'Audit Event Log',
-      END: 'Completion Node',
-    };
-
+    const id = `node-${Date.now()}`;
     const newNode: Node = {
       id,
       type,
-      position: { x: 300 + Math.random() * 50, y: 180 + Math.random() * 50 },
+      position: { x: 250, y: nodes.length * 100 + 40 },
       data: {
-        label: labels[type],
-        description: `Configured ${type} task`,
+        label: `New ${type.replace('_', ' ')}`,
         ...(type === 'HTTP_REQUEST' && {
           method: 'POST',
           url: 'https://api.example.com/v1/resource',
+          timeoutMs: 5000,
           retryPolicy: { maxAttempts: 3, initialDelayMs: 1000, backoffMultiplier: 2 },
           compensation: { enabled: true, name: 'Rollback Action', method: 'DELETE', url: 'https://api.example.com/v1/rollback' },
         }),
@@ -280,6 +324,9 @@ export const WorkflowBuilderPage: React.FC<WorkflowBuilderPageProps> = ({
 
       const res = await api.post('/workflows/validate-raw', payload);
       setValidationResult(res.data);
+      if (res.data.valid) {
+        showToast('DAG is strictly valid, acyclic, and ready for execution.');
+      }
     } catch (err: any) {
       console.error('Validation error:', err);
     }
@@ -313,7 +360,7 @@ export const WorkflowBuilderPage: React.FC<WorkflowBuilderPageProps> = ({
           edges: formattedEdges,
         });
         setWorkflow(res.data);
-        alert('Workflow saved successfully!');
+        showToast('Workflow saved successfully!');
       } else {
         const res = await api.post('/workflows', {
           name: workflowName,
@@ -323,7 +370,7 @@ export const WorkflowBuilderPage: React.FC<WorkflowBuilderPageProps> = ({
           status: 'ACTIVE',
         });
         setWorkflow(res.data);
-        alert('Workflow created successfully!');
+        showToast('Workflow created successfully!');
       }
     } catch (err: any) {
       alert(err.response?.data?.error || err.message);
@@ -338,7 +385,6 @@ export const WorkflowBuilderPage: React.FC<WorkflowBuilderPageProps> = ({
     try {
       let currentWfId = workflow?.id;
 
-      // If not yet saved to backend, save first
       if (!currentWfId) {
         const formattedNodes = nodes.map(n => ({
           id: n.id,
@@ -353,15 +399,16 @@ export const WorkflowBuilderPage: React.FC<WorkflowBuilderPageProps> = ({
           sourceHandle: e.sourceHandle,
           label: e.label,
         }));
-        const saveRes = await api.post('/workflows', {
+
+        const createRes = await api.post('/workflows', {
           name: workflowName,
           description: workflowDescription,
           nodes: formattedNodes,
           edges: formattedEdges,
           status: 'ACTIVE',
         });
-        currentWfId = saveRes.data.id;
-        setWorkflow(saveRes.data);
+        currentWfId = createRes.data.id;
+        setWorkflow(createRes.data);
       }
 
       let parsedPayload = {};
@@ -386,15 +433,35 @@ export const WorkflowBuilderPage: React.FC<WorkflowBuilderPageProps> = ({
     }
   };
 
+  const selectedNode = useMemo(() => {
+    if (!selectedNodeId) return null;
+    const n = nodes.find(node => node.id === selectedNodeId);
+    if (!n) return null;
+    return {
+      id: n.id,
+      type: n.type as NodeType,
+      position: n.position,
+      data: n.data as unknown as WorkflowNodeData,
+    };
+  }, [selectedNodeId, nodes]);
+
   return (
-    <div className="flex flex-col h-full bg-zinc-950 font-sans">
+    <div className="flex flex-col h-[calc(100vh-4rem)] bg-white font-sans">
+      {/* Toast Feedback */}
+      {toastMessage && (
+        <div className="fixed top-20 right-8 z-50 bg-slate-900 text-white px-4 py-2.5 rounded-xl shadow-lg text-xs font-medium flex items-center gap-2 border border-slate-700 animate-in fade-in">
+          <Check className="w-4 h-4 text-emerald-400" />
+          <span>{toastMessage}</span>
+        </div>
+      )}
+
       {/* Top Builder Toolbar */}
-      <div className="h-14 border-b border-zinc-800 px-6 flex items-center justify-between bg-zinc-950 z-20 shrink-0">
+      <div className="h-14 border-b border-slate-200 px-6 flex items-center justify-between bg-white z-20 shrink-0">
         <div className="flex items-center gap-4">
           <button
             onClick={onBack}
-            className="p-1.5 rounded-lg border border-zinc-800 hover:bg-zinc-900 text-zinc-400 hover:text-zinc-200 transition-colors cursor-pointer"
-            title="Back to workflows list"
+            className="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-500 hover:text-slate-800 transition-colors cursor-pointer"
+            title="Back to workflows"
           >
             <ArrowLeft className="w-4 h-4" />
           </button>
@@ -404,11 +471,11 @@ export const WorkflowBuilderPage: React.FC<WorkflowBuilderPageProps> = ({
               type="text"
               value={workflowName}
               onChange={e => setWorkflowName(e.target.value)}
-              className="text-sm font-bold text-zinc-100 bg-transparent border-b border-transparent hover:border-zinc-700 focus:border-emerald-500 focus:outline-none px-1"
+              className="text-sm font-bold text-slate-900 bg-transparent border-b border-transparent hover:border-slate-300 focus:border-blue-500 focus:outline-none px-1"
               placeholder="Workflow Name"
             />
             {workflow && (
-              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-400">
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-100 border border-slate-200 text-slate-500 font-semibold">
                 v{workflow.version}
               </span>
             )}
@@ -419,24 +486,24 @@ export const WorkflowBuilderPage: React.FC<WorkflowBuilderPageProps> = ({
         <div className="flex items-center gap-3">
           <button
             onClick={validateDAG}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-zinc-700 bg-zinc-900 hover:bg-zinc-850 text-xs font-mono text-zinc-200 cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-xs font-medium text-slate-700 cursor-pointer shadow-2xs"
           >
-            <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400" />
+            <CheckCircle2 className="w-3.5 h-3.5 text-blue-600" />
             <span>Validate DAG</span>
           </button>
 
           <button
             onClick={saveWorkflow}
             disabled={saving}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-zinc-700 bg-zinc-900 hover:bg-zinc-850 text-xs font-mono text-zinc-200 cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-xs font-medium text-slate-700 cursor-pointer shadow-2xs"
           >
-            <Save className="w-3.5 h-3.5 text-zinc-400" />
+            <Save className="w-3.5 h-3.5 text-slate-500" />
             <span>{saving ? 'Saving...' : 'Save DAG'}</span>
           </button>
 
           <button
             onClick={() => setShowExecuteModal(true)}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs font-mono shadow-sm shadow-emerald-950 cursor-pointer"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#2563eb] hover:bg-blue-700 text-white font-medium text-xs shadow-xs cursor-pointer"
           >
             <Play className="w-3.5 h-3.5 fill-current" />
             <span>Execute Workflow</span>
@@ -447,19 +514,19 @@ export const WorkflowBuilderPage: React.FC<WorkflowBuilderPageProps> = ({
       {/* Validation Result Notification Banner */}
       {validationResult && (
         <div
-          className={`px-6 py-2 border-b text-xs font-mono flex items-center justify-between ${
+          className={`px-6 py-2 border-b text-xs flex items-center justify-between ${
             validationResult.valid
-              ? 'bg-emerald-950/60 border-emerald-800/80 text-emerald-300'
-              : 'bg-rose-950/60 border-rose-800/80 text-rose-300'
+              ? 'bg-emerald-50 border-emerald-200 text-emerald-800'
+              : 'bg-rose-50 border-rose-200 text-rose-800'
           }`}
         >
           <div className="flex items-center gap-2">
             {validationResult.valid ? (
-              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
             ) : (
-              <AlertTriangle className="w-4 h-4 text-rose-400" />
+              <AlertTriangle className="w-4 h-4 text-rose-600" />
             )}
-            <span>
+            <span className="font-medium">
               {validationResult.valid
                 ? 'DAG is strictly valid, acyclic, and ready for execution engine.'
                 : `Validation failed: ${validationResult.errors.map(e => e.message).join(' · ')}`}
@@ -467,7 +534,7 @@ export const WorkflowBuilderPage: React.FC<WorkflowBuilderPageProps> = ({
           </div>
           <button
             onClick={() => setValidationResult(null)}
-            className="text-xs hover:underline text-zinc-400 cursor-pointer"
+            className="text-xs hover:underline text-slate-500 cursor-pointer"
           >
             Dismiss
           </button>
@@ -477,46 +544,47 @@ export const WorkflowBuilderPage: React.FC<WorkflowBuilderPageProps> = ({
       {/* Main Workspace: Left Node Palette + Center React Flow + Right Config */}
       <div className="flex-1 flex overflow-hidden">
         {/* Left Node Library Palette */}
-        <div className="w-56 border-r border-zinc-800 bg-zinc-950/90 p-4 space-y-4 shrink-0 overflow-y-auto">
-          <div className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 font-bold">
-            NODE LIBRARY
+        <div className="w-60 border-r border-slate-200 bg-white p-4 space-y-4 shrink-0 overflow-y-auto">
+          <div className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+            Node Library
           </div>
 
-          <p className="text-[11px] text-zinc-400 leading-relaxed">
-            Click to append nodes to your distributed DAG. Connect ports to direct execution flow.
+          <p className="text-xs text-slate-500 leading-relaxed">
+            Click to add nodes to your canvas. Connect ports to branch and direct execution.
           </p>
 
           <div className="space-y-2">
             {(
               [
-                { type: 'START', label: 'Start Trigger', desc: 'Receives initial payload' },
-                { type: 'HTTP_REQUEST', label: 'HTTP Request', desc: 'REST API call & Saga action' },
-                { type: 'CONDITION', label: 'Condition Branch', desc: 'True/False routing' },
-                { type: 'TRANSFORM', label: 'Transform Script', desc: 'Isolated JS VM sandbox' },
-                { type: 'DELAY', label: 'Delay Pause', desc: 'Timer backoff delay' },
-                { type: 'LOG', label: 'Audit Log', desc: 'Structured message' },
-                { type: 'END', label: 'End Terminal', desc: 'Closes transaction' },
+                { type: 'START', label: 'Trigger Event', desc: 'Inbound webhook / manual trigger' },
+                { type: 'TRANSFORM', label: 'Validate Order', desc: 'Schema & business rule checks' },
+                { type: 'HTTP_REQUEST', label: 'Check Inventory', desc: 'Warehouse database query' },
+                { type: 'HTTP_REQUEST', label: 'Process Payment', desc: 'Credit card capture API' },
+                { type: 'HTTP_REQUEST', label: 'Update Inventory', desc: 'ERP SKU count decrement' },
+                { type: 'CONDITION', label: 'Branch Condition', desc: 'In Stock / Out of Stock' },
+                { type: 'LOG', label: 'Send Notification', desc: 'Email / SMS customer alert' },
+                { type: 'END', label: 'End Transaction', desc: 'Closes execution successfully' },
               ] as { type: NodeType; label: string; desc: string }[]
             ).map(item => (
               <button
-                key={item.type}
+                key={`${item.type}-${item.label}`}
                 onClick={() => addNode(item.type)}
-                className="w-full text-left p-2.5 rounded-lg border border-zinc-800 hover:border-emerald-500/50 hover:bg-zinc-900 transition-all group cursor-pointer"
+                className="w-full text-left p-2.5 rounded-lg border border-slate-200 hover:border-blue-400 hover:bg-blue-50/50 transition-all group cursor-pointer"
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-semibold text-zinc-200 group-hover:text-emerald-300">
+                  <span className="text-xs font-semibold text-slate-800 group-hover:text-blue-700">
                     {item.label}
                   </span>
-                  <Plus className="w-3.5 h-3.5 text-zinc-500 group-hover:text-emerald-400" />
+                  <Plus className="w-3.5 h-3.5 text-slate-400 group-hover:text-blue-600" />
                 </div>
-                <div className="text-[10px] text-zinc-400 mt-0.5">{item.desc}</div>
+                <div className="text-[11px] text-slate-500 mt-0.5">{item.desc}</div>
               </button>
             ))}
           </div>
         </div>
 
         {/* Center Canvas */}
-        <div className="flex-1 h-full bg-zinc-900 relative">
+        <div className="flex-1 h-full bg-[#f8fafc] relative">
           <ReactFlow
             nodes={nodes}
             edges={edges}
@@ -527,20 +595,17 @@ export const WorkflowBuilderPage: React.FC<WorkflowBuilderPageProps> = ({
             onPaneClick={onPaneClick}
             nodeTypes={nodeTypes}
             fitView
-            minZoom={0.2}
-            maxZoom={2}
           >
-            <Background color="#27272a" gap={20} size={1} />
-            <Controls className="!bg-zinc-900 !border-zinc-800 !text-zinc-200" />
+            <Background color="#cbd5e1" gap={16} size={1} />
+            <Controls className="!bg-white !border-slate-200 !shadow-sm !rounded-lg" />
             <MiniMap
-              className="!bg-zinc-950 !border-zinc-800"
-              nodeColor={() => '#10b981'}
-              maskColor="rgba(0, 0, 0, 0.7)"
+              className="!bg-white !border-slate-200 !shadow-sm !rounded-lg"
+              nodeColor={n => (n.type === 'START' ? '#10b981' : n.type === 'CONDITION' ? '#f59e0b' : '#3b82f6')}
             />
           </ReactFlow>
         </div>
 
-        {/* Right Node Configuration Side Panel */}
+        {/* Right Configuration Drawer */}
         <NodeConfigPanel
           selectedNode={selectedNode}
           onUpdateNode={handleUpdateNode}
@@ -550,50 +615,45 @@ export const WorkflowBuilderPage: React.FC<WorkflowBuilderPageProps> = ({
         />
       </div>
 
-      {/* Execute Modal */}
+      {/* Execution Payload Modal */}
       {showExecuteModal && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="w-full max-w-lg rounded-xl border border-zinc-800 bg-zinc-950 p-6 shadow-2xl space-y-4 font-mono text-xs">
-            <div className="flex items-center justify-between pb-3 border-b border-zinc-800">
-              <div className="text-sm font-bold text-zinc-100 flex items-center gap-2">
-                <Play className="w-4 h-4 text-emerald-400 fill-current" />
-                <span>Execute Workflow Instance</span>
-              </div>
+        <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-xl border border-slate-200 shadow-xl max-w-lg w-full p-6 space-y-4">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <h3 className="text-base font-bold text-slate-900">Trigger Workflow Execution</h3>
               <button
                 onClick={() => setShowExecuteModal(false)}
-                className="text-zinc-400 hover:text-zinc-200"
+                className="text-slate-400 hover:text-slate-600 cursor-pointer"
               >
                 ✕
               </button>
             </div>
 
-            <p className="text-zinc-400 text-[11px] leading-relaxed">
-              Inject custom input payload into the START node. The workflow state machine will process the DAG, dispatch workers, and broadcast real-time WebSocket progress.
+            <p className="text-xs text-slate-600">
+              Provide input data JSON for the trigger node:
             </p>
 
-            <div>
-              <label className="block text-[11px] text-zinc-400 mb-1">Input Payload (JSON)</label>
-              <textarea
-                rows={6}
-                value={executePayload}
-                onChange={e => setExecutePayload(e.target.value)}
-                className="w-full p-2.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-200 font-mono text-[11px] focus:outline-none focus:border-emerald-500"
-              />
-            </div>
+            <textarea
+              rows={8}
+              value={executePayload}
+              onChange={e => setExecutePayload(e.target.value)}
+              className="w-full bg-[#f8fafc] border border-slate-200 rounded-lg p-3 font-mono text-xs text-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+            />
 
-            <div className="flex items-center justify-end gap-3 pt-3 border-t border-zinc-800">
+            <div className="flex justify-end gap-2 pt-2">
               <button
                 onClick={() => setShowExecuteModal(false)}
-                className="px-3 py-1.5 rounded border border-zinc-800 text-zinc-400 hover:text-zinc-200"
+                className="px-4 py-2 border border-slate-200 rounded-lg text-xs font-medium text-slate-600 hover:bg-slate-50 cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 onClick={executeCurrentWorkflow}
                 disabled={executing}
-                className="px-4 py-1.5 rounded bg-emerald-600 hover:bg-emerald-500 text-white font-semibold cursor-pointer shadow-sm shadow-emerald-950"
+                className="px-4 py-2 bg-[#2563eb] hover:bg-blue-700 text-white rounded-lg text-xs font-semibold shadow-xs flex items-center gap-1.5 cursor-pointer"
               >
-                {executing ? 'Starting Engine...' : 'Run Execution'}
+                <Play className="w-3.5 h-3.5 fill-current" />
+                <span>{executing ? 'Executing...' : 'Run DAG'}</span>
               </button>
             </div>
           </div>

@@ -28,6 +28,7 @@ router.post('/register', async (req, res) => {
       tenant = db.tenants.create({
         name: organizationName,
         slug,
+        domain: `${slug}.nexusflow.io`,
         plan: selectedPlan,
         rateLimitPerMinute: rateLimit,
         status: 'ACTIVE',

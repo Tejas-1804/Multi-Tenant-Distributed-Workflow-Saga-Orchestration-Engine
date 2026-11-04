@@ -31,9 +31,10 @@ export const NodeConfigPanel: React.FC<NodeConfigPanelProps> = ({
 }) => {
   if (!selectedNode) {
     return (
-      <div className="w-80 border-l border-zinc-800 bg-zinc-950 p-6 flex flex-col items-center justify-center text-center text-zinc-500 font-mono text-xs">
-        <Sliders className="w-8 h-8 text-zinc-700 mb-2" />
-        <div>Select a node on the canvas to configure its properties, retries, and Saga compensations.</div>
+      <div className="w-84 border-l border-slate-200 bg-white p-6 flex flex-col items-center justify-center text-center text-slate-400 font-sans text-xs">
+        <Sliders className="w-8 h-8 text-slate-300 mb-2" />
+        <div className="font-medium text-slate-500">No node selected</div>
+        <div className="text-[11px] text-slate-400 mt-1">Click a node on the canvas to configure properties, retries, and conditional branches.</div>
       </div>
     );
   }
@@ -50,351 +51,207 @@ export const NodeConfigPanel: React.FC<NodeConfigPanelProps> = ({
   };
 
   return (
-    <div className="w-96 border-l border-zinc-800 bg-zinc-950 flex flex-col h-full font-sans text-xs overflow-y-auto">
+    <div className="w-96 border-l border-slate-200 bg-white flex flex-col h-full font-sans text-xs overflow-y-auto">
       {/* Panel Header */}
-      <div className="p-4 border-b border-zinc-800 flex items-center justify-between sticky top-0 bg-zinc-950/95 backdrop-blur z-10">
+      <div className="p-4 border-b border-slate-100 flex items-center justify-between sticky top-0 bg-white/95 backdrop-blur z-10">
         <div className="flex items-center gap-2">
-          <span className="font-mono text-[10px] uppercase font-bold text-zinc-400">
-            CONFIGURATION
+          <span className="font-semibold text-slate-900 text-sm">
+            Node Configuration
           </span>
-          <span className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-300">
+          <span className="font-mono text-[10px] px-2 py-0.5 rounded bg-blue-50 text-blue-700 font-bold">
             {type}
           </span>
         </div>
         <div className="flex items-center gap-1">
           <button
             onClick={() => onDuplicateNode(id)}
-            className="p-1 rounded hover:bg-zinc-800 text-zinc-400 hover:text-zinc-200"
-            title="Duplicate node"
+            className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-md transition-colors"
+            title="Duplicate Node"
           >
-            <Copy className="w-3.5 h-3.5" />
+            <Copy className="w-4 h-4" />
           </button>
           <button
             onClick={() => onDeleteNode(id)}
-            className="p-1 rounded hover:bg-rose-950/50 text-rose-400"
-            title="Delete node"
+            className="p-1.5 text-rose-500 hover:bg-rose-50 rounded-md transition-colors"
+            title="Delete Node"
           >
-            <Trash2 className="w-3.5 h-3.5" />
+            <Trash2 className="w-4 h-4" />
           </button>
           <button
             onClick={onClose}
-            className="p-1 rounded hover:bg-zinc-800 text-zinc-400 hover:text-zinc-200"
+            className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-md transition-colors"
+            title="Close Panel"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
       </div>
 
-      <div className="p-4 space-y-5">
-        {/* Basic Metadata */}
-        <div className="space-y-3">
-          <div>
-            <label className="block text-[11px] font-mono text-zinc-400 mb-1">Node Label</label>
-            <input
-              type="text"
-              value={data.label || ''}
-              onChange={e => handleChange('label', e.target.value)}
-              className="w-full px-2.5 py-1.5 rounded-md border border-zinc-800 bg-zinc-900 text-zinc-100 focus:outline-none focus:border-emerald-500"
-              placeholder="e.g. Capture Payment"
-            />
-          </div>
-
-          <div>
-            <label className="block text-[11px] font-mono text-zinc-400 mb-1">Description</label>
-            <textarea
-              rows={2}
-              value={data.description || ''}
-              onChange={e => handleChange('description', e.target.value)}
-              className="w-full px-2.5 py-1.5 rounded-md border border-zinc-800 bg-zinc-900 text-zinc-100 focus:outline-none focus:border-emerald-500"
-              placeholder="Action summary or documentation"
-            />
-          </div>
+      {/* Main Form Fields */}
+      <div className="p-4 space-y-4">
+        {/* Label */}
+        <div className="space-y-1">
+          <label className="text-[11px] font-semibold text-slate-700">Display Label</label>
+          <input
+            type="text"
+            value={data.label || ''}
+            onChange={e => handleChange('label', e.target.value)}
+            className="w-full px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-slate-800 text-xs focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+            placeholder="e.g. Check Inventory"
+          />
         </div>
 
-        {/* HTTP REQUEST NODE CONFIG */}
+        {/* Description */}
+        <div className="space-y-1">
+          <label className="text-[11px] font-semibold text-slate-700">Description</label>
+          <textarea
+            rows={2}
+            value={data.description || ''}
+            onChange={e => handleChange('description', e.target.value)}
+            className="w-full px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-slate-800 text-xs focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+            placeholder="Document what this node does..."
+          />
+        </div>
+
+        {/* Demo failure switch */}
+        <div className="p-3 rounded-lg border border-rose-200 bg-rose-50/50 flex items-center justify-between">
+          <div>
+            <div className="text-[11px] font-bold text-rose-900 flex items-center gap-1.5">
+              <AlertTriangle className="w-3.5 h-3.5 text-rose-600" />
+              <span>Simulate Downstream Failure</span>
+            </div>
+            <div className="text-[10px] text-rose-700 mt-0.5">
+              Force node failure to test Saga compensation and retry policies
+            </div>
+          </div>
+          <input
+            type="checkbox"
+            checked={!!data.simulateFailure}
+            onChange={e => handleChange('simulateFailure', e.target.checked)}
+            className="w-4 h-4 text-rose-600 rounded cursor-pointer"
+          />
+        </div>
+
+        {/* Node Type Specific Fields */}
         {type === 'HTTP_REQUEST' && (
-          <div className="space-y-4 pt-3 border-t border-zinc-800/80">
-            <div className="flex items-center gap-1.5 text-cyan-400 font-mono text-[11px] font-semibold">
+          <div className="space-y-3 pt-2 border-t border-slate-100">
+            <div className="flex items-center gap-1.5 text-blue-700 font-bold text-[11px]">
               <Globe className="w-3.5 h-3.5" />
-              <span>HTTP REQUEST SPECIFICATION</span>
+              <span>HTTP Endpoint Configuration</span>
             </div>
 
             <div className="grid grid-cols-3 gap-2">
-              <div>
-                <label className="block text-[10px] font-mono text-zinc-400 mb-1">Method</label>
+              <div className="col-span-1 space-y-1">
+                <label className="text-[10px] font-semibold text-slate-600">Method</label>
                 <select
-                  value={data.method || 'GET'}
+                  value={data.method || 'POST'}
                   onChange={e => handleChange('method', e.target.value)}
-                  className="w-full px-2 py-1.5 rounded-md border border-zinc-800 bg-zinc-900 text-zinc-100 font-mono text-xs"
+                  className="w-full px-2 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs"
                 >
                   <option value="GET">GET</option>
                   <option value="POST">POST</option>
                   <option value="PUT">PUT</option>
-                  <option value="DELETE">DELETE</option>
                   <option value="PATCH">PATCH</option>
+                  <option value="DELETE">DELETE</option>
                 </select>
               </div>
-              <div className="col-span-2">
-                <label className="block text-[10px] font-mono text-zinc-400 mb-1">Endpoint URL</label>
+              <div className="col-span-2 space-y-1">
+                <label className="text-[10px] font-semibold text-slate-600">Timeout (ms)</label>
                 <input
-                  type="text"
-                  value={data.url || ''}
-                  onChange={e => handleChange('url', e.target.value)}
-                  placeholder="https://api.example.com/v1/..."
-                  className="w-full px-2 py-1.5 rounded-md border border-zinc-800 bg-zinc-900 text-zinc-100 font-mono text-xs"
+                  type="number"
+                  value={data.timeoutMs || 5000}
+                  onChange={e => handleChange('timeoutMs', parseInt(e.target.value, 10))}
+                  className="w-full px-2 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs"
                 />
               </div>
             </div>
 
-            {['POST', 'PUT', 'PATCH'].includes(data.method || 'GET') && (
-              <div>
-                <label className="block text-[10px] font-mono text-zinc-400 mb-1">
-                  Request Body (JSON Template)
-                </label>
-                <textarea
-                  rows={4}
-                  value={data.body || ''}
-                  onChange={e => handleChange('body', e.target.value)}
-                  placeholder={'{\n  "orderId": "{{orderId}}",\n  "amount": 250\n}'}
-                  className="w-full px-2.5 py-1.5 rounded-md border border-zinc-800 bg-zinc-900 text-zinc-100 font-mono text-[11px]"
-                />
-              </div>
-            )}
-
-            {/* Retry Policy Configuration */}
-            <div className="p-3 rounded-lg border border-zinc-800 bg-zinc-900/40 space-y-2.5">
-              <div className="flex items-center gap-1.5 text-purple-400 font-mono text-[11px] font-semibold">
-                <Repeat className="w-3 h-3" />
-                <span>EXPONENTIAL BACKOFF RETRY</span>
-              </div>
-
-              <div className="grid grid-cols-3 gap-2 text-[10px] font-mono">
-                <div>
-                  <label className="text-zinc-400">Max Attempts</label>
-                  <input
-                    type="number"
-                    min={1}
-                    max={5}
-                    value={data.retryPolicy?.maxAttempts ?? 3}
-                    onChange={e => handleNestedChange('retryPolicy', 'maxAttempts', parseInt(e.target.value) || 1)}
-                    className="w-full mt-1 px-2 py-1 rounded bg-zinc-900 border border-zinc-800 text-zinc-200"
-                  />
-                </div>
-                <div>
-                  <label className="text-zinc-400">Initial (ms)</label>
-                  <input
-                    type="number"
-                    step={500}
-                    value={data.retryPolicy?.initialDelayMs ?? 1000}
-                    onChange={e => handleNestedChange('retryPolicy', 'initialDelayMs', parseInt(e.target.value) || 500)}
-                    className="w-full mt-1 px-2 py-1 rounded bg-zinc-900 border border-zinc-800 text-zinc-200"
-                  />
-                </div>
-                <div>
-                  <label className="text-zinc-400">Multiplier</label>
-                  <input
-                    type="number"
-                    step={0.5}
-                    value={data.retryPolicy?.backoffMultiplier ?? 2}
-                    onChange={e => handleNestedChange('retryPolicy', 'backoffMultiplier', parseFloat(e.target.value) || 2)}
-                    className="w-full mt-1 px-2 py-1 rounded bg-zinc-900 border border-zinc-800 text-zinc-200"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* SAGA COMPENSATION CONFIGURATION */}
-            <div className="p-3 rounded-lg border border-cyan-900/60 bg-cyan-950/20 space-y-3">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1.5 text-cyan-300 font-mono text-[11px] font-semibold">
-                  <RotateCcw className="w-3 h-3" />
-                  <span>SAGA COMPENSATION ROLLBACK</span>
-                </div>
-                <input
-                  type="checkbox"
-                  checked={data.compensation?.enabled || false}
-                  onChange={e => handleNestedChange('compensation', 'enabled', e.target.checked)}
-                  className="rounded border-zinc-700 bg-zinc-900 text-cyan-500 focus:ring-0 cursor-pointer"
-                />
-              </div>
-
-              {data.compensation?.enabled && (
-                <div className="space-y-2 text-[10px] font-mono">
-                  <div>
-                    <label className="text-zinc-400">Rollback Action Name</label>
-                    <input
-                      type="text"
-                      value={data.compensation.name || ''}
-                      onChange={e => handleNestedChange('compensation', 'name', e.target.value)}
-                      placeholder="e.g. Refund Payment Transaction"
-                      className="w-full mt-1 px-2 py-1 rounded bg-zinc-900 border border-zinc-800 text-zinc-200"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-zinc-400">Simulated Rollback Effect</label>
-                    <input
-                      type="text"
-                      value={data.compensation.simulatedAction || ''}
-                      onChange={e => handleNestedChange('compensation', 'simulatedAction', e.target.value)}
-                      placeholder="e.g. Refund $249.99 to customer credit card"
-                      className="w-full mt-1 px-2 py-1 rounded bg-zinc-900 border border-zinc-800 text-zinc-200"
-                    />
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* INTENTIONAL FAILURE SIMULATOR SWITCH */}
-            <div className="p-3 rounded-lg border border-rose-900/60 bg-rose-950/20 flex items-center justify-between">
-              <div className="space-y-0.5">
-                <div className="flex items-center gap-1 text-rose-300 font-mono text-[11px] font-semibold">
-                  <AlertTriangle className="w-3 h-3" />
-                  <span>SIMULATE FAILURE (TESTING)</span>
-                </div>
-                <div className="text-[10px] text-zinc-400">
-                  Force this node to throw 500 error to test retries, DLQ, and Saga reversal.
-                </div>
-              </div>
+            <div className="space-y-1">
+              <label className="text-[10px] font-semibold text-slate-600">Target URL</label>
               <input
-                type="checkbox"
-                checked={data.simulateFailure || false}
-                onChange={e => handleChange('simulateFailure', e.target.checked)}
-                className="w-4 h-4 rounded border-zinc-700 bg-zinc-900 text-rose-500 cursor-pointer"
+                type="text"
+                value={data.url || ''}
+                onChange={e => handleChange('url', e.target.value)}
+                className="w-full px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-[11px]"
+                placeholder="https://api.example.com/v1/stock"
               />
             </div>
           </div>
         )}
 
-        {/* CONDITION NODE CONFIG */}
+        {/* CONDITION Fields */}
         {type === 'CONDITION' && (
-          <div className="space-y-3 pt-3 border-t border-zinc-800/80">
-            <div className="text-amber-400 font-mono text-[11px] font-semibold">
-              BRANCH EVALUATION RULE
-            </div>
-
-            <div>
-              <label className="block text-[10px] font-mono text-zinc-400 mb-1">Variable Field</label>
+          <div className="space-y-3 pt-2 border-t border-slate-100">
+            <div className="font-bold text-[11px] text-amber-700">Conditional Evaluation</div>
+            <div className="space-y-1">
+              <label className="text-[10px] font-semibold text-slate-600">Field in Context</label>
               <input
                 type="text"
-                value={data.conditionField || ''}
+                value={data.conditionField || 'status'}
                 onChange={e => handleChange('conditionField', e.target.value)}
-                placeholder="e.g. status or amount"
-                className="w-full px-2 py-1.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-100 font-mono"
+                className="w-full px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-xs"
+                placeholder="status, quantity, inStock..."
               />
             </div>
-
             <div className="grid grid-cols-2 gap-2">
-              <div>
-                <label className="block text-[10px] font-mono text-zinc-400 mb-1">Operator</label>
+              <div className="space-y-1">
+                <label className="text-[10px] font-semibold text-slate-600">Operator</label>
                 <select
                   value={data.conditionOperator || '=='}
                   onChange={e => handleChange('conditionOperator', e.target.value)}
-                  className="w-full px-2 py-1.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-100 font-mono"
+                  className="w-full px-2 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs"
                 >
                   <option value="==">== (Equals)</option>
                   <option value="!=">!= (Not Equal)</option>
-                  <option value=">">&gt; (Greater)</option>
-                  <option value="<">&lt; (Less)</option>
-                  <option value=">=">&gt;= (Greater or Equal)</option>
-                  <option value="<=">&lt;= (Less or Equal)</option>
-                  <option value="contains">contains</option>
-                  <option value="exists">exists</option>
+                  <option value=">">&gt; (Greater than)</option>
+                  <option value="<">&lt; (Less than)</option>
                 </select>
               </div>
-
-              <div>
-                <label className="block text-[10px] font-mono text-zinc-400 mb-1">Target Value</label>
+              <div className="space-y-1">
+                <label className="text-[10px] font-semibold text-slate-600">Expected Value</label>
                 <input
                   type="text"
-                  value={data.conditionValue || ''}
+                  value={data.conditionValue || '200'}
                   onChange={e => handleChange('conditionValue', e.target.value)}
-                  placeholder="e.g. 200"
-                  className="w-full px-2 py-1.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-100 font-mono"
+                  className="w-full px-2 py-1.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-xs"
                 />
               </div>
             </div>
-          </div>
-        )}
-
-        {/* TRANSFORM NODE CONFIG */}
-        {type === 'TRANSFORM' && (
-          <div className="space-y-3 pt-3 border-t border-zinc-800/80">
-            <div className="flex items-center gap-1.5 text-purple-400 font-mono text-[11px] font-semibold">
-              <Code2 className="w-3.5 h-3.5" />
-              <span>SANDBOX JAVASCRIPT TRANSFORM</span>
-            </div>
-
-            <p className="text-[10px] text-zinc-400 leading-relaxed">
-              Executed in an isolated Node.js context with 2-second timeout protection.
-            </p>
-
-            <div>
-              <label className="block text-[10px] font-mono text-zinc-400 mb-1">Script Function</label>
-              <textarea
-                rows={8}
-                value={data.transformScript || ''}
-                onChange={e => handleChange('transformScript', e.target.value)}
-                placeholder={'// input is available globally\nreturn {\n  ...input,\n  tax: input.price * 0.18\n};'}
-                className="w-full px-2.5 py-2 rounded bg-zinc-900 border border-zinc-800 text-purple-200 font-mono text-[11px]"
-              />
+            <div className="text-[10px] text-slate-500 bg-slate-50 p-2 rounded border border-slate-200">
+              Left Handle = True ("In Stock"), Right Handle = False ("Out of Stock")
             </div>
           </div>
         )}
 
-        {/* DELAY NODE CONFIG */}
-        {type === 'DELAY' && (
-          <div className="space-y-3 pt-3 border-t border-zinc-800/80">
-            <div className="flex items-center gap-1.5 text-zinc-300 font-mono text-[11px] font-semibold">
-              <Clock className="w-3.5 h-3.5" />
-              <span>DELAY DURATION</span>
-            </div>
-
+        {/* Retry Policy Section */}
+        <div className="pt-3 border-t border-slate-100 space-y-2">
+          <div className="flex items-center gap-1.5 text-slate-800 font-bold text-[11px]">
+            <Repeat className="w-3.5 h-3.5 text-blue-600" />
+            <span>Exponential Backoff Retry Policy</span>
+          </div>
+          <div className="grid grid-cols-2 gap-2">
             <div>
-              <label className="block text-[10px] font-mono text-zinc-400 mb-1">Duration (milliseconds)</label>
+              <label className="text-[10px] text-slate-500">Max Retries</label>
               <input
                 type="number"
-                step={500}
-                value={data.delayMs || 1000}
-                onChange={e => handleChange('delayMs', parseInt(e.target.value) || 1000)}
-                className="w-full px-2 py-1.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-100 font-mono"
+                min={0}
+                max={10}
+                value={data.retryPolicy?.maxAttempts ?? 3}
+                onChange={e => handleNestedChange('retryPolicy', 'maxAttempts', parseInt(e.target.value, 10))}
+                className="w-full px-2 py-1 bg-slate-50 border border-slate-200 rounded text-xs"
               />
             </div>
-          </div>
-        )}
-
-        {/* LOG NODE CONFIG */}
-        {type === 'LOG' && (
-          <div className="space-y-3 pt-3 border-t border-zinc-800/80">
-            <div className="flex items-center gap-1.5 text-blue-400 font-mono text-[11px] font-semibold">
-              <FileText className="w-3.5 h-3.5" />
-              <span>STRUCTURED AUDIT LOGGING</span>
-            </div>
-
             <div>
-              <label className="block text-[10px] font-mono text-zinc-400 mb-1">Log Level</label>
-              <select
-                value={data.logLevel || 'INFO'}
-                onChange={e => handleChange('logLevel', e.target.value)}
-                className="w-full px-2 py-1.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-100 font-mono"
-              >
-                <option value="INFO">INFO</option>
-                <option value="WARN">WARN</option>
-                <option value="ERROR">ERROR</option>
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-[10px] font-mono text-zinc-400 mb-1">Message Template</label>
+              <label className="text-[10px] text-slate-500">Delay (ms)</label>
               <input
-                type="text"
-                value={data.logMessage || ''}
-                onChange={e => handleChange('logMessage', e.target.value)}
-                placeholder="Log message..."
-                className="w-full px-2 py-1.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-100 font-mono"
+                type="number"
+                value={data.retryPolicy?.initialDelayMs ?? 1000}
+                onChange={e => handleNestedChange('retryPolicy', 'initialDelayMs', parseInt(e.target.value, 10))}
+                className="w-full px-2 py-1 bg-slate-50 border border-slate-200 rounded text-xs"
               />
             </div>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );

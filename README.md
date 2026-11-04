@@ -1,6 +1,6 @@
-# Multi-Tenant Distributed Workflow & Saga Orchestration Engine
+# FlowForge — Enterprise Workflow Orchestration Engine
 
-An enterprise-grade, student-friendly distributed workflow orchestration engine inspired by **Temporal** and **Zapier**. Built with React Flow, Node.js, Express, WebSockets, MongoDB, and Docker.
+FlowForge is a multi-tenant visual workflow automation and DAG orchestration dashboard inspired by **Temporal** and **Zapier**. It features a directed acyclic graph (DAG) builder, real-time execution monitoring, exponential backoff with jitter, reverse-LIFO Saga compensations, and distributed worker tracking.
 
 ---
 
@@ -8,7 +8,7 @@ An enterprise-grade, student-friendly distributed workflow orchestration engine 
 
 ```
                       ┌────────────────────────────────────────┐
-                      │          React SPA Dashboard           │
+                      │          FlowForge React SPA           │
                       │    (Visual DAG Builder, Live Trace)    │
                       └──────────────────┬─────────────────────┘
                                          │  HTTP / WebSocket (/ws)
@@ -42,74 +42,165 @@ An enterprise-grade, student-friendly distributed workflow orchestration engine 
 
 ---
 
-## Key Features
+## 10 Dedicated Pages & Capabilities
 
-1. **Multi-Tenant Architecture**: Strict organizational isolation. Documents contain `tenantId`, verified by database query filtering and JWT / API-key middleware.
-2. **Visual DAG Workflow Builder**: Powered by `@xyflow/react`. Create, connect, configure, duplicate, and validate nodes visually.
-3. **DAG Cycle & Reachability Validation**: Detects circular loops (White-Gray-Black DFS graph coloring), unreachable orphan nodes, missing START/END nodes, and broken condition branches.
-4. **Saga Orchestration Pattern**: If downstream operations fail after retry exhaustion, compensating actions execute in reverse topological order (LIFO) to guarantee eventual consistency.
-5. **Exponential Backoff Retry Engine**: Configurable retry policies with initial delays, multipliers, and jitter for transient errors (500, 502, 503, 504, timeouts).
-6. **Dead Letter Queue (DLQ)**: Retains unrecoverable failed jobs for root-cause inspection and manual replay.
-7. **Sandboxed Code Transformations**: Executes arbitrary JavaScript transformation scripts in isolated VM contexts with strict execution timeouts.
-8. **Real-Time WebSocket Tracing**: Live node status changes, retry attempts, Saga rollbacks, and event streams.
-9. **Role-Based Access Control (RBAC)**: Support for `SUPER_ADMIN`, `TENANT_ADMIN`, and `TENANT_USER`.
-10. **Secure API Key Management**: Keys prefixed with `wk_live_`, hashed with SHA-256 before storage.
-11. **Tenant Rate Limiting**: Per-tenant sliding window request limiting with HTTP 429 backpressure.
+1. **Dashboard**:
+   - 4 Summary Cards: Total Workflows (24, ↑ 12%), Running (6, ↑ 50%), Completed (142, ↑ 18%), Failed (12, ↓ 8%).
+   - 7-Day SVG Execution Chart with Failed, Running, and Successful curves.
+   - Recent Executions list with duration and relative time.
+   - Workflows by Status donut chart with center "24 Total".
+   - System Health status panel (API Server, Database, Message Queue, Workers).
+   - Active Tenants table (Acme Corp, TechNova, Global Systems, Quantum Dynamics, Helios Cloud).
+
+2. **Workflows**:
+   - Complete workflow catalog with search, status filtering, nodes count, and last run.
+   - Actions: 1-Click Run, Edit in Builder, Duplicate, and Delete.
+
+3. **Workflow Builder**:
+   - Visual node-and-edge DAG editor powered by `@xyflow/react`.
+   - Node Palette: Trigger, Validate Order, Check Inventory, Process Payment, Update Inventory, Send Notification.
+   - Conditional branches with labels "In Stock" (green) and "Out of Stock" (red).
+   - Cycle detection and topological graph validation before saving or running.
+   - Direct Execution Modal with customizable input JSON.
+
+4. **Executions**:
+   - Trace list of executions with status pills, durations, and triggers.
+   - Interactive Execution Detail page:
+     - `Flow View` and `Execution Timeline` subtabs with zoom controls (`-`, `100%`, `+`, `⛶`).
+     - Live execution DAG highlighting active node (Check Inventory running spinner).
+     - "Current Step Details" with collapsible formatted Input/Output JSON code viewers.
+     - "Execution Status" vertical stepper.
+     - Actions: **Retry from Current Step**, **Cancel Execution**, and **View in Workflow**.
+
+5. **Templates**:
+   - Reusable blueprints catalog: E-Commerce Order Fulfillment, Payment Processing & Invoicing, User Onboarding & KYC, Multi-Warehouse Sync.
+   - 1-Click "Use Template" instantiation into active tenant.
+
+6. **Tenants**:
+   - Strict multi-tenant isolation with custom subdomains (`acme.flowforge.com`).
+   - Tenant Admins: Tejas, Amaan, Priyanka, and Rinkle Sharma.
+   - Organization quota, rate limits, and instant workspace switcher.
+
+7. **Workers**:
+   - Fleet monitoring across geographical regions (US-East, EU-West, AP-South).
+   - Live CPU percentage, memory utilization, active concurrent jobs, and latency.
+
+8. **Monitoring**:
+   - Detailed service latency telemetry (API Server 120ms, Database 45ms, Message Queue 32ms, Workers 98ms).
+   - Ingestion throughput and queue backlog indicators.
+
+9. **Alerts**:
+   - Incident feed categorized by severity (Critical, Warning, Info).
+   - Acknowledge and resolve workflow anomalies with live state updating.
+
+10. **Settings**:
+    - User profile details, workspace domain, subscription tiers.
+    - Programmatic API key generation with secure SHA-256 hashing.
+    - Alert notification threshold preferences.
 
 ---
 
-## Quick Start
+## Quickstart & Local Setup
 
-### Local Development
+### Windows PowerShell
+
+```powershell
+# 1. Clone repository & enter workspace
+git clone <repo-url> flowforge
+cd flowforge
+
+# 2. Install dependencies
+npm install
+
+# 3. Copy environment configuration
+Copy-Item .env.example .env
+
+# 4. Start FlowForge (Port 3000 serves both API and React frontend)
+npm run dev
+```
+
+### Linux / macOS
+
 ```bash
 # 1. Install dependencies
 npm install
 
-# 2. Start full-stack development server (Express + Vite on Port 3000)
-npm run dev
+# 2. Copy environment configuration
+cp .env.example .env
 
-# 3. Run automated tests
+# 3. Start development server
+npm run dev
+```
+
+Open your browser at `http://localhost:3000` (or `http://localhost:5174`).
+
+---
+
+## Automated Verification Suite
+
+Run the full automated test suite verifying cycle detection, retry backoff with jitter, sandboxed execution, and API key hashing:
+
+```bash
 npx tsx test/workflow-engine.test.ts
 ```
 
-### Docker Compose
-```bash
-docker-compose up --build
+Output:
+```
+🧪 Starting Workflow & Saga Engine Automated Test Suite...
+[1] Cycle Detection & DAG Validation Tests:
+  ✅ PASS: Cyclic workflow rejected as invalid
+  ✅ PASS: Cycle error accurately identifies circular dependency
+  ✅ PASS: Valid acyclic DAG passes validation with zero errors
+[2] Retry & Exponential Backoff Engine Tests:
+  ✅ PASS: Attempt 1 runs immediately without backoff
+  ✅ PASS: Attempt 2 backoff is ~1000ms (+jitter)
+  ✅ PASS: Attempt 3 backoff is ~2000ms (+jitter)
+  ✅ PASS: Attempt 4 backoff is ~4000ms (+jitter)
+  ✅ PASS: HTTP 503 Service Unavailable recognized as retryable
+  ✅ PASS: Network timeout recognized as retryable
+  ✅ PASS: HTTP 400 Bad Request is non-retryable client error
+[3] Sandboxed Transform Node Security Tests:
+  ✅ PASS: Sandboxed script executes successfully
+  ✅ PASS: Transform output calculated accurately
+  ✅ PASS: Infinite loop terminated safely via execution timeout
+[4] Security & API Key Hashing Tests:
+  ✅ PASS: API key generated with standard enterprise prefix
+  ✅ PASS: SHA-256 hash matches verification algorithm
+  ✅ PASS: Raw secret is never stored directly
+==============================================
+Test Results: 16 passed, 0 failed.
+==============================================
 ```
 
 ---
 
-## Seed Accounts (1-Click Switchable in UI)
+## API Endpoints Reference
 
-| Role | Name | Email | Password | Organization |
-| :--- | :--- | :--- | :--- | :--- |
-| **TENANT_ADMIN** | Tejas | `tejas@acme.com` | `Tejas123!` | Acme Logistics Global |
-| **TENANT_ADMIN** | Amaan | `amaan@cyberdyne.com` | `Amaan123!` | Cyberdyne Systems Corp |
-| **TENANT_ADMIN** | Priyanka | `priyanka@quantum.io` | `Priyanka123!` | Quantum Dynamics Corp |
-| **TENANT_ADMIN** | Rinkle Sharma | `rinkle@helios.net` | `Rinkle123!` | Helios Cloud Systems |
-| **SUPER_ADMIN** | System Administrator | `superadmin@orchestration.engine` | `Admin123!` | Platform Global |
-
----
-
-## Demonstration Scenarios
-
-### 1. Success Scenario
-Execute the pre-loaded **E-Commerce Order Processing** workflow:
-- Captures Payment via HTTP
-- Reserves Warehouse Inventory
-- Evaluates Condition (In Stock)
-- Creates Carrier Waybill
-- Formats Invoice in VM Sandbox
-- Terminal state: **SUCCESS**
-
-### 2. Saga Rollback & DLQ Failure Scenario
-Click **"Simulate Failure & Rollback"** on the dashboard:
-- Payment Capture: **SUCCESS**
-- Inventory Reservation: **SUCCESS**
-- Carrier Waybill: **FAILS** (Simulated 500 error)
-- System retries 3 times with exponential backoff
-- Retries exhausted -> enqueued to **Dead Letter Queue**
-- **Saga Compensation Coordinator** begins reverse rollback:
-  - 1. Release Inventory (Compensated)
-  - 2. Refund Payment (Compensated)
-- Final state: **COMPENSATED** (Eventual consistency preserved!)
+| Method | Endpoint | Description |
+|---|---|---|
+| `POST` | `/api/auth/login` | Authenticate user credentials & issue JWT |
+| `POST` | `/api/auth/register` | Register new user & provision tenant |
+| `GET` | `/api/auth/me` | Fetch active user profile and tenant |
+| `GET` | `/api/tenants` | List all accessible tenants & domains |
+| `POST` | `/api/tenants` | Provision new tenant organization |
+| `GET` | `/api/workflows` | List workflows in active tenant |
+| `POST` | `/api/workflows` | Create new workflow DAG |
+| `GET` | `/api/workflows/:id` | Get workflow definition & nodes |
+| `PUT` | `/api/workflows/:id` | Update workflow nodes & edges |
+| `DELETE`| `/api/workflows/:id` | Delete workflow |
+| `POST` | `/api/workflows/:id/execute` | Trigger workflow execution |
+| `POST` | `/api/workflows/validate-raw` | Validate DAG acyclicity & structure |
+| `GET` | `/api/executions` | List executions in tenant |
+| `GET` | `/api/executions/:id` | Get execution flow & node step details |
+| `POST` | `/api/executions/:id/retry` | Retry execution from current step |
+| `POST` | `/api/executions/:id/cancel` | Cancel running execution |
+| `GET` | `/api/templates` | List reusable workflow templates |
+| `POST` | `/api/templates/:id/instantiate` | Instantiate template as workflow |
+| `GET` | `/api/workers` | Get worker fleet metrics |
+| `GET` | `/api/monitoring/health` | Get service health & p99 latencies |
+| `GET` | `/api/alerts` | List system & workflow alerts |
+| `POST` | `/api/alerts/:id/resolve` | Resolve alert incident |
+| `GET` | `/api/api-keys` | List tenant API keys |
+| `POST` | `/api/api-keys` | Generate new API key |
+| `GET` | `/api/dlq` | List Dead Letter Queue unresolved jobs |
+| `GET` | `/api/health` | Global health status check |

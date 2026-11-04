@@ -1,6 +1,6 @@
 {
-  "name": "Multi-Tenant Distributed Workflow & Saga Orchestration Engine",
-  "description": "Enterprise multi-tenant DAG workflow orchestration engine featuring Saga compensations, exponential backoff retries, real-time WebSocket monitoring, sandboxed execution, and Dead Letter Queue.",
+  "name": "FlowForge - Enterprise Workflow Orchestration Engine",
+  "description": "Multi-tenant visual workflow automation and DAG orchestration dashboard with distributed execution monitoring, Saga compensations, and retry policies.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
