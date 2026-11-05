@@ -2,13 +2,14 @@
   "tenants": [
     {
       "id": "tenant_8seup31w",
-      "name": "Acme Logistics Global",
-      "slug": "acme-logistics",
-      "plan": "PRO",
+      "name": "Acme Corp",
+      "slug": "acme-corp",
+      "plan": "ENTERPRISE",
       "rateLimitPerMinute": 1000,
       "status": "ACTIVE",
       "createdAt": "2026-10-08T15:27:09.500Z",
-      "updatedAt": "2026-10-08T15:27:09.500Z"
+      "updatedAt": "2026-11-05T11:09:44.260Z",
+      "domain": "acme.nexusflow.io"
     },
     {
       "id": "tenant_yhm749uq",
@@ -49,6 +50,39 @@
       "status": "ACTIVE",
       "createdAt": "2026-10-28T15:36:28.682Z",
       "updatedAt": "2026-10-28T15:36:28.682Z"
+    },
+    {
+      "id": "tenant_eciiez67",
+      "name": "Dharma",
+      "slug": "dharma",
+      "domain": "dharma.nexusflow.io",
+      "plan": "ENTERPRISE",
+      "rateLimitPerMinute": 5000,
+      "status": "ACTIVE",
+      "createdAt": "2026-11-04T10:03:07.202Z",
+      "updatedAt": "2026-11-05T11:09:44.256Z"
+    },
+    {
+      "id": "tenant_9ef2ezp2",
+      "name": "TechNova",
+      "slug": "technova",
+      "domain": "technova.nexusflow.io",
+      "plan": "PRO",
+      "rateLimitPerMinute": 1500,
+      "status": "ACTIVE",
+      "createdAt": "2026-11-04T10:03:07.209Z",
+      "updatedAt": "2026-11-04T10:03:07.209Z"
+    },
+    {
+      "id": "tenant_374pq9io",
+      "name": "Global Systems",
+      "slug": "global-systems",
+      "domain": "global.nexusflow.io",
+      "plan": "ENTERPRISE",
+      "rateLimitPerMinute": 5000,
+      "status": "ACTIVE",
+      "createdAt": "2026-11-04T10:03:07.212Z",
+      "updatedAt": "2026-11-04T10:03:07.212Z"
     }
   ],
   "users": [
@@ -61,18 +95,18 @@
       "status": "ACTIVE",
       "passwordHash": "$2b$10$n/gwh3FlS0jCnXGnt0uY5unEp28AMDqvMbllTwVKWsY63qiAp27Jm",
       "createdAt": "2026-10-08T15:27:09.902Z",
-      "updatedAt": "2026-10-08T15:27:09.902Z"
+      "updatedAt": "2026-11-05T11:09:44.265Z"
     },
     {
       "id": "usr_hrxzhz1x",
       "tenantId": "tenant_8seup31w",
-      "name": "Tejas",
+      "name": "Tejas Reddy",
       "email": "admin@acme.com",
       "role": "TENANT_ADMIN",
       "status": "ACTIVE",
-      "passwordHash": "$2b$12$BrtI6Vs6CwL5KK7WJjEaEuoUDaTwmNXkZI5QxXPDqv1mXNyQnlC32",
+      "passwordHash": "$2b$12$jaDMz3XVtrYA67DoLsLQmOSUeb6NnN4x/9cRQmFI73HUeEY.y5Gyi",
       "createdAt": "2026-10-08T15:27:09.902Z",
-      "updatedAt": "2026-11-04T09:50:01.857Z"
+      "updatedAt": "2026-11-05T11:09:44.282Z"
     },
     {
       "id": "usr_zhg9jzrn",
@@ -110,46 +144,57 @@
     {
       "id": "usr_3u9ecddq",
       "tenantId": "tenant_8seup31w",
-      "name": "Tejas (Tenant Admin)",
+      "name": "Tejas Reddy",
       "email": "tejas@acme.com",
       "role": "TENANT_ADMIN",
       "status": "ACTIVE",
-      "passwordHash": "$2b$12$BrtI6Vs6CwL5KK7WJjEaEuoUDaTwmNXkZI5QxXPDqv1mXNyQnlC32",
+      "passwordHash": "$2b$12$jaDMz3XVtrYA67DoLsLQmOSUeb6NnN4x/9cRQmFI73HUeEY.y5Gyi",
       "createdAt": "2026-10-28T15:36:29.217Z",
-      "updatedAt": "2026-11-04T09:50:01.854Z"
+      "updatedAt": "2026-11-05T11:09:44.276Z"
     },
     {
       "id": "usr_9oipaxmc",
       "tenantId": "tenant_yhm749uq",
-      "name": "Amaan (Tenant Admin)",
+      "name": "Amaan",
       "email": "amaan@cyberdyne.com",
       "role": "TENANT_ADMIN",
       "status": "ACTIVE",
-      "passwordHash": "$2b$12$BzuV5T/Gk0.KsUK9Ga69meeEt/S7L4Y2iVTbgRMJZ7OqOyOktrs16",
+      "passwordHash": "$2b$12$2.7/ajt.tTngJ0MB.sy.p.Xm2YgIan0nglJ4rAmzETiTlLsvAVkfK",
       "createdAt": "2026-10-28T15:36:29.218Z",
-      "updatedAt": "2026-11-04T09:50:01.860Z"
+      "updatedAt": "2026-11-05T11:09:44.290Z"
     },
     {
       "id": "usr_esa5p0d6",
       "tenantId": "tenant_4xgj5ctr",
-      "name": "Priyanka (Tenant Admin)",
+      "name": "Priyanka",
       "email": "priyanka@quantum.io",
       "role": "TENANT_ADMIN",
       "status": "ACTIVE",
-      "passwordHash": "$2b$12$XTmuA3lgheYOb5JIlzQJOuyfJZ1DtY4UEe2RyY9G/AZMXW1VF/5Zu",
+      "passwordHash": "$2b$12$S7sZNebUtvMxvPez5LnrPOTd69mMpNHuDeDnVha8M/yDfz3WnKI0i",
       "createdAt": "2026-10-28T15:36:29.218Z",
-      "updatedAt": "2026-11-04T09:50:01.865Z"
+      "updatedAt": "2026-11-05T11:09:44.295Z"
     },
     {
       "id": "usr_k9irpksi",
       "tenantId": "tenant_28sqvmyk",
-      "name": "Rinkle Sharma (Tenant Admin)",
+      "name": "Rinkle Sharma",
       "email": "rinkle@helios.net",
       "role": "TENANT_ADMIN",
       "status": "ACTIVE",
-      "passwordHash": "$2b$12$sEirY4CSU9Bjqbk4C2UWD.FQijxmK026conIEgyj8cxRzQbLdVXNe",
+      "passwordHash": "$2b$12$/a4dxrc.X6tz5ASj5AxR1uTdUO6FAWVfwP51/Y7YrGPxVBf46ZS7.",
       "createdAt": "2026-10-28T15:36:29.219Z",
-      "updatedAt": "2026-11-04T09:50:01.867Z"
+      "updatedAt": "2026-11-05T11:09:44.302Z"
+    },
+    {
+      "id": "usr_0ywd2s5p",
+      "tenantId": "tenant_eciiez67",
+      "name": "Tejas Reddy",
+      "email": "tejasreddy1808@gmail.com",
+      "role": "TENANT_ADMIN",
+      "status": "ACTIVE",
+      "passwordHash": "$2b$12$jaDMz3XVtrYA67DoLsLQmOSUeb6NnN4x/9cRQmFI73HUeEY.y5Gyi",
+      "createdAt": "2026-11-04T10:03:09.085Z",
+      "updatedAt": "2026-11-05T11:09:44.270Z"
     }
   ],
   "workflows": [
@@ -602,9 +647,1118 @@
       "createdBy": "admin@acme.com",
       "createdAt": "2026-11-04T09:50:38.279Z",
       "updatedAt": "2026-11-04T09:50:38.279Z"
+    },
+    {
+      "id": "wf_u9noqmrc",
+      "version": 1,
+      "tenantId": "tenant_eciiez67",
+      "name": "Order Processing",
+      "description": "Distributed order orchestration pipeline executing validation, warehouse inventory check, payment capture, and notification fallback.",
+      "status": "ACTIVE",
+      "createdBy": "tejasreddy1808@gmail.com",
+      "nodes": [
+        {
+          "id": "node-trigger",
+          "type": "START",
+          "position": {
+            "x": 280,
+            "y": 50
+          },
+          "data": {
+            "label": "Trigger",
+            "sublabel": "New Order",
+            "duration": "234ms",
+            "status": "SUCCESS",
+            "description": "Customer checkout webhook event received"
+          }
+        },
+        {
+          "id": "node-validate",
+          "type": "TRANSFORM",
+          "position": {
+            "x": 280,
+            "y": 160
+          },
+          "data": {
+            "label": "Validate Order",
+            "duration": "512ms",
+            "status": "SUCCESS",
+            "description": "Validate cart line items, pricing, and fraud risk token"
+          }
+        },
+        {
+          "id": "node-inventory",
+          "type": "HTTP_REQUEST",
+          "position": {
+            "x": 280,
+            "y": 280
+          },
+          "data": {
+            "label": "Check Inventory",
+            "duration": "1.2s",
+            "status": "RUNNING",
+            "description": "Query stock levels from inventory services.",
+            "serviceType": "Inventory Services / Database Query",
+            "inputData": {
+              "productId": "PRD-1024",
+              "quantity": 25,
+              "warehouse": "WH-01"
+            },
+            "outputData": null
+          }
+        },
+        {
+          "id": "node-payment",
+          "type": "HTTP_REQUEST",
+          "position": {
+            "x": 120,
+            "y": 440
+          },
+          "data": {
+            "label": "Process Payment",
+            "status": "PENDING",
+            "description": "Capture pre-authorized credit card transaction"
+          }
+        },
+        {
+          "id": "node-update-inv",
+          "type": "HTTP_REQUEST",
+          "position": {
+            "x": 120,
+            "y": 560
+          },
+          "data": {
+            "label": "Update Inventory",
+            "status": "PENDING",
+            "description": "Decrement warehouse SKU quantity and lock safety stock"
+          }
+        },
+        {
+          "id": "node-notify",
+          "type": "LOG",
+          "position": {
+            "x": 440,
+            "y": 440
+          },
+          "data": {
+            "label": "Send Notification",
+            "status": "PENDING",
+            "description": "Notify operations team or send out-of-stock customer alert"
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "e1",
+          "source": "node-trigger",
+          "target": "node-validate"
+        },
+        {
+          "id": "e2",
+          "source": "node-validate",
+          "target": "node-inventory"
+        },
+        {
+          "id": "e3",
+          "source": "node-inventory",
+          "target": "node-payment",
+          "sourceHandle": "true",
+          "label": "In Stock"
+        },
+        {
+          "id": "e4",
+          "source": "node-inventory",
+          "target": "node-notify",
+          "sourceHandle": "false",
+          "label": "Out of Stock"
+        },
+        {
+          "id": "e5",
+          "source": "node-payment",
+          "target": "node-update-inv"
+        }
+      ],
+      "createdAt": "2026-11-04T10:03:09.104Z",
+      "updatedAt": "2026-11-04T10:03:09.104Z"
+    },
+    {
+      "id": "wf_gzsk09s3",
+      "version": 1,
+      "tenantId": "tenant_eciiez67",
+      "name": "Payment Processing",
+      "description": "Recurring subscription billing and settlement with Stripe",
+      "status": "ACTIVE",
+      "createdBy": "tejasreddy1808@gmail.com",
+      "nodes": [
+        {
+          "id": "n1",
+          "type": "START",
+          "position": {
+            "x": 200,
+            "y": 50
+          },
+          "data": {
+            "label": "Event Trigger"
+          }
+        },
+        {
+          "id": "n2",
+          "type": "HTTP_REQUEST",
+          "position": {
+            "x": 200,
+            "y": 160
+          },
+          "data": {
+            "label": "Execute Task"
+          }
+        },
+        {
+          "id": "n3",
+          "type": "END",
+          "position": {
+            "x": 200,
+            "y": 270
+          },
+          "data": {
+            "label": "Completed"
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "e1",
+          "source": "n1",
+          "target": "n2"
+        },
+        {
+          "id": "e2",
+          "source": "n2",
+          "target": "n3"
+        }
+      ],
+      "createdAt": "2026-11-04T10:03:09.107Z",
+      "updatedAt": "2026-11-04T10:03:09.107Z"
+    },
+    {
+      "id": "wf_brm9t92m",
+      "version": 1,
+      "tenantId": "tenant_eciiez67",
+      "name": "User Registration",
+      "description": "User signup verification, JWT token issuance, and CRM sync",
+      "status": "ACTIVE",
+      "createdBy": "tejasreddy1808@gmail.com",
+      "nodes": [
+        {
+          "id": "n1",
+          "type": "START",
+          "position": {
+            "x": 200,
+            "y": 50
+          },
+          "data": {
+            "label": "Event Trigger"
+          }
+        },
+        {
+          "id": "n2",
+          "type": "HTTP_REQUEST",
+          "position": {
+            "x": 200,
+            "y": 160
+          },
+          "data": {
+            "label": "Execute Task"
+          }
+        },
+        {
+          "id": "n3",
+          "type": "END",
+          "position": {
+            "x": 200,
+            "y": 270
+          },
+          "data": {
+            "label": "Completed"
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "e1",
+          "source": "n1",
+          "target": "n2"
+        },
+        {
+          "id": "e2",
+          "source": "n2",
+          "target": "n3"
+        }
+      ],
+      "createdAt": "2026-11-04T10:03:09.111Z",
+      "updatedAt": "2026-11-04T10:03:09.111Z"
+    },
+    {
+      "id": "wf_0qufvkob",
+      "version": 1,
+      "tenantId": "tenant_eciiez67",
+      "name": "Email Notification",
+      "description": "Transactional notifications, SMS alerts, and audit logging",
+      "status": "ACTIVE",
+      "createdBy": "tejasreddy1808@gmail.com",
+      "nodes": [
+        {
+          "id": "n1",
+          "type": "START",
+          "position": {
+            "x": 200,
+            "y": 50
+          },
+          "data": {
+            "label": "Event Trigger"
+          }
+        },
+        {
+          "id": "n2",
+          "type": "HTTP_REQUEST",
+          "position": {
+            "x": 200,
+            "y": 160
+          },
+          "data": {
+            "label": "Execute Task"
+          }
+        },
+        {
+          "id": "n3",
+          "type": "END",
+          "position": {
+            "x": 200,
+            "y": 270
+          },
+          "data": {
+            "label": "Completed"
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "e1",
+          "source": "n1",
+          "target": "n2"
+        },
+        {
+          "id": "e2",
+          "source": "n2",
+          "target": "n3"
+        }
+      ],
+      "createdAt": "2026-11-04T10:03:09.115Z",
+      "updatedAt": "2026-11-04T10:03:09.115Z"
+    },
+    {
+      "id": "wf_59c48yna",
+      "version": 1,
+      "tenantId": "tenant_eciiez67",
+      "name": "Inventory Update",
+      "description": "Multi-warehouse stock replenishment and catalog reconciliation",
+      "status": "ACTIVE",
+      "createdBy": "tejasreddy1808@gmail.com",
+      "nodes": [
+        {
+          "id": "n1",
+          "type": "START",
+          "position": {
+            "x": 200,
+            "y": 50
+          },
+          "data": {
+            "label": "Event Trigger"
+          }
+        },
+        {
+          "id": "n2",
+          "type": "HTTP_REQUEST",
+          "position": {
+            "x": 200,
+            "y": 160
+          },
+          "data": {
+            "label": "Execute Task"
+          }
+        },
+        {
+          "id": "n3",
+          "type": "END",
+          "position": {
+            "x": 200,
+            "y": 270
+          },
+          "data": {
+            "label": "Completed"
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "e1",
+          "source": "n1",
+          "target": "n2"
+        },
+        {
+          "id": "e2",
+          "source": "n2",
+          "target": "n3"
+        }
+      ],
+      "createdAt": "2026-11-04T10:03:09.120Z",
+      "updatedAt": "2026-11-04T10:03:09.120Z"
+    },
+    {
+      "id": "wf_kdpo0z9a",
+      "version": 1,
+      "tenantId": "tenant_8seup31w",
+      "name": "Order Processing",
+      "description": "Distributed order orchestration pipeline executing validation, warehouse inventory check, payment capture, and notification fallback.",
+      "status": "ACTIVE",
+      "createdBy": "tejas@acme.com",
+      "nodes": [
+        {
+          "id": "node-trigger",
+          "type": "START",
+          "position": {
+            "x": 280,
+            "y": 50
+          },
+          "data": {
+            "label": "Trigger",
+            "sublabel": "New Order",
+            "duration": "234ms",
+            "status": "SUCCESS",
+            "description": "Customer checkout webhook event received"
+          }
+        },
+        {
+          "id": "node-validate",
+          "type": "TRANSFORM",
+          "position": {
+            "x": 280,
+            "y": 160
+          },
+          "data": {
+            "label": "Validate Order",
+            "duration": "512ms",
+            "status": "SUCCESS",
+            "description": "Validate cart line items, pricing, and fraud risk token"
+          }
+        },
+        {
+          "id": "node-inventory",
+          "type": "HTTP_REQUEST",
+          "position": {
+            "x": 280,
+            "y": 280
+          },
+          "data": {
+            "label": "Check Inventory",
+            "duration": "1.2s",
+            "status": "RUNNING",
+            "description": "Query stock levels from inventory services.",
+            "serviceType": "Inventory Services / Database Query",
+            "inputData": {
+              "productId": "PRD-1024",
+              "quantity": 25,
+              "warehouse": "WH-01"
+            },
+            "outputData": null
+          }
+        },
+        {
+          "id": "node-payment",
+          "type": "HTTP_REQUEST",
+          "position": {
+            "x": 120,
+            "y": 440
+          },
+          "data": {
+            "label": "Process Payment",
+            "status": "PENDING",
+            "description": "Capture pre-authorized credit card transaction"
+          }
+        },
+        {
+          "id": "node-update-inv",
+          "type": "HTTP_REQUEST",
+          "position": {
+            "x": 120,
+            "y": 560
+          },
+          "data": {
+            "label": "Update Inventory",
+            "status": "PENDING",
+            "description": "Decrement warehouse SKU quantity and lock safety stock"
+          }
+        },
+        {
+          "id": "node-notify",
+          "type": "LOG",
+          "position": {
+            "x": 440,
+            "y": 440
+          },
+          "data": {
+            "label": "Send Notification",
+            "status": "PENDING",
+            "description": "Notify operations team or send out-of-stock customer alert"
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "e1",
+          "source": "node-trigger",
+          "target": "node-validate"
+        },
+        {
+          "id": "e2",
+          "source": "node-validate",
+          "target": "node-inventory"
+        },
+        {
+          "id": "e3",
+          "source": "node-inventory",
+          "target": "node-payment",
+          "sourceHandle": "true",
+          "label": "In Stock"
+        },
+        {
+          "id": "e4",
+          "source": "node-inventory",
+          "target": "node-notify",
+          "sourceHandle": "false",
+          "label": "Out of Stock"
+        },
+        {
+          "id": "e5",
+          "source": "node-payment",
+          "target": "node-update-inv"
+        }
+      ],
+      "createdAt": "2026-11-04T10:03:09.125Z",
+      "updatedAt": "2026-11-04T10:03:09.125Z"
+    },
+    {
+      "id": "wf_3dx2ci5e",
+      "version": 1,
+      "tenantId": "tenant_8seup31w",
+      "name": "Payment Processing",
+      "description": "Recurring subscription billing and settlement with Stripe",
+      "status": "ACTIVE",
+      "createdBy": "tejas@acme.com",
+      "nodes": [
+        {
+          "id": "n1",
+          "type": "START",
+          "position": {
+            "x": 200,
+            "y": 50
+          },
+          "data": {
+            "label": "Event Trigger"
+          }
+        },
+        {
+          "id": "n2",
+          "type": "HTTP_REQUEST",
+          "position": {
+            "x": 200,
+            "y": 160
+          },
+          "data": {
+            "label": "Execute Task"
+          }
+        },
+        {
+          "id": "n3",
+          "type": "END",
+          "position": {
+            "x": 200,
+            "y": 270
+          },
+          "data": {
+            "label": "Completed"
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "e1",
+          "source": "n1",
+          "target": "n2"
+        },
+        {
+          "id": "e2",
+          "source": "n2",
+          "target": "n3"
+        }
+      ],
+      "createdAt": "2026-11-04T10:03:09.129Z",
+      "updatedAt": "2026-11-04T10:03:09.129Z"
+    },
+    {
+      "id": "wf_w94p55ft",
+      "version": 1,
+      "tenantId": "tenant_8seup31w",
+      "name": "User Registration",
+      "description": "User signup verification, JWT token issuance, and CRM sync",
+      "status": "ACTIVE",
+      "createdBy": "tejas@acme.com",
+      "nodes": [
+        {
+          "id": "n1",
+          "type": "START",
+          "position": {
+            "x": 200,
+            "y": 50
+          },
+          "data": {
+            "label": "Event Trigger"
+          }
+        },
+        {
+          "id": "n2",
+          "type": "HTTP_REQUEST",
+          "position": {
+            "x": 200,
+            "y": 160
+          },
+          "data": {
+            "label": "Execute Task"
+          }
+        },
+        {
+          "id": "n3",
+          "type": "END",
+          "position": {
+            "x": 200,
+            "y": 270
+          },
+          "data": {
+            "label": "Completed"
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "e1",
+          "source": "n1",
+          "target": "n2"
+        },
+        {
+          "id": "e2",
+          "source": "n2",
+          "target": "n3"
+        }
+      ],
+      "createdAt": "2026-11-04T10:03:09.134Z",
+      "updatedAt": "2026-11-04T10:03:09.134Z"
+    },
+    {
+      "id": "wf_0a7tj8en",
+      "version": 1,
+      "tenantId": "tenant_8seup31w",
+      "name": "Email Notification",
+      "description": "Transactional notifications, SMS alerts, and audit logging",
+      "status": "ACTIVE",
+      "createdBy": "tejas@acme.com",
+      "nodes": [
+        {
+          "id": "n1",
+          "type": "START",
+          "position": {
+            "x": 200,
+            "y": 50
+          },
+          "data": {
+            "label": "Event Trigger"
+          }
+        },
+        {
+          "id": "n2",
+          "type": "HTTP_REQUEST",
+          "position": {
+            "x": 200,
+            "y": 160
+          },
+          "data": {
+            "label": "Execute Task"
+          }
+        },
+        {
+          "id": "n3",
+          "type": "END",
+          "position": {
+            "x": 200,
+            "y": 270
+          },
+          "data": {
+            "label": "Completed"
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "e1",
+          "source": "n1",
+          "target": "n2"
+        },
+        {
+          "id": "e2",
+          "source": "n2",
+          "target": "n3"
+        }
+      ],
+      "createdAt": "2026-11-04T10:03:09.139Z",
+      "updatedAt": "2026-11-04T10:03:09.139Z"
+    },
+    {
+      "id": "wf_ck1tx9ma",
+      "version": 1,
+      "tenantId": "tenant_8seup31w",
+      "name": "Inventory Update",
+      "description": "Multi-warehouse stock replenishment and catalog reconciliation",
+      "status": "ACTIVE",
+      "createdBy": "tejas@acme.com",
+      "nodes": [
+        {
+          "id": "n1",
+          "type": "START",
+          "position": {
+            "x": 200,
+            "y": 50
+          },
+          "data": {
+            "label": "Event Trigger"
+          }
+        },
+        {
+          "id": "n2",
+          "type": "HTTP_REQUEST",
+          "position": {
+            "x": 200,
+            "y": 160
+          },
+          "data": {
+            "label": "Execute Task"
+          }
+        },
+        {
+          "id": "n3",
+          "type": "END",
+          "position": {
+            "x": 200,
+            "y": 270
+          },
+          "data": {
+            "label": "Completed"
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "e1",
+          "source": "n1",
+          "target": "n2"
+        },
+        {
+          "id": "e2",
+          "source": "n2",
+          "target": "n3"
+        }
+      ],
+      "createdAt": "2026-11-04T10:03:09.144Z",
+      "updatedAt": "2026-11-04T10:03:09.144Z"
+    },
+    {
+      "id": "wf_ifzdtl70",
+      "version": 1,
+      "tenantId": "tenant_yhm749uq",
+      "name": "New Workflow",
+      "description": "Orchestration DAG pipeline",
+      "nodes": [
+        {
+          "id": "node-start",
+          "type": "START",
+          "position": {
+            "x": 250,
+            "y": 50
+          },
+          "data": {
+            "label": "Start Trigger",
+            "description": "Receives initial event payload"
+          }
+        },
+        {
+          "id": "node-validate",
+          "type": "TRANSFORM",
+          "position": {
+            "x": 250,
+            "y": 180
+          },
+          "data": {
+            "label": "Validate Order",
+            "description": "Verify schema and tax exemptions"
+          }
+        },
+        {
+          "id": "node-inventory",
+          "type": "HTTP_REQUEST",
+          "position": {
+            "x": 250,
+            "y": 310
+          },
+          "data": {
+            "label": "Check Inventory",
+            "description": "Query warehouse stock levels"
+          }
+        },
+        {
+          "id": "node-payment",
+          "type": "HTTP_REQUEST",
+          "position": {
+            "x": 100,
+            "y": 460
+          },
+          "data": {
+            "label": "Process Payment",
+            "description": "Authorize card transaction"
+          }
+        },
+        {
+          "id": "node-notify",
+          "type": "LOG",
+          "position": {
+            "x": 400,
+            "y": 460
+          },
+          "data": {
+            "label": "Send Notification",
+            "description": "Dispatch customer alert"
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "e1",
+          "source": "node-start",
+          "target": "node-validate"
+        },
+        {
+          "id": "e2",
+          "source": "node-validate",
+          "target": "node-inventory"
+        },
+        {
+          "id": "e3",
+          "source": "node-inventory",
+          "target": "node-payment",
+          "label": "In Stock"
+        },
+        {
+          "id": "e4",
+          "source": "node-inventory",
+          "target": "node-notify",
+          "label": "Out of Stock"
+        }
+      ],
+      "status": "ACTIVE",
+      "createdBy": "amaan@cyberdyne.com",
+      "createdAt": "2026-11-04T10:03:48.446Z",
+      "updatedAt": "2026-11-04T10:03:48.446Z"
     }
   ],
   "executions": [
+    {
+      "id": "EX-1005-acme-corp",
+      "workflowId": "wf_ck1tx9ma",
+      "workflowName": "Inventory Update",
+      "tenantId": "tenant_8seup31w",
+      "status": "SUCCESS",
+      "startedAt": "2026-11-05T06:06:30.766Z",
+      "contextData": {
+        "productId": "PRD-1024",
+        "quantity": 25,
+        "warehouse": "WH-01"
+      },
+      "nodeExecutions": {},
+      "compensationsExecuted": [],
+      "trigger": "WEBHOOK",
+      "triggeredBy": "tejas@acme.com",
+      "duration": "2.1s",
+      "completedAt": "2026-11-05T06:06:32.766Z"
+    },
+    {
+      "id": "EX-1004-acme-corp",
+      "workflowId": "wf_0a7tj8en",
+      "workflowName": "Email Notification",
+      "tenantId": "tenant_8seup31w",
+      "status": "SUCCESS",
+      "startedAt": "2026-11-05T07:06:30.766Z",
+      "contextData": {
+        "productId": "PRD-1024",
+        "quantity": 25,
+        "warehouse": "WH-01"
+      },
+      "nodeExecutions": {},
+      "compensationsExecuted": [],
+      "trigger": "WEBHOOK",
+      "triggeredBy": "tejas@acme.com",
+      "duration": "1.5s",
+      "completedAt": "2026-11-05T07:06:32.766Z"
+    },
+    {
+      "id": "EX-1003-acme-corp",
+      "workflowId": "wf_w94p55ft",
+      "workflowName": "User Registration",
+      "tenantId": "tenant_8seup31w",
+      "status": "FAILED",
+      "startedAt": "2026-11-05T08:06:30.766Z",
+      "contextData": {
+        "productId": "PRD-1024",
+        "quantity": 25,
+        "warehouse": "WH-01"
+      },
+      "nodeExecutions": {},
+      "compensationsExecuted": [],
+      "trigger": "WEBHOOK",
+      "triggeredBy": "tejas@acme.com",
+      "duration": "3.2s",
+      "completedAt": "2026-11-05T08:06:32.766Z"
+    },
+    {
+      "id": "EX-1002-acme-corp",
+      "workflowId": "wf_3dx2ci5e",
+      "workflowName": "Payment Processing",
+      "tenantId": "tenant_8seup31w",
+      "status": "RUNNING",
+      "startedAt": "2026-11-05T11:04:30.766Z",
+      "contextData": {
+        "productId": "PRD-1024",
+        "quantity": 25,
+        "warehouse": "WH-01"
+      },
+      "nodeExecutions": {},
+      "compensationsExecuted": [],
+      "trigger": "WEBHOOK",
+      "triggeredBy": "tejas@acme.com",
+      "duration": "1.8s"
+    },
+    {
+      "id": "EX-1001-acme-corp",
+      "workflowId": "wf_kdpo0z9a",
+      "workflowName": "Order Processing",
+      "tenantId": "tenant_8seup31w",
+      "status": "SUCCESS",
+      "startedAt": "2026-11-05T10:36:30.766Z",
+      "contextData": {
+        "productId": "PRD-1024",
+        "quantity": 25,
+        "warehouse": "WH-01"
+      },
+      "nodeExecutions": {},
+      "compensationsExecuted": [],
+      "trigger": "WEBHOOK",
+      "triggeredBy": "tejas@acme.com",
+      "duration": "2.4s",
+      "completedAt": "2026-11-05T10:36:32.766Z"
+    },
+    {
+      "id": "EX-1005-dharma",
+      "workflowId": "wf_59c48yna",
+      "workflowName": "Inventory Update",
+      "tenantId": "tenant_eciiez67",
+      "status": "SUCCESS",
+      "startedAt": "2026-11-05T06:06:30.764Z",
+      "contextData": {
+        "productId": "PRD-1024",
+        "quantity": 25,
+        "warehouse": "WH-01"
+      },
+      "nodeExecutions": {},
+      "compensationsExecuted": [],
+      "trigger": "WEBHOOK",
+      "triggeredBy": "tejasreddy1808@gmail.com",
+      "duration": "2.1s",
+      "completedAt": "2026-11-05T06:06:32.764Z"
+    },
+    {
+      "id": "EX-1004-dharma",
+      "workflowId": "wf_0qufvkob",
+      "workflowName": "Email Notification",
+      "tenantId": "tenant_eciiez67",
+      "status": "SUCCESS",
+      "startedAt": "2026-11-05T07:06:30.764Z",
+      "contextData": {
+        "productId": "PRD-1024",
+        "quantity": 25,
+        "warehouse": "WH-01"
+      },
+      "nodeExecutions": {},
+      "compensationsExecuted": [],
+      "trigger": "WEBHOOK",
+      "triggeredBy": "tejasreddy1808@gmail.com",
+      "duration": "1.5s",
+      "completedAt": "2026-11-05T07:06:32.764Z"
+    },
+    {
+      "id": "EX-1003-dharma",
+      "workflowId": "wf_brm9t92m",
+      "workflowName": "User Registration",
+      "tenantId": "tenant_eciiez67",
+      "status": "FAILED",
+      "startedAt": "2026-11-05T08:06:30.764Z",
+      "contextData": {
+        "productId": "PRD-1024",
+        "quantity": 25,
+        "warehouse": "WH-01"
+      },
+      "nodeExecutions": {},
+      "compensationsExecuted": [],
+      "trigger": "WEBHOOK",
+      "triggeredBy": "tejasreddy1808@gmail.com",
+      "duration": "3.2s",
+      "completedAt": "2026-11-05T08:06:32.764Z"
+    },
+    {
+      "id": "EX-1002-dharma",
+      "workflowId": "wf_gzsk09s3",
+      "workflowName": "Payment Processing",
+      "tenantId": "tenant_eciiez67",
+      "status": "RUNNING",
+      "startedAt": "2026-11-05T11:04:30.764Z",
+      "contextData": {
+        "productId": "PRD-1024",
+        "quantity": 25,
+        "warehouse": "WH-01"
+      },
+      "nodeExecutions": {},
+      "compensationsExecuted": [],
+      "trigger": "WEBHOOK",
+      "triggeredBy": "tejasreddy1808@gmail.com",
+      "duration": "1.8s"
+    },
+    {
+      "id": "EX-1001-dharma",
+      "workflowId": "wf_u9noqmrc",
+      "workflowName": "Order Processing",
+      "tenantId": "tenant_eciiez67",
+      "status": "SUCCESS",
+      "startedAt": "2026-11-05T10:36:30.764Z",
+      "contextData": {
+        "productId": "PRD-1024",
+        "quantity": 25,
+        "warehouse": "WH-01"
+      },
+      "nodeExecutions": {},
+      "compensationsExecuted": [],
+      "trigger": "WEBHOOK",
+      "triggeredBy": "tejasreddy1808@gmail.com",
+      "duration": "2.4s",
+      "completedAt": "2026-11-05T10:36:32.764Z"
+    },
+    {
+      "id": "EX-1005",
+      "workflowId": "wf_u9noqmrc",
+      "workflowName": "Inventory Update",
+      "tenantId": "tenant_eciiez67",
+      "status": "SUCCESS",
+      "startedAt": "2026-11-04T05:30:58.020Z",
+      "completedAt": "2026-11-04T05:31:00.020Z",
+      "contextData": {
+        "productId": "PRD-1024",
+        "quantity": 25,
+        "warehouse": "WH-01"
+      },
+      "nodeExecutions": {},
+      "compensationsExecuted": [],
+      "trigger": "WEBHOOK",
+      "triggeredBy": "tejasreddy1808@gmail.com",
+      "duration": "2.1s"
+    },
+    {
+      "id": "EX-1004",
+      "workflowId": "wf_u9noqmrc",
+      "workflowName": "Email Notification",
+      "tenantId": "tenant_eciiez67",
+      "status": "SUCCESS",
+      "startedAt": "2026-11-04T06:30:58.020Z",
+      "completedAt": "2026-11-04T06:31:00.020Z",
+      "contextData": {
+        "productId": "PRD-1024",
+        "quantity": 25,
+        "warehouse": "WH-01"
+      },
+      "nodeExecutions": {},
+      "compensationsExecuted": [],
+      "trigger": "WEBHOOK",
+      "triggeredBy": "tejasreddy1808@gmail.com",
+      "duration": "1.5s"
+    },
+    {
+      "id": "EX-1003",
+      "workflowId": "wf_u9noqmrc",
+      "workflowName": "User Registration",
+      "tenantId": "tenant_eciiez67",
+      "status": "FAILED",
+      "startedAt": "2026-11-04T07:30:58.020Z",
+      "completedAt": "2026-11-04T07:31:00.020Z",
+      "contextData": {
+        "productId": "PRD-1024",
+        "quantity": 25,
+        "warehouse": "WH-01"
+      },
+      "nodeExecutions": {},
+      "compensationsExecuted": [],
+      "trigger": "WEBHOOK",
+      "triggeredBy": "tejasreddy1808@gmail.com",
+      "duration": "3.2s"
+    },
+    {
+      "id": "EX-1002",
+      "workflowId": "wf_u9noqmrc",
+      "workflowName": "Payment Processing",
+      "tenantId": "tenant_eciiez67",
+      "status": "RUNNING",
+      "startedAt": "2026-11-04T10:28:58.020Z",
+      "contextData": {
+        "productId": "PRD-1024",
+        "quantity": 25,
+        "warehouse": "WH-01"
+      },
+      "nodeExecutions": {},
+      "compensationsExecuted": [],
+      "trigger": "WEBHOOK",
+      "triggeredBy": "tejasreddy1808@gmail.com",
+      "duration": "1.8s"
+    },
+    {
+      "id": "EX-1001",
+      "workflowId": "wf_u9noqmrc",
+      "workflowName": "Order Processing",
+      "tenantId": "tenant_eciiez67",
+      "status": "SUCCESS",
+      "startedAt": "2026-11-04T10:00:58.020Z",
+      "completedAt": "2026-11-04T10:01:00.020Z",
+      "contextData": {
+        "productId": "PRD-1024",
+        "quantity": 25,
+        "warehouse": "WH-01"
+      },
+      "nodeExecutions": {},
+      "compensationsExecuted": [],
+      "trigger": "WEBHOOK",
+      "triggeredBy": "tejasreddy1808@gmail.com",
+      "duration": "2.4s"
+    },
     {
       "id": "exec_ei4xg8kl",
       "workflowId": "wf_5svtfgwq",
@@ -10491,6 +11645,742 @@
       "triggeredBy": "admin@acme.com",
       "currentNodeId": "node-end",
       "completedAt": "2026-11-04T09:50:39.187Z"
+    },
+    {
+      "id": "exec_ryimcs7m",
+      "workflowId": "wf_q3h22wdb",
+      "workflowName": "New Workflow",
+      "tenantId": "tenant_yhm749uq",
+      "status": "SUCCESS",
+      "startedAt": "2026-11-04T10:04:02.109Z",
+      "contextData": {
+        "orderId": "ORD-9158",
+        "productId": "PRD-1024",
+        "amount": 249.99,
+        "quantity": 25,
+        "warehouse": "WH-01",
+        "node-start": {
+          "startedAt": "2026-11-04T10:04:02.558Z",
+          "initialPayload": {
+            "orderId": "ORD-9158",
+            "productId": "PRD-1024",
+            "amount": 249.99,
+            "quantity": 25,
+            "warehouse": "WH-01"
+          }
+        },
+        "startedAt": "2026-11-04T10:04:02.558Z",
+        "initialPayload": {
+          "orderId": "ORD-9158",
+          "productId": "PRD-1024",
+          "amount": 249.99,
+          "quantity": 25,
+          "warehouse": "WH-01"
+        },
+        "node-end": {
+          "finishedAt": "2026-11-04T10:04:03.002Z",
+          "status": "SUCCESS"
+        },
+        "finishedAt": "2026-11-04T10:04:03.002Z",
+        "status": "SUCCESS"
+      },
+      "nodeExecutions": {
+        "node-start": {
+          "id": "nexec_ca9c8b113ff5",
+          "executionId": "exec_ryimcs7m",
+          "nodeId": "node-start",
+          "nodeType": "START",
+          "nodeLabel": "Start Trigger",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: Start Trigger (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 403ms."
+          ],
+          "startedAt": "2026-11-04T10:04:02.149Z",
+          "output": {
+            "startedAt": "2026-11-04T10:04:02.558Z",
+            "initialPayload": {
+              "orderId": "ORD-9158",
+              "productId": "PRD-1024",
+              "amount": 249.99,
+              "quantity": 25,
+              "warehouse": "WH-01"
+            }
+          },
+          "completedAt": "2026-11-04T10:04:02.558Z"
+        },
+        "node-end": {
+          "id": "nexec_920656517bfa",
+          "executionId": "exec_ryimcs7m",
+          "nodeId": "node-end",
+          "nodeType": "END",
+          "nodeLabel": "End Transaction",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: End Transaction (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 407ms."
+          ],
+          "startedAt": "2026-11-04T10:04:02.585Z",
+          "output": {
+            "finishedAt": "2026-11-04T10:04:03.002Z",
+            "status": "SUCCESS"
+          },
+          "completedAt": "2026-11-04T10:04:03.003Z"
+        }
+      },
+      "compensationsExecuted": [],
+      "trigger": "MANUAL",
+      "triggeredBy": "amaan@cyberdyne.com",
+      "currentNodeId": "node-end",
+      "completedAt": "2026-11-04T10:04:03.013Z"
+    },
+    {
+      "workflowId": "wf_q3h22wdb",
+      "workflowName": "New Workflow",
+      "tenantId": "tenant_yhm749uq",
+      "status": "SUCCESS",
+      "startedAt": "2026-11-04T10:10:24.780Z",
+      "contextData": {
+        "orderId": "ORD-6842",
+        "productId": "PRD-1024",
+        "amount": 249.99,
+        "quantity": 25,
+        "warehouse": "WH-01",
+        "node-start": {
+          "startedAt": "2026-11-04T10:10:25.283Z",
+          "initialPayload": {
+            "orderId": "ORD-6842",
+            "productId": "PRD-1024",
+            "amount": 249.99,
+            "quantity": 25,
+            "warehouse": "WH-01"
+          }
+        },
+        "startedAt": "2026-11-04T10:10:25.283Z",
+        "initialPayload": {
+          "orderId": "ORD-6842",
+          "productId": "PRD-1024",
+          "amount": 249.99,
+          "quantity": 25,
+          "warehouse": "WH-01"
+        },
+        "node-end": {
+          "finishedAt": "2026-11-04T10:10:25.849Z",
+          "status": "SUCCESS"
+        },
+        "finishedAt": "2026-11-04T10:10:25.849Z",
+        "status": "SUCCESS"
+      },
+      "nodeExecutions": {
+        "node-start": {
+          "id": "nexec_68316e47e058",
+          "executionId": "exec_1d323c4dd3d5470eb622a6b6ce2b16f7",
+          "nodeId": "node-start",
+          "nodeType": "START",
+          "nodeLabel": "Start Trigger",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: Start Trigger (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 408ms."
+          ],
+          "startedAt": "2026-11-04T10:10:24.859Z",
+          "output": {
+            "startedAt": "2026-11-04T10:10:25.283Z",
+            "initialPayload": {
+              "orderId": "ORD-6842",
+              "productId": "PRD-1024",
+              "amount": 249.99,
+              "quantity": 25,
+              "warehouse": "WH-01"
+            }
+          },
+          "completedAt": "2026-11-04T10:10:25.283Z"
+        },
+        "node-end": {
+          "id": "nexec_7169b87f71df",
+          "executionId": "exec_1d323c4dd3d5470eb622a6b6ce2b16f7",
+          "nodeId": "node-end",
+          "nodeType": "END",
+          "nodeLabel": "End Transaction",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: End Transaction (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 475ms."
+          ],
+          "startedAt": "2026-11-04T10:10:25.362Z",
+          "output": {
+            "finishedAt": "2026-11-04T10:10:25.849Z",
+            "status": "SUCCESS"
+          },
+          "completedAt": "2026-11-04T10:10:25.849Z"
+        }
+      },
+      "compensationsExecuted": [],
+      "trigger": "MANUAL",
+      "triggeredBy": "amaan@cyberdyne.com",
+      "id": "exec_1d323c4dd3d5470eb622a6b6ce2b16f7",
+      "currentNodeId": "node-end",
+      "completedAt": "2026-11-04T10:10:25.882Z"
+    },
+    {
+      "workflowId": "wf_q3h22wdb",
+      "workflowName": "New Workflow",
+      "tenantId": "tenant_yhm749uq",
+      "status": "SUCCESS",
+      "startedAt": "2026-11-04T10:10:32.000Z",
+      "contextData": {
+        "orderId": "ORD-4196",
+        "productId": "PRD-1024",
+        "amount": 249.99,
+        "quantity": 25,
+        "warehouse": "WH-01",
+        "node-start": {
+          "startedAt": "2026-11-04T10:10:32.549Z",
+          "initialPayload": {
+            "orderId": "ORD-4196",
+            "productId": "PRD-1024",
+            "amount": 249.99,
+            "quantity": 25,
+            "warehouse": "WH-01"
+          }
+        },
+        "startedAt": "2026-11-04T10:10:32.549Z",
+        "initialPayload": {
+          "orderId": "ORD-4196",
+          "productId": "PRD-1024",
+          "amount": 249.99,
+          "quantity": 25,
+          "warehouse": "WH-01"
+        },
+        "node-end": {
+          "finishedAt": "2026-11-04T10:10:33.032Z",
+          "status": "SUCCESS"
+        },
+        "finishedAt": "2026-11-04T10:10:33.032Z",
+        "status": "SUCCESS"
+      },
+      "nodeExecutions": {
+        "node-start": {
+          "id": "nexec_741f0534836b",
+          "executionId": "exec_64ecb2db6391420390dbb50749c8c8b7",
+          "nodeId": "node-start",
+          "nodeType": "START",
+          "nodeLabel": "Start Trigger",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: Start Trigger (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 471ms."
+          ],
+          "startedAt": "2026-11-04T10:10:32.060Z",
+          "output": {
+            "startedAt": "2026-11-04T10:10:32.549Z",
+            "initialPayload": {
+              "orderId": "ORD-4196",
+              "productId": "PRD-1024",
+              "amount": 249.99,
+              "quantity": 25,
+              "warehouse": "WH-01"
+            }
+          },
+          "completedAt": "2026-11-04T10:10:32.549Z"
+        },
+        "node-end": {
+          "id": "nexec_b3d0b36eac9c",
+          "executionId": "exec_64ecb2db6391420390dbb50749c8c8b7",
+          "nodeId": "node-end",
+          "nodeType": "END",
+          "nodeLabel": "End Transaction",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: End Transaction (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 403ms."
+          ],
+          "startedAt": "2026-11-04T10:10:32.606Z",
+          "output": {
+            "finishedAt": "2026-11-04T10:10:33.032Z",
+            "status": "SUCCESS"
+          },
+          "completedAt": "2026-11-04T10:10:33.032Z"
+        }
+      },
+      "compensationsExecuted": [],
+      "trigger": "MANUAL",
+      "triggeredBy": "amaan@cyberdyne.com",
+      "id": "exec_64ecb2db6391420390dbb50749c8c8b7",
+      "currentNodeId": "node-end",
+      "completedAt": "2026-11-04T10:10:33.063Z"
+    },
+    {
+      "workflowId": "wf_q3h22wdb",
+      "workflowName": "New Workflow",
+      "tenantId": "tenant_yhm749uq",
+      "status": "SUCCESS",
+      "startedAt": "2026-11-04T10:23:53.014Z",
+      "contextData": {
+        "orderId": "ORD-9800",
+        "productId": "PRD-1024",
+        "amount": 249.99,
+        "quantity": 25,
+        "warehouse": "WH-01",
+        "node-start": {
+          "startedAt": "2026-11-04T10:23:53.485Z",
+          "initialPayload": {
+            "orderId": "ORD-9800",
+            "productId": "PRD-1024",
+            "amount": 249.99,
+            "quantity": 25,
+            "warehouse": "WH-01"
+          }
+        },
+        "startedAt": "2026-11-04T10:23:53.485Z",
+        "initialPayload": {
+          "orderId": "ORD-9800",
+          "productId": "PRD-1024",
+          "amount": 249.99,
+          "quantity": 25,
+          "warehouse": "WH-01"
+        },
+        "node-end": {
+          "finishedAt": "2026-11-04T10:23:53.927Z",
+          "status": "SUCCESS"
+        },
+        "finishedAt": "2026-11-04T10:23:53.927Z",
+        "status": "SUCCESS"
+      },
+      "nodeExecutions": {
+        "node-start": {
+          "id": "nexec_a65dd6d5ec72",
+          "executionId": "exec_037d77e4e66946d3b9cd624fe4bf9669",
+          "nodeId": "node-start",
+          "nodeType": "START",
+          "nodeLabel": "Start Trigger",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: Start Trigger (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 439ms."
+          ],
+          "startedAt": "2026-11-04T10:23:53.038Z",
+          "output": {
+            "startedAt": "2026-11-04T10:23:53.485Z",
+            "initialPayload": {
+              "orderId": "ORD-9800",
+              "productId": "PRD-1024",
+              "amount": 249.99,
+              "quantity": 25,
+              "warehouse": "WH-01"
+            }
+          },
+          "completedAt": "2026-11-04T10:23:53.486Z"
+        },
+        "node-end": {
+          "id": "nexec_664148dc7f40",
+          "executionId": "exec_037d77e4e66946d3b9cd624fe4bf9669",
+          "nodeId": "node-end",
+          "nodeType": "END",
+          "nodeLabel": "End Transaction",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: End Transaction (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 406ms."
+          ],
+          "startedAt": "2026-11-04T10:23:53.514Z",
+          "output": {
+            "finishedAt": "2026-11-04T10:23:53.927Z",
+            "status": "SUCCESS"
+          },
+          "completedAt": "2026-11-04T10:23:53.927Z"
+        }
+      },
+      "compensationsExecuted": [],
+      "trigger": "MANUAL",
+      "triggeredBy": "amaan@cyberdyne.com",
+      "id": "exec_037d77e4e66946d3b9cd624fe4bf9669",
+      "currentNodeId": "node-end",
+      "completedAt": "2026-11-04T10:23:53.941Z"
+    },
+    {
+      "workflowId": "wf_q3h22wdb",
+      "workflowName": "New Workflow",
+      "tenantId": "tenant_yhm749uq",
+      "status": "SUCCESS",
+      "startedAt": "2026-11-04T10:23:57.404Z",
+      "contextData": {
+        "orderId": "ORD-9947",
+        "productId": "PRD-1024",
+        "amount": 249.99,
+        "quantity": 25,
+        "warehouse": "WH-01",
+        "node-start": {
+          "startedAt": "2026-11-04T10:23:57.911Z",
+          "initialPayload": {
+            "orderId": "ORD-9947",
+            "productId": "PRD-1024",
+            "amount": 249.99,
+            "quantity": 25,
+            "warehouse": "WH-01"
+          }
+        },
+        "startedAt": "2026-11-04T10:23:57.911Z",
+        "initialPayload": {
+          "orderId": "ORD-9947",
+          "productId": "PRD-1024",
+          "amount": 249.99,
+          "quantity": 25,
+          "warehouse": "WH-01"
+        },
+        "node-end": {
+          "finishedAt": "2026-11-04T10:23:58.380Z",
+          "status": "SUCCESS"
+        },
+        "finishedAt": "2026-11-04T10:23:58.380Z",
+        "status": "SUCCESS"
+      },
+      "nodeExecutions": {
+        "node-start": {
+          "id": "nexec_25d53fe9e5db",
+          "executionId": "exec_7224a0f5d9e54d4284dbc0a6860c9a47",
+          "nodeId": "node-start",
+          "nodeType": "START",
+          "nodeLabel": "Start Trigger",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: Start Trigger (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 413ms."
+          ],
+          "startedAt": "2026-11-04T10:23:57.458Z",
+          "output": {
+            "startedAt": "2026-11-04T10:23:57.911Z",
+            "initialPayload": {
+              "orderId": "ORD-9947",
+              "productId": "PRD-1024",
+              "amount": 249.99,
+              "quantity": 25,
+              "warehouse": "WH-01"
+            }
+          },
+          "completedAt": "2026-11-04T10:23:57.911Z"
+        },
+        "node-end": {
+          "id": "nexec_a756c2376610",
+          "executionId": "exec_7224a0f5d9e54d4284dbc0a6860c9a47",
+          "nodeId": "node-end",
+          "nodeType": "END",
+          "nodeLabel": "End Transaction",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: End Transaction (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 407ms."
+          ],
+          "startedAt": "2026-11-04T10:23:57.968Z",
+          "output": {
+            "finishedAt": "2026-11-04T10:23:58.380Z",
+            "status": "SUCCESS"
+          },
+          "completedAt": "2026-11-04T10:23:58.380Z"
+        }
+      },
+      "compensationsExecuted": [],
+      "trigger": "MANUAL",
+      "triggeredBy": "amaan@cyberdyne.com",
+      "id": "exec_7224a0f5d9e54d4284dbc0a6860c9a47",
+      "currentNodeId": "node-end",
+      "completedAt": "2026-11-04T10:23:58.411Z"
+    },
+    {
+      "workflowId": "wf_q3h22wdb",
+      "workflowName": "New Workflow",
+      "tenantId": "tenant_yhm749uq",
+      "status": "SUCCESS",
+      "startedAt": "2026-11-05T11:06:58.238Z",
+      "contextData": {
+        "orderId": "ORD-1736",
+        "productId": "PRD-1024",
+        "amount": 249.99,
+        "quantity": 25,
+        "warehouse": "WH-01",
+        "node-start": {
+          "startedAt": "2026-11-05T11:06:58.695Z",
+          "initialPayload": {
+            "orderId": "ORD-1736",
+            "productId": "PRD-1024",
+            "amount": 249.99,
+            "quantity": 25,
+            "warehouse": "WH-01"
+          }
+        },
+        "startedAt": "2026-11-05T11:06:58.695Z",
+        "initialPayload": {
+          "orderId": "ORD-1736",
+          "productId": "PRD-1024",
+          "amount": 249.99,
+          "quantity": 25,
+          "warehouse": "WH-01"
+        },
+        "node-end": {
+          "finishedAt": "2026-11-05T11:06:59.136Z",
+          "status": "SUCCESS"
+        },
+        "finishedAt": "2026-11-05T11:06:59.136Z",
+        "status": "SUCCESS"
+      },
+      "nodeExecutions": {
+        "node-start": {
+          "id": "nexec_d75bb8c7289e",
+          "executionId": "exec_ceca34f79cad46bf97c0e7bbdb8590f7",
+          "nodeId": "node-start",
+          "nodeType": "START",
+          "nodeLabel": "Start Trigger",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: Start Trigger (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 412ms."
+          ],
+          "startedAt": "2026-11-05T11:06:58.278Z",
+          "output": {
+            "startedAt": "2026-11-05T11:06:58.695Z",
+            "initialPayload": {
+              "orderId": "ORD-1736",
+              "productId": "PRD-1024",
+              "amount": 249.99,
+              "quantity": 25,
+              "warehouse": "WH-01"
+            }
+          },
+          "completedAt": "2026-11-05T11:06:58.697Z"
+        },
+        "node-end": {
+          "id": "nexec_d128c9609f57",
+          "executionId": "exec_ceca34f79cad46bf97c0e7bbdb8590f7",
+          "nodeId": "node-end",
+          "nodeType": "END",
+          "nodeLabel": "End Transaction",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: End Transaction (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 406ms."
+          ],
+          "startedAt": "2026-11-05T11:06:58.723Z",
+          "output": {
+            "finishedAt": "2026-11-05T11:06:59.136Z",
+            "status": "SUCCESS"
+          },
+          "completedAt": "2026-11-05T11:06:59.136Z"
+        }
+      },
+      "compensationsExecuted": [],
+      "trigger": "MANUAL",
+      "triggeredBy": "amaan@cyberdyne.com",
+      "id": "exec_ceca34f79cad46bf97c0e7bbdb8590f7",
+      "currentNodeId": "node-end",
+      "completedAt": "2026-11-05T11:06:59.150Z"
+    },
+    {
+      "workflowId": "wf_q3h22wdb",
+      "workflowName": "New Workflow",
+      "tenantId": "tenant_yhm749uq",
+      "status": "SUCCESS",
+      "startedAt": "2026-11-05T11:10:30.618Z",
+      "contextData": {
+        "orderId": "ORD-3768",
+        "productId": "PRD-1024",
+        "amount": 249.99,
+        "quantity": 25,
+        "warehouse": "WH-01",
+        "node-start": {
+          "startedAt": "2026-11-05T11:10:31.068Z",
+          "initialPayload": {
+            "orderId": "ORD-3768",
+            "productId": "PRD-1024",
+            "amount": 249.99,
+            "quantity": 25,
+            "warehouse": "WH-01"
+          }
+        },
+        "startedAt": "2026-11-05T11:10:31.068Z",
+        "initialPayload": {
+          "orderId": "ORD-3768",
+          "productId": "PRD-1024",
+          "amount": 249.99,
+          "quantity": 25,
+          "warehouse": "WH-01"
+        },
+        "node-end": {
+          "finishedAt": "2026-11-05T11:10:31.517Z",
+          "status": "SUCCESS"
+        },
+        "finishedAt": "2026-11-05T11:10:31.517Z",
+        "status": "SUCCESS"
+      },
+      "nodeExecutions": {
+        "node-start": {
+          "id": "nexec_a2d391e92d50",
+          "executionId": "exec_917cb027cb8b44c7bb94c813845ff7ff",
+          "nodeId": "node-start",
+          "nodeType": "START",
+          "nodeLabel": "Start Trigger",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: Start Trigger (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 406ms."
+          ],
+          "startedAt": "2026-11-05T11:10:30.656Z",
+          "output": {
+            "startedAt": "2026-11-05T11:10:31.068Z",
+            "initialPayload": {
+              "orderId": "ORD-3768",
+              "productId": "PRD-1024",
+              "amount": 249.99,
+              "quantity": 25,
+              "warehouse": "WH-01"
+            }
+          },
+          "completedAt": "2026-11-05T11:10:31.068Z"
+        },
+        "node-end": {
+          "id": "nexec_c75433fb5525",
+          "executionId": "exec_917cb027cb8b44c7bb94c813845ff7ff",
+          "nodeId": "node-end",
+          "nodeType": "END",
+          "nodeLabel": "End Transaction",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: End Transaction (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 415ms."
+          ],
+          "startedAt": "2026-11-05T11:10:31.093Z",
+          "output": {
+            "finishedAt": "2026-11-05T11:10:31.517Z",
+            "status": "SUCCESS"
+          },
+          "completedAt": "2026-11-05T11:10:31.517Z"
+        }
+      },
+      "compensationsExecuted": [],
+      "trigger": "MANUAL",
+      "triggeredBy": "amaan@cyberdyne.com",
+      "id": "exec_917cb027cb8b44c7bb94c813845ff7ff",
+      "currentNodeId": "node-end",
+      "completedAt": "2026-11-05T11:10:31.546Z"
+    },
+    {
+      "workflowId": "wf_q3h22wdb",
+      "workflowName": "New Workflow",
+      "tenantId": "tenant_yhm749uq",
+      "status": "SUCCESS",
+      "startedAt": "2026-11-05T11:10:35.006Z",
+      "contextData": {
+        "orderId": "ORD-8614",
+        "productId": "PRD-1024",
+        "amount": 249.99,
+        "quantity": 25,
+        "warehouse": "WH-01",
+        "node-start": {
+          "startedAt": "2026-11-05T11:10:35.511Z",
+          "initialPayload": {
+            "orderId": "ORD-8614",
+            "productId": "PRD-1024",
+            "amount": 249.99,
+            "quantity": 25,
+            "warehouse": "WH-01"
+          }
+        },
+        "startedAt": "2026-11-05T11:10:35.511Z",
+        "initialPayload": {
+          "orderId": "ORD-8614",
+          "productId": "PRD-1024",
+          "amount": 249.99,
+          "quantity": 25,
+          "warehouse": "WH-01"
+        },
+        "node-end": {
+          "finishedAt": "2026-11-05T11:10:35.969Z",
+          "status": "SUCCESS"
+        },
+        "finishedAt": "2026-11-05T11:10:35.969Z",
+        "status": "SUCCESS"
+      },
+      "nodeExecutions": {
+        "node-start": {
+          "id": "nexec_8cbf2a755803",
+          "executionId": "exec_0e4c965848084eecabaa72d6bfa44023",
+          "nodeId": "node-start",
+          "nodeType": "START",
+          "nodeLabel": "Start Trigger",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: Start Trigger (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 410ms."
+          ],
+          "startedAt": "2026-11-05T11:10:35.087Z",
+          "output": {
+            "startedAt": "2026-11-05T11:10:35.511Z",
+            "initialPayload": {
+              "orderId": "ORD-8614",
+              "productId": "PRD-1024",
+              "amount": 249.99,
+              "quantity": 25,
+              "warehouse": "WH-01"
+            }
+          },
+          "completedAt": "2026-11-05T11:10:35.511Z"
+        },
+        "node-end": {
+          "id": "nexec_5a6e22fd2050",
+          "executionId": "exec_0e4c965848084eecabaa72d6bfa44023",
+          "nodeId": "node-end",
+          "nodeType": "END",
+          "nodeLabel": "End Transaction",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: End Transaction (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 408ms."
+          ],
+          "startedAt": "2026-11-05T11:10:35.553Z",
+          "output": {
+            "finishedAt": "2026-11-05T11:10:35.969Z",
+            "status": "SUCCESS"
+          },
+          "completedAt": "2026-11-05T11:10:35.969Z"
+        }
+      },
+      "compensationsExecuted": [],
+      "trigger": "MANUAL",
+      "triggeredBy": "amaan@cyberdyne.com",
+      "id": "exec_0e4c965848084eecabaa72d6bfa44023",
+      "currentNodeId": "node-end",
+      "completedAt": "2026-11-05T11:10:35.983Z"
     }
   ],
   "nodeExecutions": [],
@@ -11039,6 +12929,141 @@
         "trigger": "MANUAL"
       },
       "timestamp": "2026-11-04T09:50:38.337Z"
+    },
+    {
+      "id": "audit_75b6bzu2",
+      "tenantId": "tenant_yhm749uq",
+      "userId": "usr_9oipaxmc",
+      "userEmail": "amaan@cyberdyne.com",
+      "action": "WORKFLOW_CREATED",
+      "resource": "Workflow",
+      "resourceId": "wf_ifzdtl70",
+      "metadata": {
+        "name": "New Workflow"
+      },
+      "timestamp": "2026-11-04T10:03:48.468Z"
+    },
+    {
+      "id": "audit_01cyfpom",
+      "tenantId": "tenant_yhm749uq",
+      "userId": "usr_9oipaxmc",
+      "userEmail": "amaan@cyberdyne.com",
+      "action": "WORKFLOW_EXECUTED",
+      "resource": "WorkflowExecution",
+      "resourceId": "exec_ryimcs7m",
+      "metadata": {
+        "workflowId": "wf_q3h22wdb",
+        "trigger": "MANUAL"
+      },
+      "timestamp": "2026-11-04T10:04:02.156Z"
+    },
+    {
+      "id": "audit_ucydw0xi",
+      "tenantId": "tenant_yhm749uq",
+      "userId": "usr_9oipaxmc",
+      "userEmail": "amaan@cyberdyne.com",
+      "action": "USER_LOGIN",
+      "resource": "User",
+      "resourceId": "usr_9oipaxmc",
+      "timestamp": "2026-11-04T10:04:41.888Z"
+    },
+    {
+      "tenantId": "tenant_yhm749uq",
+      "userId": "usr_9oipaxmc",
+      "userEmail": "amaan@cyberdyne.com",
+      "action": "WORKFLOW_EXECUTED",
+      "resource": "WorkflowExecution",
+      "resourceId": "exec_1d323c4dd3d5470eb622a6b6ce2b16f7",
+      "metadata": {
+        "workflowId": "wf_q3h22wdb",
+        "trigger": "MANUAL"
+      },
+      "id": "audit_26803d0763ad41dd887c5af1a6628212",
+      "timestamp": "2026-11-04T10:10:24.877Z"
+    },
+    {
+      "tenantId": "tenant_yhm749uq",
+      "userId": "usr_9oipaxmc",
+      "userEmail": "amaan@cyberdyne.com",
+      "action": "WORKFLOW_EXECUTED",
+      "resource": "WorkflowExecution",
+      "resourceId": "exec_64ecb2db6391420390dbb50749c8c8b7",
+      "metadata": {
+        "workflowId": "wf_q3h22wdb",
+        "trigger": "MANUAL"
+      },
+      "id": "audit_946ce47feeb5420baad2dcabba501690",
+      "timestamp": "2026-11-04T10:10:32.078Z"
+    },
+    {
+      "tenantId": "tenant_yhm749uq",
+      "userId": "usr_9oipaxmc",
+      "userEmail": "amaan@cyberdyne.com",
+      "action": "WORKFLOW_EXECUTED",
+      "resource": "WorkflowExecution",
+      "resourceId": "exec_037d77e4e66946d3b9cd624fe4bf9669",
+      "metadata": {
+        "workflowId": "wf_q3h22wdb",
+        "trigger": "MANUAL"
+      },
+      "id": "audit_9d5ba45a52144a788ced1b587be235e0",
+      "timestamp": "2026-11-04T10:23:53.047Z"
+    },
+    {
+      "tenantId": "tenant_yhm749uq",
+      "userId": "usr_9oipaxmc",
+      "userEmail": "amaan@cyberdyne.com",
+      "action": "WORKFLOW_EXECUTED",
+      "resource": "WorkflowExecution",
+      "resourceId": "exec_7224a0f5d9e54d4284dbc0a6860c9a47",
+      "metadata": {
+        "workflowId": "wf_q3h22wdb",
+        "trigger": "MANUAL"
+      },
+      "id": "audit_8ef52f4c1f2b48dd824de2eaa25d1f1a",
+      "timestamp": "2026-11-04T10:23:57.499Z"
+    },
+    {
+      "tenantId": "tenant_yhm749uq",
+      "userId": "usr_9oipaxmc",
+      "userEmail": "amaan@cyberdyne.com",
+      "action": "WORKFLOW_EXECUTED",
+      "resource": "WorkflowExecution",
+      "resourceId": "exec_ceca34f79cad46bf97c0e7bbdb8590f7",
+      "metadata": {
+        "workflowId": "wf_q3h22wdb",
+        "trigger": "MANUAL"
+      },
+      "id": "audit_a7f9c5dd9423463dabcb076f6cd116c2",
+      "timestamp": "2026-11-05T11:06:58.285Z"
+    },
+    {
+      "tenantId": "tenant_yhm749uq",
+      "userId": "usr_9oipaxmc",
+      "userEmail": "amaan@cyberdyne.com",
+      "action": "WORKFLOW_EXECUTED",
+      "resource": "WorkflowExecution",
+      "resourceId": "exec_917cb027cb8b44c7bb94c813845ff7ff",
+      "metadata": {
+        "workflowId": "wf_q3h22wdb",
+        "trigger": "MANUAL"
+      },
+      "id": "audit_0a423a97814b4db9bc976a2f01d3b04a",
+      "timestamp": "2026-11-05T11:10:30.662Z"
+    },
+    {
+      "tenantId": "tenant_yhm749uq",
+      "userId": "usr_9oipaxmc",
+      "userEmail": "amaan@cyberdyne.com",
+      "action": "WORKFLOW_EXECUTED",
+      "resource": "WorkflowExecution",
+      "resourceId": "exec_0e4c965848084eecabaa72d6bfa44023",
+      "metadata": {
+        "workflowId": "wf_q3h22wdb",
+        "trigger": "MANUAL"
+      },
+      "id": "audit_f0c54988ddb54e64ac2a3ebd715ea0da",
+      "timestamp": "2026-11-05T11:10:35.101Z"
     }
   ],
   "dlq": [
@@ -12446,31 +14471,31 @@
       "id": "worker-alpha-01",
       "name": "Worker Alpha (US-East)",
       "status": "IDLE",
-      "completedJobs": 33,
-      "failedJobs": 3,
+      "completedJobs": 20,
+      "failedJobs": 1,
       "latencyMs": 180,
-      "startedAt": "2026-11-04T05:49:59.863Z",
-      "lastHeartbeat": "2026-11-04T09:50:44.883Z"
+      "startedAt": "2026-11-05T07:09:44.225Z",
+      "lastHeartbeat": "2026-11-05T11:12:14.344Z"
     },
     {
       "id": "worker-beta-02",
       "name": "Worker Beta (EU-Central)",
       "status": "IDLE",
-      "completedJobs": 28,
-      "failedJobs": 2,
-      "latencyMs": 18,
-      "startedAt": "2026-11-04T05:49:59.865Z",
-      "lastHeartbeat": "2026-11-04T09:50:44.890Z"
+      "completedJobs": 26,
+      "failedJobs": 1,
+      "latencyMs": 23,
+      "startedAt": "2026-11-05T07:09:44.231Z",
+      "lastHeartbeat": "2026-11-05T11:12:14.365Z"
     },
     {
       "id": "worker-gamma-03",
       "name": "Worker Gamma (AP-South)",
       "status": "IDLE",
-      "completedJobs": 27,
-      "failedJobs": 2,
+      "completedJobs": 13,
+      "failedJobs": 0,
       "latencyMs": 30,
-      "startedAt": "2026-11-04T05:49:59.867Z",
-      "lastHeartbeat": "2026-11-04T09:50:44.898Z"
+      "startedAt": "2026-11-05T07:09:44.238Z",
+      "lastHeartbeat": "2026-11-05T11:12:14.381Z"
     }
   ]
 }
