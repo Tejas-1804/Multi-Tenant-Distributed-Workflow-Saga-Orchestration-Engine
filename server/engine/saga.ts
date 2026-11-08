@@ -1,3 +1,4 @@
+
 import {
   Workflow,
   WorkflowExecution,
@@ -17,19 +18,28 @@ export interface SagaCompensationStepResult {
 
 export class SagaCompensationCoordinator {
   /**
-   * Executes compensations in REVERSE topological order for all nodes that
-   * succeeded and defined a compensation action.
+   * Executes compensation actions in reverse order.
+   *
+   * Only successfully completed nodes with compensation enabled
+   * are included in the rollback process.
    */
   public async executeCompensations(
     execution: WorkflowExecution,
     workflow: Workflow,
     triggeringError: string
-  ): Promise<{ success: boolean; steps: SagaCompensationStepResult[] }> {
-    console.log(`[SAGA] Initiating compensation workflow for execution ${execution.id}`);
+  ): Promise<{
+    success: boolean;
+    steps: SagaCompensationStepResult[];
+  }> {
+    console.log(
+      `[SAGA] Starting compensation for execution ${execution.id}`
+    );
 
-    // Update execution status to COMPENSATING
     execution.status = 'COMPENSATING';
-    db.executions.update(execution.id, { status: 'COMPENSATING' });
+
+    db.executions.update(execution.id, {
+      status: 'COMPENSATING',
+    });
 
     wsManager.broadcast({
       type: 'COMPENSATION_TRIGGERED',
@@ -42,149 +52,58 @@ export class SagaCompensationCoordinator {
       timestamp: new Date().toISOString(),
     });
 
-    // Identify all completed nodes with compensation enabled
-    const completedNodeIds = Object.keys(execution.nodeExecutions).filter(
-      id => execution.nodeExecutions[id].status === 'SUCCESS'
-    );
-
-    // Filter to those nodes that have compensation configured
     const nodesToCompensate: WorkflowNode[] = [];
-    for (const nodeId of completedNodeIds) {
-      const node = workflow.nodes.find(n => n.id === nodeId);
-      if (node && node.data.compensation?.enabled) {
-        nodesToCompensate.push(node);
+
+    // Find successfully completed nodes that have compensation enabled.
+    for (const nodeId of Object.keys(execution.nodeExecutions)) {
+      const nodeExecution = execution.nodeExecutions[nodeId];
+
+      if (nodeExecution.status !== 'SUCCESS') {
+        continue;
       }
+
+      const node = workflow.nodes.find(item => item.id === nodeId);
+
+      if (!node || !node.data.compensation?.enabled) {
+        continue;
+      }
+
+      nodesToCompensate.push(node);
     }
 
-    // Sort in reverse execution order (LIFO compensation order)
+    // Saga compensation follows LIFO order.
     nodesToCompensate.reverse();
 
     const results: SagaCompensationStepResult[] = [];
     let overallSuccess = true;
 
     for (const node of nodesToCompensate) {
-      const compConfig = node.data.compensation!;
-      const nodeExec = execution.nodeExecutions[node.id];
+      const result = await this.compensateNode(execution, node);
 
-      nodeExec.status = 'COMPENSATING';
-      nodeExec.compensationStatus = 'PENDING';
-      nodeExec.logs.push(`[SAGA] Initiating rollback compensation: ${compConfig.name || 'Compensate ' + node.data.label}`);
+      results.push(result);
 
-      wsManager.broadcast({
-        type: 'COMPENSATION_NODE_STATUS',
-        tenantId: execution.tenantId,
-        executionId: execution.id,
-        nodeId: node.id,
-        data: {
-          nodeId: node.id,
-          status: 'COMPENSATING',
-          compensationName: compConfig.name,
-        },
-        timestamp: new Date().toISOString(),
-      });
-
-      // Simulate network / compensation execution
-      await new Promise(r => setTimeout(r, 600));
-
-      let stepSucceeded = true;
-      try {
-        let responseDetail = `Compensated via ${compConfig.method} ${compConfig.url || 'internal handler'}`;
-
-        // If real URL provided and not simulated demo
-        if (compConfig.url && compConfig.url.startsWith('http')) {
-          try {
-            const resp = await fetch(compConfig.url, {
-              method: compConfig.method,
-              headers: {
-                'Content-Type': 'application/json',
-                ...(compConfig.headers || {}),
-              },
-              body: ['POST', 'PUT', 'PATCH'].includes(compConfig.method)
-                ? JSON.stringify({
-                    originalOutput: nodeExec.output,
-                    context: execution.contextData,
-                  })
-                : undefined,
-            });
-            if (!resp.ok) {
-              throw new Error(`Compensation endpoint responded with status ${resp.status}`);
-            }
-            responseDetail = `Remote endpoint HTTP ${resp.status} confirmed rollback`;
-          } catch (netErr: any) {
-            // If demo or unreachable remote, log rollback simulation
-            responseDetail = `Simulated rollback executed: ${compConfig.simulatedAction || compConfig.name} (${netErr.message})`;
-          }
-        } else {
-          responseDetail = compConfig.simulatedAction || `Rolled back successfully: ${compConfig.name}`;
-        }
-
-        nodeExec.status = 'COMPENSATED';
-        nodeExec.compensationStatus = 'SUCCESS';
-        nodeExec.logs.push(`[SAGA SUCCESS] ${responseDetail}`);
-        execution.compensationsExecuted.push(node.id);
-
-        results.push({
-          nodeId: node.id,
-          nodeLabel: node.data.label,
-          success: true,
-          actionTaken: responseDetail,
-        });
-
-        wsManager.broadcast({
-          type: 'COMPENSATION_NODE_STATUS',
-          tenantId: execution.tenantId,
-          executionId: execution.id,
-          nodeId: node.id,
-          data: {
-            nodeId: node.id,
-            status: 'COMPENSATED',
-            actionTaken: responseDetail,
-          },
-          timestamp: new Date().toISOString(),
-        });
-      } catch (err: any) {
-        stepSucceeded = false;
+      if (!result.success) {
         overallSuccess = false;
-        nodeExec.compensationStatus = 'FAILED';
-        nodeExec.compensationError = err.message;
-        nodeExec.logs.push(`[SAGA FAILED] Rollback error: ${err.message}`);
-
-        results.push({
-          nodeId: node.id,
-          nodeLabel: node.data.label,
-          success: false,
-          actionTaken: 'Failed to compensate',
-          error: err.message,
-        });
-
-        wsManager.broadcast({
-          type: 'COMPENSATION_NODE_STATUS',
-          tenantId: execution.tenantId,
-          executionId: execution.id,
-          nodeId: node.id,
-          data: {
-            nodeId: node.id,
-            status: 'FAILED',
-            error: err.message,
-          },
-          timestamp: new Date().toISOString(),
-        });
       }
 
+      // Save the current state after every compensation step.
       db.executions.update(execution.id, {
         nodeExecutions: execution.nodeExecutions,
         compensationsExecuted: execution.compensationsExecuted,
       });
     }
 
-    // Set final execution status
     const finalStatus = overallSuccess ? 'COMPENSATED' : 'FAILED';
+    const completedAt = new Date().toISOString();
+
     execution.status = finalStatus;
-    execution.completedAt = new Date().toISOString();
+    execution.completedAt = completedAt;
 
     db.executions.update(execution.id, {
       status: finalStatus,
-      completedAt: execution.completedAt,
+      completedAt,
+      nodeExecutions: execution.nodeExecutions,
+      compensationsExecuted: execution.compensationsExecuted,
     });
 
     wsManager.broadcast({
@@ -193,15 +112,219 @@ export class SagaCompensationCoordinator {
       executionId: execution.id,
       data: {
         status: finalStatus,
-        completedAt: execution.completedAt,
+        completedAt,
         sagaResults: results,
       },
       timestamp: new Date().toISOString(),
     });
 
-    console.log(`[SAGA] Finished compensations for execution ${execution.id} with status: ${finalStatus}`);
-    return { success: overallSuccess, steps: results };
+    console.log(
+      `[SAGA] Finished compensation for execution ${execution.id} with status: ${finalStatus}`
+    );
+
+    return {
+      success: overallSuccess,
+      steps: results,
+    };
+  }
+
+  /**
+   * Runs compensation for a single workflow node.
+   */
+  private async compensateNode(
+    execution: WorkflowExecution,
+    node: WorkflowNode
+  ): Promise<SagaCompensationStepResult> {
+    const compensation = node.data.compensation;
+    const nodeExecution =
+      execution.nodeExecutions[node.id] as WorkflowNodeExecution;
+
+    if (!compensation || !nodeExecution) {
+      return {
+        nodeId: node.id,
+        nodeLabel: node.data.label,
+        success: false,
+        actionTaken: 'Failed to start compensation',
+        error: 'Compensation configuration or node execution was not found',
+      };
+    }
+
+    nodeExecution.status = 'COMPENSATING';
+    nodeExecution.compensationStatus = 'PENDING';
+
+    nodeExecution.logs.push(
+      `[SAGA] Starting rollback compensation: ${
+        compensation.name || `Compensate ${node.data.label}`
+      }`
+    );
+
+    wsManager.broadcast({
+      type: 'COMPENSATION_NODE_STATUS',
+      tenantId: execution.tenantId,
+      executionId: execution.id,
+      nodeId: node.id,
+      data: {
+        nodeId: node.id,
+        status: 'COMPENSATING',
+        compensationName: compensation.name,
+      },
+      timestamp: new Date().toISOString(),
+    });
+
+    // Keep the small delay used by the demo compensation flow.
+    await new Promise(resolve => setTimeout(resolve, 600));
+
+    try {
+      const actionTaken = await this.executeCompensation(
+        execution,
+        node,
+        nodeExecution
+      );
+
+      nodeExecution.status = 'COMPENSATED';
+      nodeExecution.compensationStatus = 'SUCCESS';
+
+      nodeExecution.logs.push(
+        `[SAGA SUCCESS] ${actionTaken}`
+      );
+
+      // Prevent duplicate entries if compensation is called again.
+      if (!execution.compensationsExecuted.includes(node.id)) {
+        execution.compensationsExecuted.push(node.id);
+      }
+
+      wsManager.broadcast({
+        type: 'COMPENSATION_NODE_STATUS',
+        tenantId: execution.tenantId,
+        executionId: execution.id,
+        nodeId: node.id,
+        data: {
+          nodeId: node.id,
+          status: 'COMPENSATED',
+          actionTaken,
+        },
+        timestamp: new Date().toISOString(),
+      });
+
+      return {
+        nodeId: node.id,
+        nodeLabel: node.data.label,
+        success: true,
+        actionTaken,
+      };
+    } catch (error: any) {
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : String(error);
+
+      nodeExecution.compensationStatus = 'FAILED';
+      nodeExecution.compensationError = errorMessage;
+
+      nodeExecution.logs.push(
+        `[SAGA FAILED] Rollback error: ${errorMessage}`
+      );
+
+      wsManager.broadcast({
+        type: 'COMPENSATION_NODE_STATUS',
+        tenantId: execution.tenantId,
+        executionId: execution.id,
+        nodeId: node.id,
+        data: {
+          nodeId: node.id,
+          status: 'FAILED',
+          error: errorMessage,
+        },
+        timestamp: new Date().toISOString(),
+      });
+
+      return {
+        nodeId: node.id,
+        nodeLabel: node.data.label,
+        success: false,
+        actionTaken: 'Failed to compensate',
+        error: errorMessage,
+      };
+    }
+  }
+
+  /**
+   * Executes the configured compensation action.
+   */
+  private async executeCompensation(
+    execution: WorkflowExecution,
+    node: WorkflowNode,
+    nodeExecution: WorkflowNodeExecution
+  ): Promise<string> {
+    const compensation = node.data.compensation!;
+
+    // No real endpoint means this is a local/demo compensation.
+    if (
+      !compensation.url ||
+      !compensation.url.startsWith('http')
+    ) {
+      return (
+        compensation.simulatedAction ||
+        `Rolled back successfully: ${compensation.name}`
+      );
+    }
+
+    try {
+      const method = compensation.method;
+
+      let body: string | undefined;
+
+      if (
+        method === 'POST' ||
+        method === 'PUT' ||
+        method === 'PATCH'
+      ) {
+        body = JSON.stringify({
+          originalOutput: nodeExecution.output,
+          context: execution.contextData,
+        });
+      }
+
+      const response = await fetch(compensation.url, {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+          ...(compensation.headers || {}),
+        },
+        body,
+      });
+
+      if (!response.ok) {
+        throw new Error(
+          `Compensation endpoint responded with status ${response.status}`
+        );
+      }
+
+      return `Remote endpoint HTTP ${response.status} confirmed rollback`;
+    } catch (error: any) {
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : String(error);
+
+      console.warn(
+        `[SAGA] Remote compensation failed for ${node.data.label}: ${errorMessage}`
+      );
+
+      /*
+       * Keep the existing demo behavior:
+       * if the remote compensation endpoint is unavailable,
+       * record a simulated rollback instead of stopping the
+       * entire compensation process.
+       */
+      return (
+        `Simulated rollback executed: ${
+          compensation.simulatedAction || compensation.name
+        } (${errorMessage})`
+      );
+    }
   }
 }
 
-export const sagaCoordinator = new SagaCompensationCoordinator();
+export const sagaCoordinator =
+  new SagaCompensationCoordinator();
