@@ -157,7 +157,20 @@ function createCorsMiddleware(
         callback(error);
       },
       methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-      allowedHeaders: ['Content-Type', 'Authorization'],
+            allowedHeaders: [
+        'Content-Type',
+        'Authorization',
+        'x-api-key',
+        'x-target-tenant-id',
+        'x-tenant-id',
+        'Idempotency-Key',
+      ],
+      exposedHeaders: [
+        'X-RateLimit-Limit',
+        'X-RateLimit-Remaining',
+        'X-RateLimit-Reset',
+        'Retry-After',
+      ],
     })
   );
 
