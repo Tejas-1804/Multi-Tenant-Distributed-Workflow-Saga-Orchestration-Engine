@@ -156,44 +156,29 @@ function createCorsMiddleware(
 
         callback(error);
       },
-
-      methods: [
-        'GET',
-        'POST',
-        'PUT',
-        'PATCH',
-        'DELETE',
-        'OPTIONS',
-      ],
-
-      allowedHeaders: [
-        'Content-Type',
-        'Authorization',
-      ],
-    }),
-  );
-}
-
-function createBodyParserMiddleware(
-  app: express.Express,
-): void {
-  app.use(
-    express.json({
-      limit: JSON_BODY_LIMIT,
-    }),
+      methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+      allowedHeaders: ['Content-Type', 'Authorization'],
+    })
   );
 
-  app.use(
-    express.urlencoded({
-      extended: true,
-      limit: JSON_BODY_LIMIT,
-    }),
-  );
-}
+  // Request body parsing
+  app.use(express.json({ limit: '10mb' }));
+  app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-function registerApiRoutes(
-  app: express.Express,
-): void {
+  // WebSocket initialization
+  wsManager.initialize(server);
+
+  // Database initialization
+  console.log('Initializing database...');
+
+  await seedDatabase();
+
+  console.log('Database initialization completed.');
+
+  // Initialize database change stream processor
+  initializeChangeStreamProcessor();
+
+  // API Routes
   app.use('/api/auth', authRoutes);
   app.use('/api/tenants', tenantRoutes);
   app.use('/api/workflows', workflowRoutes);

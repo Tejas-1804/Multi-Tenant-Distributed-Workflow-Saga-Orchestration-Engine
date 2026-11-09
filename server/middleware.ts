@@ -15,6 +15,7 @@ export interface AuthenticatedRequest extends Request {
   };
   tenant?: Tenant;
   apiKeyId?: string;
+  apiKeyScopes?: string[];
 }
 
 // Rate limiter configuration
@@ -146,22 +147,24 @@ export function authenticateUser(
         }
       }
 
-      // Update API key usage information
-      db.apiKeys.updateLastUsed(apiKey.id);
+            req.apiKeyId = apiKey.id;
+      // Extract scopes, defaulting to standard execution scopes if unspecified
+      const assignedScopes = (apiKey as any).scopes && Array.isArray((apiKey as any).scopes)
+        ? (apiKey as any).scopes
+        : ['workflows:read', 'workflows:execute', 'executions:read'];
 
-      req.apiKeyId = apiKey.id;
+      req.apiKeyScopes = assignedScopes;
 
-      // API key operates under its tenant context
+      // API key operates under its tenant context with controlled role
       req.user = {
         id: `apikey_${apiKey.id}`,
         email: `apikey@${apiKey.tenantId}.system`,
         tenantId: apiKey.tenantId,
-        role: 'TENANT_ADMIN',
+        role: assignedScopes.includes('admin:*') ? 'TENANT_ADMIN' : 'TENANT_USER',
         name: `API Key: ${apiKey.name}`,
       };
 
       return next();
-    }
 
     return res.status(401).json({
       error: 'Authentication required. Provide a Bearer token or x-api-key header.',
@@ -274,6 +277,67 @@ export function authorizeRole(allowedRoles: UserRole[]) {
 
     return next();
   };
+}
+
+/**
+ * 3.1 GRANULAR SCOPE ENFORCEMENT
+ * Verifies that the API key or authenticated identity carries the required permission scope.
+ */
+export function requireScope(requiredScope: string) {
+  return (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
+    // Session-based user logins (JWT) carry full role permissions
+    if (!req.apiKeyId) {
+      return next();
+    }
+
+    const scopes = req.apiKeyScopes || [];
+    const hasScope = scopes.includes('*') || scopes.includes('admin:*') || scopes.includes(requiredScope);
+
+    if (!hasScope) {
+      return res.status(403).json({
+        error: 'Forbidden: Insufficient API key scope',
+        requiredScope,
+        assignedScopes: scopes,
+      });
+    }
+
+    return next();
+  };
+}
+
+/**
+ * 3.2 IDEMPOTENCY GUARD
+ * Prevents duplicate workflow executions from duplicated network calls or client retries.
+ */
+const idempotencyStore = new Map<string, { timestamp: number; response: any }>();
+
+export function checkIdempotency(req: AuthenticatedRequest, res: Response, next: NextFunction) {
+  const idempotencyKey = req.headers['idempotency-key'];
+  if (!idempotencyKey || typeof idempotencyKey !== 'string') {
+    return next();
+  }
+
+  const tenantId = req.user?.tenantId || 'global';
+  const compositeKey = `${tenantId}:${idempotencyKey.trim()}`;
+  const now = Date.now();
+
+  // Expire cached responses after 10 minutes
+  const existing = idempotencyStore.get(compositeKey);
+  if (existing && now - existing.timestamp < 10 * 60 * 1000) {
+    res.setHeader('X-Cache-Lookup', 'IDEMPOTENT_HIT');
+    return res.status(200).json(existing.response);
+  }
+
+  // Intercept the res.json to capture output for idempotent replay
+  const originalJson = res.json.bind(res);
+  res.json = (body: any) => {
+    if (res.statusCode >= 200 && res.statusCode < 300) {
+      idempotencyStore.set(compositeKey, { timestamp: Date.now(), response: body });
+    }
+    return originalJson(body);
+  };
+
+  return next();
 }
 
 /**
