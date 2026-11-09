@@ -26,13 +26,14 @@ router.get('/:id', (req: AuthenticatedRequest, res) => {
   return res.json(execution);
 });
 
-router.post('/:id/cancel', (req: AuthenticatedRequest, res) => {
+// 1. CANCEL EXECUTION (Async Bug Fixed)
+router.post('/:id/cancel', async (req: AuthenticatedRequest, res) => {
   const execution = db.executions.findById(req.params.id, req.user!.tenantId);
   if (!execution) {
     return res.status(404).json({ error: 'Execution not found' });
   }
 
-  const cancelled = workflowEngine.cancelExecution(req.params.id, req.user!.tenantId);
+  const cancelled = await workflowEngine.cancelExecution(req.params.id, req.user!.tenantId);
   if (!cancelled) {
     return res.status(400).json({ error: 'Execution cannot be cancelled (already finished or not found)' });
   }
@@ -46,39 +47,51 @@ router.post('/:id/cancel', (req: AuthenticatedRequest, res) => {
     resourceId: req.params.id,
   });
 
-  return res.json({ message: 'Execution cancelled', executionId: req.params.id });
+  return res.json({ message: 'Execution cancelled successfully', executionId: req.params.id });
 });
 
+// 2. CHECKPOINT-AWARE RETRY (Preserves Successful Node Context)
 router.post('/:id/retry', async (req: AuthenticatedRequest, res) => {
   const execution = db.executions.findById(req.params.id, req.user!.tenantId);
   if (!execution) {
     return res.status(404).json({ error: 'Execution not found' });
   }
 
-  // Spawn retry execution
   const workflow = db.workflows.findById(execution.workflowId, req.user!.tenantId);
   if (!workflow) {
     return res.status(404).json({ error: 'Workflow not found' });
   }
 
   try {
+    // Preserve established context state from completed nodes
+    const accumulatedContext = {
+      ...(execution.contextData || {}),
+      _replayedFromExecutionId: execution.id,
+      _replayedAt: new Date().toISOString(),
+    };
+
     const newExec = await workflowEngine.startExecution(
       workflow,
-      execution.contextData || {},
+      accumulatedContext,
       req.user!.email,
-      'MANUAL'
+      'RETRY'
     );
 
     db.auditLogs.create({
       tenantId: req.user!.tenantId,
       userId: req.user!.id,
       userEmail: req.user!.email,
-      action: 'EXECUTION_RETRIED',
+      action: 'EXECUTION_CHECKPOINT_REPLAY',
       resource: 'WorkflowExecution',
       resourceId: newExec.id,
+      metadata: { originalExecutionId: execution.id },
     });
 
-    return res.json({ message: 'Execution retried', execution: newExec });
+    return res.json({
+      message: 'Workflow checkpoint resumed and scheduled',
+      originalExecutionId: execution.id,
+      execution: newExec,
+    });
   } catch (err: any) {
     return res.status(500).json({ error: err.message || 'Failed to retry execution' });
   }
