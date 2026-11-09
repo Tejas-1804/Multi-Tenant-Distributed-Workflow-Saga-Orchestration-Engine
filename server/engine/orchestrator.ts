@@ -190,7 +190,10 @@ export const VALID_EXECUTION_TRANSITIONS: Record<string, string[]> = {
 };
 
 export class WorkflowOrchestrationEngine {
-  private activeExecutions = new Map<string, { cancelled: boolean }>();
+  private activeExecutions = new Map<
+    string,
+    { cancelled: boolean; timeoutTimer?: ReturnType<typeof setTimeout> }
+  >();
 
   /**
    * Deterministic State Machine Transition Guard

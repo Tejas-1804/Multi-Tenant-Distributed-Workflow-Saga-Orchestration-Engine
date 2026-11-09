@@ -80,7 +80,7 @@ export function authenticateUser(
   req: AuthenticatedRequest,
   res: Response,
   next: NextFunction
-) {
+): Response | void {
   try {
     const authHeader = getHeaderValue(req, 'authorization');
     const apiKeyHeader = getHeaderValue(req, 'x-api-key');
