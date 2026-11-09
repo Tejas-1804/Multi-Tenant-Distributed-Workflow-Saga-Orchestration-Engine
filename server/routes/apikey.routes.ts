@@ -32,7 +32,7 @@ router.get('/', (req: AuthenticatedRequest, res) => {
 
 // Create new API Key (Returns rawKey ONLY ONCE)
 router.post('/', (req: AuthenticatedRequest, res) => {
-  const { name, expiresInDays } = req.body;
+  const { name, expiresInDays, scopes } = req.body;
   if (!name) {
     return res.status(400).json({ error: 'Key name is required' });
   }
@@ -44,14 +44,20 @@ router.post('/', (req: AuthenticatedRequest, res) => {
     expiresAt = new Date(Date.now() + Number(expiresInDays) * 24 * 3600 * 1000).toISOString();
   }
 
+  // Enterprise default scopes
+  const keyScopes = Array.isArray(scopes) && scopes.length > 0
+    ? scopes
+    : ['workflows:read', 'workflows:execute', 'executions:read'];
+
   const record = db.apiKeys.create({
     tenantId: req.user!.tenantId,
     name,
     keyPrefix,
     keyHash,
     expiresAt,
+    ...( { scopes: keyScopes } as any ),
   });
-
+  
   db.auditLogs.create({
     tenantId: req.user!.tenantId,
     userId: req.user!.id,
