@@ -64,7 +64,7 @@ function AppContent() {
   return (
     <div className={`min-h-screen flex font-sans selection:bg-blue-500/30 selection:text-blue-200 transition-colors duration-200 ${
       isDark
-        ? 'bg-gradient-to-br from-[#0B1220] via-[#0F172A] to-[#172033] text-slate-100'
+        ? 'bg-linear-to-br from-[#0B1220] via-[#0F172A] to-[#172033] text-slate-100'
         : 'bg-[#f8fafc] text-slate-900'
     }`}>
       {/* Left Deep Navy Navigation Sidebar matching #070D18 */}
@@ -92,7 +92,7 @@ function AppContent() {
         {/* Dynamic Page Content */}
         <main className={`flex-1 overflow-y-auto ${
           isDark
-            ? 'bg-gradient-to-br from-[#0B1220] via-[#0F172A] to-[#172033]'
+            ? 'bg-linear-to-br from-[#0B1220] via-[#0F172A] to-[#172033]'
             : 'bg-[#f8fafc]'
         }`}>
           {currentTab === 'dashboard' && (
