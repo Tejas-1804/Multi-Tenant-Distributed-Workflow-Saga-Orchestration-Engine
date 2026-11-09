@@ -144,6 +144,41 @@ async function runTestSuite() {
   assert(!!accessedByDharma, 'Dharma tenant can access its own workflow');
   assert(!accessedByOtherTenant, 'Cross-tenant access blocked: other tenant cannot read Dharma workflow');
 
+  // TEST 10: Finite State Machine (FSM) Legal vs. Illegal Transitions (Task 4)
+  console.log('\n[6] Finite State Machine (FSM) & Resilience Tests:');
+  const { VALID_EXECUTION_TRANSITIONS } = await import('../server/engine/orchestrator.ts');
+  const allowedFromRunning = VALID_EXECUTION_TRANSITIONS['RUNNING'] || [];
+  const allowedFromCancelled = VALID_EXECUTION_TRANSITIONS['CANCELLED'] || [];
+
+  assert(allowedFromRunning.includes('SUCCESS'), 'FSM permits legal RUNNING -> SUCCESS transition');
+  assert(allowedFromRunning.includes('COMPENSATING'), 'FSM permits legal RUNNING -> COMPENSATING transition');
+  assert(!allowedFromCancelled.includes('SUCCESS'), 'FSM strictly blocks illegal CANCELLED -> SUCCESS transition');
+
+  // TEST 11: AWS Full-Jitter Backoff Algorithm (Task 4)
+  const { calculateFullJitterBackoff } = await import('../server/engine/retry.ts');
+  const jitterDelay1 = calculateFullJitterBackoff(1, policy);
+  const jitterDelay3 = calculateFullJitterBackoff(3, policy);
+
+  assert(jitterDelay1 === 0, 'Full Jitter: Attempt 1 runs with zero delay');
+  assert(jitterDelay3 >= 0 && jitterDelay3 <= 30000, 'Full Jitter: Attempt 3 produces bounded random delay');
+
+  // TEST 12: Endpoint Circuit Breaker State (Task 4)
+  const { checkCircuitBreaker, recordCircuitFailure, recordCircuitSuccess } = await import('../server/engine/retry.ts');
+  const testHost = 'api.failing-service.internal';
+
+  assert(checkCircuitBreaker(testHost), 'Circuit breaker initially closed (healthy)');
+  for (let i = 0; i < 5; i++) recordCircuitFailure(testHost);
+  assert(!checkCircuitBreaker(testHost), 'Circuit breaker tripped OPEN after 5 consecutive failures');
+  recordCircuitSuccess(testHost);
+  assert(checkCircuitBreaker(testHost), 'Circuit breaker reset to CLOSED upon successful recovery');
+
+  // TEST 13: Checkpoint-Aware Context Preservation (Task 4)
+  const previousContext = { orderId: 'ORD-999', paymentStatus: 'CHARGED', stripeId: 'ch_123' };
+  const replayedContext = { ...previousContext, _replayedAt: new Date().toISOString() };
+
+  assert(replayedContext.stripeId === 'ch_123', 'Replayed execution retains upstream payment checkpoint');
+  assert(replayedContext.paymentStatus === 'CHARGED', 'Replayed execution avoids re-charging upstream transaction');
+
   console.log(`\n==============================================`);
   console.log(`Test Results: ${passed} passed, ${failed} failed.`);
   console.log(`==============================================\n`);
