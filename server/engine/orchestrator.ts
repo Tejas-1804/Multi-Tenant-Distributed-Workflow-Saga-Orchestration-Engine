@@ -213,7 +213,7 @@ export class WorkflowOrchestrationEngine {
     db.executions.update(execution.id, { status: nextStatus, ...additionalFields });
     return true;
   }
-  
+
   /**
    * Starts asynchronous workflow execution.
    */
@@ -263,6 +263,19 @@ export class WorkflowOrchestrationEngine {
 
     this.activeExecutions.set(execution.id, { cancelled: false });
 
+    // Global Workflow Execution Timeout Guard (Task 4: Deadlock Prevention)
+    const MAX_WORKFLOW_TIMEOUT_MS = envInt('WORKFLOW_GLOBAL_TIMEOUT_MS', 120_000); // 2 minutes
+    const timer = setTimeout(async () => {
+      const current = await db.executions.findById(execution.id, workflow.tenantId);
+      if (current && current.status === 'RUNNING') {
+        console.warn(`[TIMEOUT] Execution ${execution.id} exceeded deadline of ${MAX_WORKFLOW_TIMEOUT_MS}ms. Aborting...`);
+        await this.cancelExecution(execution.id, workflow.tenantId);
+        this.failExecution(execution, `Workflow execution timed out after ${MAX_WORKFLOW_TIMEOUT_MS / 1000}s`);
+      }
+    }, MAX_WORKFLOW_TIMEOUT_MS);
+
+    this.activeExecutions.set(execution.id, { cancelled: false, timeoutTimer: timer });
+    
     // 3. Broadcast
     this.emit('EXECUTION_STARTED', execution, { execution });
 
