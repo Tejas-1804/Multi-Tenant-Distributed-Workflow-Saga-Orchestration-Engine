@@ -35,10 +35,14 @@ router.post('/:id/retry', async (req: AuthenticatedRequest, res) => {
   // Update DLQ job status
   db.dlq.update(job.id, req.user!.tenantId, { status: 'RESOLVED' });
 
-  // Re-run workflow with the failed job payload
+    // Enterprise DLQ Mutation: Allow operator to pass a corrected payload in req.body.payload
+  const payloadToRun = req.body.payload && typeof req.body.payload === 'object'
+    ? { ...job.payload, ...req.body.payload, _dlqRepaired: true }
+    : (job.payload || {});
+
   const execution = await workflowEngine.startExecution(
     workflow,
-    job.payload || {},
+    payloadToRun,
     req.user!.email,
     'MANUAL'
   );
