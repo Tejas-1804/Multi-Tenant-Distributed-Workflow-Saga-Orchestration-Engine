@@ -176,11 +176,44 @@ const isMockHost = (hostname: string): boolean => {
 /*  Engine                                                                    */
 /* -------------------------------------------------------------------------- */
 
+/**
+ * Strict Finite State Machine (FSM) Transition Table (Task 4)
+ */
+export const VALID_EXECUTION_TRANSITIONS: Record<string, string[]> = {
+  PENDING: ['RUNNING', 'CANCELLED'],
+  RUNNING: ['SUCCESS', 'FAILED', 'CANCELLED', 'COMPENSATING'],
+  COMPENSATING: ['COMPENSATED', 'FAILED'],
+  SUCCESS: [],
+  FAILED: [],
+  CANCELLED: [],
+  COMPENSATED: [],
+};
+
 export class WorkflowOrchestrationEngine {
   private activeExecutions = new Map<string, { cancelled: boolean }>();
 
-  /* ------------------------------ public API ------------------------------ */
+  /**
+   * Deterministic State Machine Transition Guard
+   */
+  private transitionExecutionState(
+    execution: WorkflowExecution,
+    nextStatus: WorkflowExecution['status'],
+    additionalFields: Partial<WorkflowExecution> = {}
+  ): boolean {
+    const currentStatus = execution.status;
+    const allowed = VALID_EXECUTION_TRANSITIONS[currentStatus] || [];
 
+    if (!allowed.includes(nextStatus)) {
+      console.warn(`[STATE_MACHINE] Prevented illegal transition from '${currentStatus}' to '${nextStatus}' on execution ${execution.id}`);
+      return false;
+    }
+
+    execution.status = nextStatus;
+    Object.assign(execution, additionalFields);
+    db.executions.update(execution.id, { status: nextStatus, ...additionalFields });
+    return true;
+  }
+  
   /**
    * Starts asynchronous workflow execution.
    */
