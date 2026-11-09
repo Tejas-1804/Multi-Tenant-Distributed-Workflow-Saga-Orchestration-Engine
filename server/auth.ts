@@ -419,3 +419,19 @@ export function compareApiKeyHashes(
     second
   );
 }
+
+/* -------------------------------------------------------------------------- */
+/* Token Revocation / Blacklist (Task 3)                                      */
+/* -------------------------------------------------------------------------- */
+
+const tokenBlacklist = new Set<string>();
+
+export function revokeToken(token: string): void {
+  if (token && typeof token === 'string') {
+    tokenBlacklist.add(token.trim());
+  }
+}
+
+export function isTokenRevoked(token: string): boolean {
+  return tokenBlacklist.has(token.trim());
+}
