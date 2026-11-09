@@ -173,24 +173,22 @@ function createCorsMiddleware(
       ],
     })
   );
+}
 
+function createBodyParserMiddleware(
+  app: express.Express,
+): void {
   // Request body parsing
-  app.use(express.json({ limit: '10mb' }));
-  app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+  app.use(express.json({ limit: JSON_BODY_LIMIT }));
+  app.use(
+    express.urlencoded({
+      extended: true,
+      limit: JSON_BODY_LIMIT,
+    }),
+  );
+}
 
-  // WebSocket initialization
-  wsManager.initialize(server);
-
-  // Database initialization
-  console.log('Initializing database...');
-
-  await seedDatabase();
-
-  console.log('Database initialization completed.');
-
-  // Initialize database change stream processor
-  initializeChangeStreamProcessor();
-
+function registerApiRoutes(app: express.Express): void {
   // API Routes
   app.use('/api/auth', authRoutes);
   app.use('/api/tenants', tenantRoutes);

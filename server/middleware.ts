@@ -166,6 +166,7 @@ export function authenticateUser(
       };
 
       return next();
+    }
 
     return res.status(401).json({
       error: 'Authentication required. Provide a Bearer token or x-api-key header.',
