@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { db } from '../db.ts';
-import { hashPassword, comparePassword, signJwt } from '../auth.ts';
+import { hashPassword, comparePassword, signJwt, revokeToken } from '../auth.ts';
 import { authenticateUser, AuthenticatedRequest } from '../middleware.ts';
 
 const router = Router();
@@ -150,6 +150,15 @@ router.post('/logout', authenticateUser, (req: AuthenticatedRequest, res) => {
     resource: 'User',
   });
   return res.json({ message: 'Logged out successfully' });
+});
+
+router.post('/logout', authenticateUser, (req: AuthenticatedRequest, res) => {
+  const authHeader = req.headers.authorization;
+  if (authHeader) {
+    const token = authHeader.replace(/^Bearer\s+/i, '').trim();
+    revokeToken(token);
+  }
+  return res.json({ message: 'Logged out and session revoked successfully' });
 });
 
 export default router;
