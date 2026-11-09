@@ -1,4 +1,5 @@
-import { Router } from 'express';
+// @ts-ignore -- Express may not have type declarations installed in this environment.
+import { Router, Response } from 'express';
 import { db } from '../db.ts';
 import {
   authenticateUser,
@@ -15,7 +16,7 @@ router.use(identifyTenant);
 router.use(authorizeRole(['TENANT_ADMIN']));
 
 // List keys (never returning raw keys or key hashes)
-router.get('/', (req: AuthenticatedRequest, res) => {
+router.get('/', (req: AuthenticatedRequest, res: Response) => {
   const keys = db.apiKeys.find({ tenantId: req.user!.tenantId });
   const sanitized = keys.map(k => ({
     id: k.id,
@@ -31,8 +32,8 @@ router.get('/', (req: AuthenticatedRequest, res) => {
 });
 
 // Create new API Key (Returns rawKey ONLY ONCE)
-router.post('/', (req: AuthenticatedRequest, res) => {
-  const { name, expiresInDays } = req.body;
+router.post('/', (req: AuthenticatedRequest, res: Response) => {
+  const { name, expiresInDays, scopes } = (req as AuthenticatedRequest & { body: any }).body;
   if (!name) {
     return res.status(400).json({ error: 'Key name is required' });
   }
@@ -44,12 +45,18 @@ router.post('/', (req: AuthenticatedRequest, res) => {
     expiresAt = new Date(Date.now() + Number(expiresInDays) * 24 * 3600 * 1000).toISOString();
   }
 
+  // Enterprise default scopes
+  const keyScopes = Array.isArray(scopes) && scopes.length > 0
+    ? scopes
+    : ['workflows:read', 'workflows:execute', 'executions:read'];
+
   const record = db.apiKeys.create({
     tenantId: req.user!.tenantId,
     name,
     keyPrefix,
     keyHash,
     expiresAt,
+    ...( { scopes: keyScopes } as any ),
   });
 
   db.auditLogs.create({
@@ -75,7 +82,7 @@ router.post('/', (req: AuthenticatedRequest, res) => {
 });
 
 // Revoke key
-router.delete('/:id', (req: AuthenticatedRequest, res) => {
+router.delete('/:id', (req: AuthenticatedRequest & { params: { id: string } }, res: Response) => {
   const revoked = db.apiKeys.revoke(req.params.id, req.user!.tenantId);
   if (!revoked) {
     return res.status(404).json({ error: 'API key not found' });
@@ -94,7 +101,7 @@ router.delete('/:id', (req: AuthenticatedRequest, res) => {
 });
 
 // Rotate key
-router.post('/:id/rotate', (req: AuthenticatedRequest, res) => {
+router.post('/:id/rotate', (req: AuthenticatedRequest & { params: { id: string } }, res: Response) => {
   const oldKey = db.apiKeys.findById(req.params.id, req.user!.tenantId);
   if (!oldKey) {
     return res.status(404).json({ error: 'API key not found' });

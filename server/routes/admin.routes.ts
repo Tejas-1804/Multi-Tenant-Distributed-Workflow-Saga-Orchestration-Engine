@@ -25,7 +25,7 @@ router.get('/statistics', (req: AuthenticatedRequest, res) => {
       if (ne.attempts > 1) {
         totalRetries += (ne.attempts - 1);
       }
-    });
+    });  
   });
 
   const workers = workerPool.getAllWorkers();

@@ -12,8 +12,43 @@ import { executeSandboxedTransform } from './sandbox.ts';
 import { isRetryableError, calculateBackoffDelay } from './retry.ts';
 import { sagaCoordinator } from './saga.ts';
 
+/**
+ * Strict Finite State Machine (FSM) Transition Table
+ */
+export const VALID_EXECUTION_TRANSITIONS: Record<string, string[]> = {
+  PENDING: ['RUNNING', 'CANCELLED'],
+  RUNNING: ['SUCCESS', 'FAILED', 'CANCELLED', 'COMPENSATING'],
+  COMPENSATING: ['COMPENSATED', 'FAILED'],
+  SUCCESS: [],
+  FAILED: [],
+  CANCELLED: [],
+  COMPENSATED: [],
+};
+
 export class WorkflowOrchestrationEngine {
-  private activeExecutions = new Map<string, { cancelled: boolean }>();
+  private activeExecutions = new Map<string, { cancelled: boolean; timeoutTimer?: ReturnType<typeof setTimeout> }>();
+
+  /**
+   * Deterministic State Machine Transition Guard
+   */
+  private transitionExecutionState(
+    execution: WorkflowExecution,
+    nextStatus: WorkflowExecution['status'],
+    additionalFields: Partial<WorkflowExecution> = {}
+  ): boolean {
+    const currentStatus = execution.status;
+    const allowed = VALID_EXECUTION_TRANSITIONS[currentStatus] || [];
+
+    if (!allowed.includes(nextStatus)) {
+      console.warn(`[STATE_MACHINE] Prevented illegal transition from '${currentStatus}' to '${nextStatus}' on execution ${execution.id}`);
+      return false;
+    }
+
+    execution.status = nextStatus;
+    Object.assign(execution, additionalFields);
+    db.executions.update(execution.id, { status: nextStatus, ...additionalFields });
+    return true;
+  }
 
   /**
    * Starts asynchronous workflow execution
@@ -79,36 +114,35 @@ export class WorkflowOrchestrationEngine {
     return execution;
   }
 
-  public cancelExecution(executionId: string, tenantId: string): boolean {
+    public async cancelExecution(executionId: string, tenantId: string): Promise<boolean> {
+    // Strict multi-tenant isolation check FIRST
+    const execution = await db.executions.findById(executionId, tenantId);
+    if (!execution || execution.completedAt) return false;
+
     const handle = this.activeExecutions.get(executionId);
     if (handle) {
       handle.cancelled = true;
+      if (handle.timeoutTimer) clearTimeout(handle.timeoutTimer);
     }
-    const execution = db.executions.findById(executionId, tenantId);
-    if (!execution || execution.completedAt) return false;
 
-    execution.status = 'CANCELLED';
-    execution.completedAt = new Date().toISOString();
-    db.executions.update(execution.id, {
-      status: 'CANCELLED',
-      completedAt: execution.completedAt,
-    });
+    const completedAt = new Date().toISOString();
+    const transitioned = this.transitionExecutionState(execution, 'CANCELLED', { completedAt });
+    if (!transitioned) return false;
 
     wsManager.broadcast({
       type: 'EXECUTION_STATUS_CHANGED',
       tenantId: execution.tenantId,
       executionId: execution.id,
-      data: { status: 'CANCELLED' },
+      data: { status: 'CANCELLED', execution },
       timestamp: new Date().toISOString(),
     });
-
     return true;
   }
 
   private async runWorkflowAsync(workflow: Workflow, execution: WorkflowExecution) {
     const startNode = workflow.nodes.find(n => n.type === 'START');
     if (!startNode) {
-      this.failExecution(execution, 'Workflow lacks START node', workflow);
+      this.failExecution(execution, 'Workflow lacks START node');
       return;
     }
 
@@ -615,21 +649,25 @@ export class WorkflowOrchestrationEngine {
     wsManager.broadcast({
       type: 'DLQ_JOB_ADDED',
       tenantId: execution.tenantId,
-      data: dlqJob,
-      timestamp: new Date().toISOString(),
-    });
 
-    // 2. Trigger Saga Compensation Rollback
-    await sagaCoordinator.executeCompensations(execution, workflow, errorMessage);
+            data: dlqJob,
+            timestamp: new Date().toISOString(),
+          });
+
+          // 2. Trigger Saga Compensation Rollback
+          await sagaCoordinator.executeCompensations(execution, workflow, errorMessage);
+        }
+
+        private isCancelled(executionId: string): boolean {
+    return this.activeExecutions.get(executionId)?.cancelled ?? false;
   }
 
-  private failExecution(execution: WorkflowExecution, reason: string, workflow?: Workflow) {
-    execution.status = 'FAILED';
-    execution.completedAt = new Date().toISOString();
-    execution.error = reason;
-    db.executions.update(execution.id, {
-      status: 'FAILED',
-      completedAt: execution.completedAt,
+  private failExecution(execution: WorkflowExecution, reason: string) {
+    if (this.isCancelled(execution.id)) return;
+
+    const completedAt = new Date().toISOString();
+    this.transitionExecutionState(execution, 'FAILED', {
+      completedAt,
       error: reason,
     });
 
@@ -637,7 +675,7 @@ export class WorkflowOrchestrationEngine {
       type: 'EXECUTION_STATUS_CHANGED',
       tenantId: execution.tenantId,
       executionId: execution.id,
-      data: { status: 'FAILED', error: reason },
+      data: { status: 'FAILED', error: reason, execution },
       timestamp: new Date().toISOString(),
     });
   }

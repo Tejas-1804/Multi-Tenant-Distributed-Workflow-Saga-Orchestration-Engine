@@ -149,6 +149,14 @@ export interface WorkflowNodeExecution {
   compensationError?: string;
 }
 
+export type ExecutionTrigger =
+  | 'MANUAL'
+  | 'API'
+  | 'WEBHOOK'
+  | 'SCHEDULE'
+  | 'CHANGE_STREAM'
+  | 'RETRY';
+
 export interface WorkflowExecution {
   id: string;
   workflowId: string;
@@ -162,7 +170,7 @@ export interface WorkflowExecution {
   contextData: Record<string, any>;
   nodeExecutions: Record<string, WorkflowNodeExecution>;
   compensationsExecuted: string[];
-  trigger: 'MANUAL' | 'API' | 'WEBHOOK' | 'SCHEDULE' | 'CHANGE_STREAM';
+  trigger: ExecutionTrigger;
   triggeredBy: string;
 }
 

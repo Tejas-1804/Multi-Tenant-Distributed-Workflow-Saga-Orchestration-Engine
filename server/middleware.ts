@@ -1,10 +1,11 @@
-import { Request, Response, NextFunction } from 'express';
+
+import type { Request as ExpressRequest, Response as ExpressResponse, NextFunction as ExpressNextFunction } from 'express';
 import { db } from './db.ts';
 import { verifyJwt, hashApiKey } from './auth.ts';
 import { UserRole, Tenant } from '../src/types/index.ts';
 
-// Extend Express Request
-export interface AuthenticatedRequest extends Request {
+// Extend Express Request with authenticated user and tenant context
+export interface AuthenticatedRequest extends ExpressRequest {
   user?: {
     id: string;
     email: string;
@@ -16,142 +17,351 @@ export interface AuthenticatedRequest extends Request {
   apiKeyId?: string;
 }
 
-// In-memory rate limiter tracking by tenantId
-const rateLimitTracker = new Map<string, { count: number; windowStart: number }>();
+type Request = ExpressRequest;
+type Response = ExpressResponse;
+type NextFunction = ExpressNextFunction;
 
-export function authenticateUser(req: AuthenticatedRequest, res: Response, next: NextFunction) {
-  const authHeader = req.headers.authorization;
-  const apiKeyHeader = req.headers['x-api-key'] as string;
+// Rate limiter configuration
+const RATE_LIMIT_WINDOW_MS = 60 * 1000;
+const DEFAULT_RATE_LIMIT = 100;
+const PRO_RATE_LIMIT = 1000;
+const CLEANUP_INTERVAL = 1024;
 
-  // 1. Try Bearer JWT
-  if (authHeader && authHeader.startsWith('Bearer ')) {
-    const token = authHeader.substring(7);
-    const decoded = verifyJwt(token);
-    if (!decoded) {
-      return res.status(401).json({ error: 'Invalid or expired authorization token' });
-    }
+// In-memory rate limiter tracking by tenant
+const rateLimitTracker = new Map<
+  string,
+  { count: number; windowStart: number }
+>();
 
-    const user = db.users.findById(decoded.userId);
-    if (!user || user.status !== 'ACTIVE') {
-      return res.status(401).json({ error: 'User is inactive or not found' });
-    }
+let rateLimitRequestCount = 0;
 
-    req.user = {
-      id: user.id,
-      email: user.email,
-      tenantId: user.tenantId,
-      role: user.role,
-      name: user.name,
-    };
-    return next();
+/**
+ * Safely extracts a single string header.
+ * Rejects array values to avoid ambiguous header handling.
+ */
+function getHeaderValue(
+  req: Request,
+  headerName: string
+): string | undefined {
+  const value = req.headers[headerName.toLowerCase()];
+
+  if (typeof value !== 'string') {
+    return undefined;
   }
 
-  // 2. Try API Key
-  if (apiKeyHeader) {
-    const hash = hashApiKey(apiKeyHeader);
-    const apiKey = db.apiKeys.findByHash(hash);
-    if (!apiKey) {
-      return res.status(401).json({ error: 'Invalid or revoked API key' });
-    }
-
-    if (apiKey.expiresAt && new Date(apiKey.expiresAt).getTime() < Date.now()) {
-      return res.status(401).json({ error: 'API key has expired' });
-    }
-
-    db.apiKeys.updateLastUsed(apiKey.id);
-
-    req.apiKeyId = apiKey.id;
-    // API key acts on behalf of TENANT_ADMIN for the key's tenant
-    req.user = {
-      id: 'apikey_' + apiKey.id,
-      email: `apikey@${apiKey.tenantId}.system`,
-      tenantId: apiKey.tenantId,
-      role: 'TENANT_ADMIN',
-      name: `API Key: ${apiKey.name}`,
-    };
-    return next();
-  }
-
-  return res.status(401).json({ error: 'Authentication required. Provide Bearer token or x-api-key header.' });
+  const normalized = value.trim();
+  return normalized.length > 0 ? normalized : undefined;
 }
 
-export function identifyTenant(req: AuthenticatedRequest, res: Response, next: NextFunction) {
-  if (!req.user) {
-    return res.status(401).json({ error: 'User not authenticated' });
+/**
+ * Removes expired rate-limit entries periodically.
+ * Prevents the in-memory tracker from growing indefinitely.
+ */
+function cleanupRateLimitTracker(now: number): void {
+  rateLimitRequestCount++;
+
+  if (rateLimitRequestCount < CLEANUP_INTERVAL) {
+    return;
   }
 
-  // SUPER_ADMIN can optionally specify x-tenant-id to inspect another tenant
-  const targetTenantId = (req.user.role === 'SUPER_ADMIN' && req.headers['x-target-tenant-id']) 
-    ? (req.headers['x-target-tenant-id'] as string)
-    : req.user.tenantId;
+  rateLimitRequestCount = 0;
 
-  const tenant = db.tenants.findById(targetTenantId);
-  if (!tenant) {
-    return res.status(404).json({ error: `Tenant ${targetTenantId} not found` });
+  for (const [tenantId, tracker] of rateLimitTracker.entries()) {
+    if (now - tracker.windowStart >= RATE_LIMIT_WINDOW_MS) {
+      rateLimitTracker.delete(tenantId);
+    }
   }
-
-  if (tenant.status !== 'ACTIVE' && req.user.role !== 'SUPER_ADMIN') {
-    return res.status(403).json({ error: 'Tenant account is suspended' });
-  }
-
-  req.tenant = tenant;
-  // If SUPER_ADMIN inspected another tenant, override req.user.tenantId for isolation
-  if (req.user.role === 'SUPER_ADMIN' && req.headers['x-target-tenant-id']) {
-    req.user.tenantId = targetTenantId;
-  }
-
-  next();
 }
 
-export function authorizeRole(allowedRoles: UserRole[]) {
-  return (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
+/**
+ * 1. AUTHENTICATION
+ *
+ * Supports JWT Bearer tokens and API keys.
+ * JWT authentication takes precedence when a Bearer token is supplied.
+ */
+export function authenticateUser(
+  req: AuthenticatedRequest,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const authHeader = getHeaderValue(req, 'authorization');
+    const apiKeyHeader = getHeaderValue(req, 'x-api-key');
+
+    // Authenticate using JWT
+    if (authHeader && /^Bearer\s+/i.test(authHeader)) {
+      const token = authHeader.replace(/^Bearer\s+/i, '').trim();
+
+      if (!token) {
+        return res.status(401).json({
+          error: 'Authorization token is missing',
+        });
+      }
+
+      const decoded = verifyJwt(token);
+
+      if (!decoded || !decoded.userId) {
+        return res.status(401).json({
+          error: 'Invalid or expired authorization token',
+        });
+      }
+
+      const user = db.users.findById(decoded.userId);
+
+      if (!user || user.status !== 'ACTIVE') {
+        return res.status(401).json({
+          error: 'User is inactive or not found',
+        });
+      }
+
+      req.user = {
+        id: user.id,
+        email: user.email,
+        tenantId: user.tenantId,
+        role: user.role,
+        name: user.name,
+      };
+
+      return next();
+    }
+
+    // Authenticate using API key
+    if (apiKeyHeader) {
+      const hash = hashApiKey(apiKeyHeader);
+      const apiKey = db.apiKeys.findByHash(hash);
+
+      if (!apiKey) {
+        return res.status(401).json({
+          error: 'Invalid or revoked API key',
+        });
+      }
+
+      // Validate API key expiration
+      if (apiKey.expiresAt) {
+        const expirationTime = new Date(apiKey.expiresAt).getTime();
+
+        if (
+          !Number.isFinite(expirationTime) ||
+          expirationTime <= Date.now()
+        ) {
+          return res.status(401).json({
+            error: 'API key has expired or has an invalid expiration date',
+          });
+        }
+      }
+
+      // Update API key usage information
+      db.apiKeys.updateLastUsed(apiKey.id);
+
+      req.apiKeyId = apiKey.id;
+
+      // API key operates under its tenant context
+      req.user = {
+        id: `apikey_${apiKey.id}`,
+        email: `apikey@${apiKey.tenantId}.system`,
+        tenantId: apiKey.tenantId,
+        role: 'TENANT_ADMIN',
+        name: `API Key: ${apiKey.name}`,
+      };
+
+      return next();
+    }
+
+    return res.status(401).json({
+      error: 'Authentication required. Provide a Bearer token or x-api-key header.',
+    });
+  } catch (error) {
+    console.error('[AUTH] Authentication failed:', error);
+
+    return res.status(500).json({
+      error: 'Authentication service temporarily unavailable',
+    });
+  }
+}
+
+/**
+ * 2. TENANT IDENTIFICATION
+ *
+ * Resolves the tenant associated with the authenticated user.
+ * SUPER_ADMIN can inspect another tenant using x-target-tenant-id.
+ */
+export function identifyTenant(
+  req: AuthenticatedRequest,
+  res: Response,
+  next: NextFunction
+) {
+  try {
     if (!req.user) {
-      return res.status(401).json({ error: 'Unauthorized' });
+      return res.status(401).json({
+        error: 'User not authenticated',
+      });
     }
 
-    // SUPER_ADMIN has access to all resources
+    const requestedTenantId = getHeaderValue(
+      req,
+      'x-target-tenant-id'
+    );
+
+    // Only SUPER_ADMIN can select another tenant
+    if (requestedTenantId && req.user.role !== 'SUPER_ADMIN') {
+      return res.status(403).json({
+        error: 'You are not authorized to access another tenant',
+      });
+    }
+
+    const targetTenantId =
+      req.user.role === 'SUPER_ADMIN' && requestedTenantId
+        ? requestedTenantId
+        : req.user.tenantId;
+
+    const tenant = db.tenants.findById(targetTenantId);
+
+    if (!tenant) {
+      return res.status(404).json({
+        error: 'Tenant not found',
+      });
+    }
+
+    // Suspended tenants cannot access the platform
+    if (
+      tenant.status !== 'ACTIVE' &&
+      req.user.role !== 'SUPER_ADMIN'
+    ) {
+      return res.status(403).json({
+        error: 'Tenant account is suspended',
+      });
+    }
+
+    req.tenant = tenant;
+
+    // Preserve the original user identity.
+    // The selected tenant is available through req.tenant.
+    return next();
+  } catch (error) {
+    console.error('[TENANT] Tenant identification failed:', error);
+
+    return res.status(500).json({
+      error: 'Unable to identify tenant',
+    });
+  }
+}
+
+/**
+ * 3. ROLE-BASED AUTHORIZATION
+ *
+ * Restricts resources to specified user roles.
+ */
+export function authorizeRole(allowedRoles: UserRole[]) {
+  return (
+    req: AuthenticatedRequest,
+    res: Response,
+    next: NextFunction
+  ) => {
+    if (!req.user) {
+      return res.status(401).json({
+        error: 'Unauthorized: Authentication required',
+      });
+    }
+
+    // SUPER_ADMIN has global access
     if (req.user.role === 'SUPER_ADMIN') {
       return next();
     }
 
     if (!allowedRoles.includes(req.user.role)) {
       return res.status(403).json({
-        error: `Forbidden: role '${req.user.role}' lacks permission for this resource. Required: ${allowedRoles.join(', ')}`,
+        error: 'Forbidden: Insufficient permissions',
+        role: req.user.role,
+        requiredRoles: allowedRoles,
       });
     }
 
-    next();
+    return next();
   };
 }
 
-export function tenantRateLimiter(req: AuthenticatedRequest, res: Response, next: NextFunction) {
-  if (!req.tenant) return next();
-
-  const now = Date.now();
-  const windowMs = 60 * 1000; // 1 minute window
-  const limit = req.tenant.rateLimitPerMinute || (req.tenant.plan === 'PRO' ? 1000 : 100);
-
-  const tracker = rateLimitTracker.get(req.tenant.id) || { count: 0, windowStart: now };
-
-  if (now - tracker.windowStart > windowMs) {
-    // Reset window
-    tracker.count = 1;
-    tracker.windowStart = now;
-  } else {
-    tracker.count += 1;
+/**
+ * 4. TENANT RATE LIMITER
+ *
+ * Applies request limits independently to each tenant.
+ * Uses a fixed 60-second window.
+ */
+export function tenantRateLimiter(
+  req: AuthenticatedRequest,
+  res: Response,
+  next: NextFunction
+) {
+  if (!req.tenant) {
+    return next();
   }
 
-  rateLimitTracker.set(req.tenant.id, tracker);
+  const now = Date.now();
+  const tenantId = req.tenant.id;
 
+  // Resolve the tenant's configured request limit
+  const configuredLimit = req.tenant.rateLimitPerMinute;
+
+  const limit =
+    typeof configuredLimit === 'number' &&
+    Number.isSafeInteger(configuredLimit) &&
+    configuredLimit > 0
+      ? configuredLimit
+      : req.tenant.plan === 'PRO'
+        ? PRO_RATE_LIMIT
+        : DEFAULT_RATE_LIMIT;
+
+  // Periodically remove expired tracker entries
+  cleanupRateLimitTracker(now);
+
+  let tracker = rateLimitTracker.get(tenantId);
+
+  // Initialize or reset the current rate-limit window
+  if (
+    !tracker ||
+    now - tracker.windowStart >= RATE_LIMIT_WINDOW_MS
+  ) {
+    tracker = {
+      count: 0,
+      windowStart: now,
+    };
+  }
+
+  // Count the current request
+  tracker.count++;
+
+  rateLimitTracker.set(tenantId, tracker);
+
+  const remaining = Math.max(0, limit - tracker.count);
+
+  const resetTime = Math.ceil(
+    (tracker.windowStart + RATE_LIMIT_WINDOW_MS) / 1000
+  );
+
+  // Rate-limit response headers
   res.setHeader('X-RateLimit-Limit', limit.toString());
-  res.setHeader('X-RateLimit-Remaining', Math.max(0, limit - tracker.count).toString());
-  res.setHeader('X-RateLimit-Reset', Math.ceil((tracker.windowStart + windowMs) / 1000).toString());
+  res.setHeader('X-RateLimit-Remaining', remaining.toString());
+  res.setHeader('X-RateLimit-Reset', resetTime.toString());
 
+  // Reject requests exceeding the tenant's limit
   if (tracker.count > limit) {
+    const retryAfter = Math.max(
+      1,
+      Math.ceil(
+        (tracker.windowStart + RATE_LIMIT_WINDOW_MS - now) / 1000
+      )
+    );
+
+    res.setHeader('Retry-After', retryAfter.toString());
+
     return res.status(429).json({
-      error: `Rate limit exceeded. Plan: ${req.tenant.plan} limit is ${limit} requests/minute. Try again in ${Math.ceil((tracker.windowStart + windowMs - now) / 1000)}s.`,
+      error: 'Rate limit exceeded',
+      plan: req.tenant.plan,
+      limit,
+      window: '60 seconds',
+      retryAfter,
+      message: `Your tenant has exceeded its limit of ${limit} requests per minute.`,
     });
   }
 
-  next();
+  return next();
 }

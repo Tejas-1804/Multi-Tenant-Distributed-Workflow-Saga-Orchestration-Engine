@@ -7730,31 +7730,31 @@
       "id": "worker-alpha-01",
       "name": "Worker Alpha (US-East)",
       "status": "IDLE",
-      "completedJobs": 40,
-      "failedJobs": 3,
-      "latencyMs": 180,
-      "startedAt": "2026-11-02T16:17:03.143Z",
-      "lastHeartbeat": "2026-11-02T20:18:03.180Z"
+      "completedJobs": 15,
+      "failedJobs": 1,
+      "latencyMs": 23,
+      "startedAt": "2026-11-09T07:30:51.589Z",
+      "lastHeartbeat": "2026-11-09T11:31:36.637Z"
     },
     {
       "id": "worker-beta-02",
       "name": "Worker Beta (EU-Central)",
       "status": "IDLE",
-      "completedJobs": 28,
-      "failedJobs": 0,
-      "latencyMs": 30,
-      "startedAt": "2026-11-02T16:17:03.147Z",
-      "lastHeartbeat": "2026-11-02T20:18:03.186Z"
+      "completedJobs": 17,
+      "failedJobs": 2,
+      "latencyMs": 10,
+      "startedAt": "2026-11-09T07:30:51.602Z",
+      "lastHeartbeat": "2026-11-09T11:31:36.648Z"
     },
     {
       "id": "worker-gamma-03",
       "name": "Worker Gamma (AP-South)",
       "status": "IDLE",
-      "completedJobs": 22,
-      "failedJobs": 0,
-      "latencyMs": 24,
-      "startedAt": "2026-11-02T16:17:03.148Z",
-      "lastHeartbeat": "2026-11-02T20:18:03.189Z"
+      "completedJobs": 25,
+      "failedJobs": 1,
+      "latencyMs": 34,
+      "startedAt": "2026-11-09T07:30:51.613Z",
+      "lastHeartbeat": "2026-11-09T11:31:36.659Z"
     }
   ]
 }
