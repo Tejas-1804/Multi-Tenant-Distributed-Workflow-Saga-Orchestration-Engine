@@ -5,10 +5,10 @@
       "name": "Acme Corp",
       "slug": "acme-corp",
       "plan": "ENTERPRISE",
-      "rateLimitPerMinute": 1000,
+      "rateLimitPerMinute": 2000,
       "status": "ACTIVE",
       "createdAt": "2026-10-08T15:27:09.500Z",
-      "updatedAt": "2026-11-05T11:09:44.260Z",
+      "updatedAt": "2026-11-09T07:31:17.530Z",
       "domain": "acme.nexusflow.io"
     },
     {
@@ -60,7 +60,7 @@
       "rateLimitPerMinute": 5000,
       "status": "ACTIVE",
       "createdAt": "2026-11-04T10:03:07.202Z",
-      "updatedAt": "2026-11-05T11:09:44.256Z"
+      "updatedAt": "2026-11-09T07:31:17.523Z"
     },
     {
       "id": "tenant_9ef2ezp2",
@@ -88,14 +88,14 @@
   "users": [
     {
       "id": "usr_ty8nx3km",
-      "tenantId": "tenant_8seup31w",
+      "tenantId": "tenant_eciiez67",
       "name": "Master System Administrator",
       "email": "superadmin@orchestration.engine",
       "role": "SUPER_ADMIN",
       "status": "ACTIVE",
       "passwordHash": "$2b$10$n/gwh3FlS0jCnXGnt0uY5unEp28AMDqvMbllTwVKWsY63qiAp27Jm",
       "createdAt": "2026-10-08T15:27:09.902Z",
-      "updatedAt": "2026-11-05T11:09:44.265Z"
+      "updatedAt": "2026-11-09T07:31:17.559Z"
     },
     {
       "id": "usr_hrxzhz1x",
@@ -106,7 +106,7 @@
       "status": "ACTIVE",
       "passwordHash": "$2b$12$jaDMz3XVtrYA67DoLsLQmOSUeb6NnN4x/9cRQmFI73HUeEY.y5Gyi",
       "createdAt": "2026-10-08T15:27:09.902Z",
-      "updatedAt": "2026-11-05T11:09:44.282Z"
+      "updatedAt": "2026-11-09T07:31:17.590Z"
     },
     {
       "id": "usr_zhg9jzrn",
@@ -150,7 +150,7 @@
       "status": "ACTIVE",
       "passwordHash": "$2b$12$jaDMz3XVtrYA67DoLsLQmOSUeb6NnN4x/9cRQmFI73HUeEY.y5Gyi",
       "createdAt": "2026-10-28T15:36:29.217Z",
-      "updatedAt": "2026-11-05T11:09:44.276Z"
+      "updatedAt": "2026-11-09T07:31:17.578Z"
     },
     {
       "id": "usr_9oipaxmc",
@@ -161,7 +161,7 @@
       "status": "ACTIVE",
       "passwordHash": "$2b$12$2.7/ajt.tTngJ0MB.sy.p.Xm2YgIan0nglJ4rAmzETiTlLsvAVkfK",
       "createdAt": "2026-10-28T15:36:29.218Z",
-      "updatedAt": "2026-11-05T11:09:44.290Z"
+      "updatedAt": "2026-11-09T07:31:17.599Z"
     },
     {
       "id": "usr_esa5p0d6",
@@ -172,7 +172,7 @@
       "status": "ACTIVE",
       "passwordHash": "$2b$12$S7sZNebUtvMxvPez5LnrPOTd69mMpNHuDeDnVha8M/yDfz3WnKI0i",
       "createdAt": "2026-10-28T15:36:29.218Z",
-      "updatedAt": "2026-11-05T11:09:44.295Z"
+      "updatedAt": "2026-11-09T07:31:17.614Z"
     },
     {
       "id": "usr_k9irpksi",
@@ -183,7 +183,7 @@
       "status": "ACTIVE",
       "passwordHash": "$2b$12$/a4dxrc.X6tz5ASj5AxR1uTdUO6FAWVfwP51/Y7YrGPxVBf46ZS7.",
       "createdAt": "2026-10-28T15:36:29.219Z",
-      "updatedAt": "2026-11-05T11:09:44.302Z"
+      "updatedAt": "2026-11-09T07:31:17.624Z"
     },
     {
       "id": "usr_0ywd2s5p",
@@ -194,7 +194,7 @@
       "status": "ACTIVE",
       "passwordHash": "$2b$12$jaDMz3XVtrYA67DoLsLQmOSUeb6NnN4x/9cRQmFI73HUeEY.y5Gyi",
       "createdAt": "2026-11-04T10:03:09.085Z",
-      "updatedAt": "2026-11-05T11:09:44.270Z"
+      "updatedAt": "2026-11-09T07:31:17.568Z"
     }
   ],
   "workflows": [
@@ -12381,6 +12381,1110 @@
       "id": "exec_0e4c965848084eecabaa72d6bfa44023",
       "currentNodeId": "node-end",
       "completedAt": "2026-11-05T11:10:35.983Z"
+    },
+    {
+      "workflowId": "wf_q3h22wdb",
+      "workflowName": "New Workflow",
+      "tenantId": "tenant_yhm749uq",
+      "status": "SUCCESS",
+      "startedAt": "2026-11-06T11:17:56.026Z",
+      "contextData": {
+        "orderId": "ORD-7911",
+        "productId": "PRD-1024",
+        "amount": 249.99,
+        "quantity": 25,
+        "warehouse": "WH-01",
+        "node-start": {
+          "startedAt": "2026-11-06T11:17:56.500Z",
+          "initialPayload": {
+            "orderId": "ORD-7911",
+            "productId": "PRD-1024",
+            "amount": 249.99,
+            "quantity": 25,
+            "warehouse": "WH-01"
+          }
+        },
+        "startedAt": "2026-11-06T11:17:56.500Z",
+        "initialPayload": {
+          "orderId": "ORD-7911",
+          "productId": "PRD-1024",
+          "amount": 249.99,
+          "quantity": 25,
+          "warehouse": "WH-01"
+        },
+        "node-end": {
+          "finishedAt": "2026-11-06T11:17:56.988Z",
+          "status": "SUCCESS"
+        },
+        "finishedAt": "2026-11-06T11:17:56.988Z",
+        "status": "SUCCESS"
+      },
+      "nodeExecutions": {
+        "node-start": {
+          "id": "nexec_241cc2e9a900",
+          "executionId": "exec_47348372fe024fd7b215a2d010f6a771",
+          "nodeId": "node-start",
+          "nodeType": "START",
+          "nodeLabel": "Start Trigger",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: Start Trigger (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 405ms."
+          ],
+          "startedAt": "2026-11-06T11:17:56.083Z",
+          "output": {
+            "startedAt": "2026-11-06T11:17:56.500Z",
+            "initialPayload": {
+              "orderId": "ORD-7911",
+              "productId": "PRD-1024",
+              "amount": 249.99,
+              "quantity": 25,
+              "warehouse": "WH-01"
+            }
+          },
+          "completedAt": "2026-11-06T11:17:56.500Z"
+        },
+        "node-end": {
+          "id": "nexec_59438554ef7d",
+          "executionId": "exec_47348372fe024fd7b215a2d010f6a771",
+          "nodeId": "node-end",
+          "nodeType": "END",
+          "nodeLabel": "End Transaction",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: End Transaction (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 408ms."
+          ],
+          "startedAt": "2026-11-06T11:17:56.563Z",
+          "output": {
+            "finishedAt": "2026-11-06T11:17:56.988Z",
+            "status": "SUCCESS"
+          },
+          "completedAt": "2026-11-06T11:17:56.988Z"
+        }
+      },
+      "compensationsExecuted": [],
+      "trigger": "MANUAL",
+      "triggeredBy": "amaan@cyberdyne.com",
+      "id": "exec_47348372fe024fd7b215a2d010f6a771",
+      "currentNodeId": "node-end",
+      "completedAt": "2026-11-06T11:17:57.023Z"
+    },
+    {
+      "workflowId": "wf_q3h22wdb",
+      "workflowName": "New Workflow",
+      "tenantId": "tenant_yhm749uq",
+      "status": "SUCCESS",
+      "startedAt": "2026-11-07T09:15:57.738Z",
+      "contextData": {
+        "orderId": "ORD-3538",
+        "productId": "PRD-1024",
+        "amount": 249.99,
+        "quantity": 25,
+        "warehouse": "WH-01",
+        "node-start": {
+          "startedAt": "2026-11-07T09:15:58.177Z",
+          "initialPayload": {
+            "orderId": "ORD-3538",
+            "productId": "PRD-1024",
+            "amount": 249.99,
+            "quantity": 25,
+            "warehouse": "WH-01"
+          }
+        },
+        "startedAt": "2026-11-07T09:15:58.177Z",
+        "initialPayload": {
+          "orderId": "ORD-3538",
+          "productId": "PRD-1024",
+          "amount": 249.99,
+          "quantity": 25,
+          "warehouse": "WH-01"
+        },
+        "node-end": {
+          "finishedAt": "2026-11-07T09:15:58.625Z",
+          "status": "SUCCESS"
+        },
+        "finishedAt": "2026-11-07T09:15:58.625Z",
+        "status": "SUCCESS"
+      },
+      "nodeExecutions": {
+        "node-start": {
+          "id": "nexec_3c5c577d3bc3",
+          "executionId": "exec_afbd5cddcbfa41788de5719486f3b6d8",
+          "nodeId": "node-start",
+          "nodeType": "START",
+          "nodeLabel": "Start Trigger",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: Start Trigger (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 402ms."
+          ],
+          "startedAt": "2026-11-07T09:15:57.767Z",
+          "output": {
+            "startedAt": "2026-11-07T09:15:58.177Z",
+            "initialPayload": {
+              "orderId": "ORD-3538",
+              "productId": "PRD-1024",
+              "amount": 249.99,
+              "quantity": 25,
+              "warehouse": "WH-01"
+            }
+          },
+          "completedAt": "2026-11-07T09:15:58.177Z"
+        },
+        "node-end": {
+          "id": "nexec_e98e46f45b8d",
+          "executionId": "exec_afbd5cddcbfa41788de5719486f3b6d8",
+          "nodeId": "node-end",
+          "nodeType": "END",
+          "nodeLabel": "End Transaction",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: End Transaction (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 411ms."
+          ],
+          "startedAt": "2026-11-07T09:15:58.209Z",
+          "output": {
+            "finishedAt": "2026-11-07T09:15:58.625Z",
+            "status": "SUCCESS"
+          },
+          "completedAt": "2026-11-07T09:15:58.625Z"
+        }
+      },
+      "compensationsExecuted": [],
+      "trigger": "MANUAL",
+      "triggeredBy": "amaan@cyberdyne.com",
+      "id": "exec_afbd5cddcbfa41788de5719486f3b6d8",
+      "currentNodeId": "node-end",
+      "completedAt": "2026-11-07T09:15:58.637Z"
+    },
+    {
+      "workflowId": "wf_q3h22wdb",
+      "workflowName": "New Workflow",
+      "tenantId": "tenant_yhm749uq",
+      "status": "SUCCESS",
+      "startedAt": "2026-11-07T09:17:30.357Z",
+      "contextData": {
+        "orderId": "ORD-7612",
+        "productId": "PRD-1024",
+        "amount": 249.99,
+        "quantity": 25,
+        "warehouse": "WH-01",
+        "node-start": {
+          "startedAt": "2026-11-07T09:17:30.830Z",
+          "initialPayload": {
+            "orderId": "ORD-7612",
+            "productId": "PRD-1024",
+            "amount": 249.99,
+            "quantity": 25,
+            "warehouse": "WH-01"
+          }
+        },
+        "startedAt": "2026-11-07T09:17:30.830Z",
+        "initialPayload": {
+          "orderId": "ORD-7612",
+          "productId": "PRD-1024",
+          "amount": 249.99,
+          "quantity": 25,
+          "warehouse": "WH-01"
+        },
+        "node-end": {
+          "finishedAt": "2026-11-07T09:17:31.387Z",
+          "status": "SUCCESS"
+        },
+        "finishedAt": "2026-11-07T09:17:31.387Z",
+        "status": "SUCCESS"
+      },
+      "nodeExecutions": {
+        "node-start": {
+          "id": "nexec_1036015404ff",
+          "executionId": "exec_482587a1b4554bce92c6ee17a1217a65",
+          "nodeId": "node-start",
+          "nodeType": "START",
+          "nodeLabel": "Start Trigger",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: Start Trigger (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 403ms."
+          ],
+          "startedAt": "2026-11-07T09:17:30.413Z",
+          "output": {
+            "startedAt": "2026-11-07T09:17:30.830Z",
+            "initialPayload": {
+              "orderId": "ORD-7612",
+              "productId": "PRD-1024",
+              "amount": 249.99,
+              "quantity": 25,
+              "warehouse": "WH-01"
+            }
+          },
+          "completedAt": "2026-11-07T09:17:30.830Z"
+        },
+        "node-end": {
+          "id": "nexec_81f1b9260e49",
+          "executionId": "exec_482587a1b4554bce92c6ee17a1217a65",
+          "nodeId": "node-end",
+          "nodeType": "END",
+          "nodeLabel": "End Transaction",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: End Transaction (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 478ms."
+          ],
+          "startedAt": "2026-11-07T09:17:30.895Z",
+          "output": {
+            "finishedAt": "2026-11-07T09:17:31.387Z",
+            "status": "SUCCESS"
+          },
+          "completedAt": "2026-11-07T09:17:31.387Z"
+        }
+      },
+      "compensationsExecuted": [],
+      "trigger": "MANUAL",
+      "triggeredBy": "amaan@cyberdyne.com",
+      "id": "exec_482587a1b4554bce92c6ee17a1217a65",
+      "currentNodeId": "node-end",
+      "completedAt": "2026-11-07T09:17:31.419Z"
+    },
+    {
+      "workflowId": "wf_q3h22wdb",
+      "workflowName": "New Workflow",
+      "tenantId": "tenant_yhm749uq",
+      "status": "SUCCESS",
+      "startedAt": "2026-11-07T09:28:18.698Z",
+      "contextData": {
+        "orderId": "ORD-8603",
+        "productId": "PRD-1024",
+        "amount": 249.99,
+        "quantity": 25,
+        "warehouse": "WH-01",
+        "node-start": {
+          "startedAt": "2026-11-07T09:28:19.216Z",
+          "initialPayload": {
+            "orderId": "ORD-8603",
+            "productId": "PRD-1024",
+            "amount": 249.99,
+            "quantity": 25,
+            "warehouse": "WH-01"
+          }
+        },
+        "startedAt": "2026-11-07T09:28:19.216Z",
+        "initialPayload": {
+          "orderId": "ORD-8603",
+          "productId": "PRD-1024",
+          "amount": 249.99,
+          "quantity": 25,
+          "warehouse": "WH-01"
+        },
+        "node-end": {
+          "finishedAt": "2026-11-07T09:28:19.721Z",
+          "status": "SUCCESS"
+        },
+        "finishedAt": "2026-11-07T09:28:19.721Z",
+        "status": "SUCCESS"
+      },
+      "nodeExecutions": {
+        "node-start": {
+          "id": "nexec_cfdb92022af7",
+          "executionId": "exec_606cf45d5a9d420baf81d92e9eb34960",
+          "nodeId": "node-start",
+          "nodeType": "START",
+          "nodeLabel": "Start Trigger",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: Start Trigger (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 410ms."
+          ],
+          "startedAt": "2026-11-07T09:28:18.785Z",
+          "output": {
+            "startedAt": "2026-11-07T09:28:19.216Z",
+            "initialPayload": {
+              "orderId": "ORD-8603",
+              "productId": "PRD-1024",
+              "amount": 249.99,
+              "quantity": 25,
+              "warehouse": "WH-01"
+            }
+          },
+          "completedAt": "2026-11-07T09:28:19.216Z"
+        },
+        "node-end": {
+          "id": "nexec_e75ff94fecbc",
+          "executionId": "exec_606cf45d5a9d420baf81d92e9eb34960",
+          "nodeId": "node-end",
+          "nodeType": "END",
+          "nodeLabel": "End Transaction",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: End Transaction (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 400ms."
+          ],
+          "startedAt": "2026-11-07T09:28:19.302Z",
+          "output": {
+            "finishedAt": "2026-11-07T09:28:19.721Z",
+            "status": "SUCCESS"
+          },
+          "completedAt": "2026-11-07T09:28:19.721Z"
+        }
+      },
+      "compensationsExecuted": [],
+      "trigger": "MANUAL",
+      "triggeredBy": "amaan@cyberdyne.com",
+      "id": "exec_606cf45d5a9d420baf81d92e9eb34960",
+      "currentNodeId": "node-end",
+      "completedAt": "2026-11-07T09:28:19.756Z"
+    },
+    {
+      "workflowId": "wf_q3h22wdb",
+      "workflowName": "New Workflow",
+      "tenantId": "tenant_yhm749uq",
+      "status": "SUCCESS",
+      "startedAt": "2026-11-07T09:28:22.372Z",
+      "contextData": {
+        "orderId": "ORD-9719",
+        "productId": "PRD-1024",
+        "amount": 249.99,
+        "quantity": 25,
+        "warehouse": "WH-01",
+        "node-start": {
+          "startedAt": "2026-11-07T09:28:22.859Z",
+          "initialPayload": {
+            "orderId": "ORD-9719",
+            "productId": "PRD-1024",
+            "amount": 249.99,
+            "quantity": 25,
+            "warehouse": "WH-01"
+          }
+        },
+        "startedAt": "2026-11-07T09:28:22.859Z",
+        "initialPayload": {
+          "orderId": "ORD-9719",
+          "productId": "PRD-1024",
+          "amount": 249.99,
+          "quantity": 25,
+          "warehouse": "WH-01"
+        },
+        "node-end": {
+          "finishedAt": "2026-11-07T09:28:23.332Z",
+          "status": "SUCCESS"
+        },
+        "finishedAt": "2026-11-07T09:28:23.332Z",
+        "status": "SUCCESS"
+      },
+      "nodeExecutions": {
+        "node-start": {
+          "id": "nexec_21385fdf6122",
+          "executionId": "exec_03ad92a702e24958ae8d08b78bfd9cb9",
+          "nodeId": "node-start",
+          "nodeType": "START",
+          "nodeLabel": "Start Trigger",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: Start Trigger (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 405ms."
+          ],
+          "startedAt": "2026-11-07T09:28:22.435Z",
+          "output": {
+            "startedAt": "2026-11-07T09:28:22.859Z",
+            "initialPayload": {
+              "orderId": "ORD-9719",
+              "productId": "PRD-1024",
+              "amount": 249.99,
+              "quantity": 25,
+              "warehouse": "WH-01"
+            }
+          },
+          "completedAt": "2026-11-07T09:28:22.859Z"
+        },
+        "node-end": {
+          "id": "nexec_4e489522c311",
+          "executionId": "exec_03ad92a702e24958ae8d08b78bfd9cb9",
+          "nodeId": "node-end",
+          "nodeType": "END",
+          "nodeLabel": "End Transaction",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: End Transaction (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 401ms."
+          ],
+          "startedAt": "2026-11-07T09:28:22.915Z",
+          "output": {
+            "finishedAt": "2026-11-07T09:28:23.332Z",
+            "status": "SUCCESS"
+          },
+          "completedAt": "2026-11-07T09:28:23.332Z"
+        }
+      },
+      "compensationsExecuted": [],
+      "trigger": "MANUAL",
+      "triggeredBy": "amaan@cyberdyne.com",
+      "id": "exec_03ad92a702e24958ae8d08b78bfd9cb9",
+      "currentNodeId": "node-end",
+      "completedAt": "2026-11-07T09:28:23.367Z"
+    },
+    {
+      "workflowId": "wf_q3h22wdb",
+      "workflowName": "New Workflow",
+      "tenantId": "tenant_yhm749uq",
+      "status": "SUCCESS",
+      "startedAt": "2026-11-07T09:28:34.818Z",
+      "contextData": {
+        "orderId": "ORD-6605",
+        "productId": "PRD-1024",
+        "amount": 249.99,
+        "quantity": 25,
+        "warehouse": "WH-01",
+        "node-start": {
+          "startedAt": "2026-11-07T09:28:35.316Z",
+          "initialPayload": {
+            "orderId": "ORD-6605",
+            "productId": "PRD-1024",
+            "amount": 249.99,
+            "quantity": 25,
+            "warehouse": "WH-01"
+          }
+        },
+        "startedAt": "2026-11-07T09:28:35.316Z",
+        "initialPayload": {
+          "orderId": "ORD-6605",
+          "productId": "PRD-1024",
+          "amount": 249.99,
+          "quantity": 25,
+          "warehouse": "WH-01"
+        },
+        "node-end": {
+          "finishedAt": "2026-11-07T09:28:35.806Z",
+          "status": "SUCCESS"
+        },
+        "finishedAt": "2026-11-07T09:28:35.806Z",
+        "status": "SUCCESS"
+      },
+      "nodeExecutions": {
+        "node-start": {
+          "id": "nexec_a8f44e8909d3",
+          "executionId": "exec_48e5160c8ee44acaba4f0ae5e55b7fbc",
+          "nodeId": "node-start",
+          "nodeType": "START",
+          "nodeLabel": "Start Trigger",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: Start Trigger (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 399ms."
+          ],
+          "startedAt": "2026-11-07T09:28:34.899Z",
+          "output": {
+            "startedAt": "2026-11-07T09:28:35.316Z",
+            "initialPayload": {
+              "orderId": "ORD-6605",
+              "productId": "PRD-1024",
+              "amount": 249.99,
+              "quantity": 25,
+              "warehouse": "WH-01"
+            }
+          },
+          "completedAt": "2026-11-07T09:28:35.316Z"
+        },
+        "node-end": {
+          "id": "nexec_9947304e7a19",
+          "executionId": "exec_48e5160c8ee44acaba4f0ae5e55b7fbc",
+          "nodeId": "node-end",
+          "nodeType": "END",
+          "nodeLabel": "End Transaction",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: End Transaction (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 409ms."
+          ],
+          "startedAt": "2026-11-07T09:28:35.382Z",
+          "output": {
+            "finishedAt": "2026-11-07T09:28:35.806Z",
+            "status": "SUCCESS"
+          },
+          "completedAt": "2026-11-07T09:28:35.807Z"
+        }
+      },
+      "compensationsExecuted": [],
+      "trigger": "MANUAL",
+      "triggeredBy": "amaan@cyberdyne.com",
+      "id": "exec_48e5160c8ee44acaba4f0ae5e55b7fbc",
+      "currentNodeId": "node-end",
+      "completedAt": "2026-11-07T09:28:35.852Z"
+    },
+    {
+      "workflowId": "wf_q3h22wdb",
+      "workflowName": "New Workflow",
+      "tenantId": "tenant_yhm749uq",
+      "status": "SUCCESS",
+      "startedAt": "2026-11-08T10:36:16.809Z",
+      "contextData": {
+        "orderId": "ORD-8273",
+        "productId": "PRD-1024",
+        "amount": 249.99,
+        "quantity": 25,
+        "warehouse": "WH-01",
+        "node-start": {
+          "startedAt": "2026-11-08T10:36:17.251Z",
+          "initialPayload": {
+            "orderId": "ORD-8273",
+            "productId": "PRD-1024",
+            "amount": 249.99,
+            "quantity": 25,
+            "warehouse": "WH-01"
+          }
+        },
+        "startedAt": "2026-11-08T10:36:17.251Z",
+        "initialPayload": {
+          "orderId": "ORD-8273",
+          "productId": "PRD-1024",
+          "amount": 249.99,
+          "quantity": 25,
+          "warehouse": "WH-01"
+        },
+        "node-end": {
+          "finishedAt": "2026-11-08T10:36:17.719Z",
+          "status": "SUCCESS"
+        },
+        "finishedAt": "2026-11-08T10:36:17.719Z",
+        "status": "SUCCESS"
+      },
+      "nodeExecutions": {
+        "node-start": {
+          "id": "nexec_35e8bc23ed35",
+          "executionId": "exec_b9dc8d3aefa6493c9ef79e14f04234dd",
+          "nodeId": "node-start",
+          "nodeType": "START",
+          "nodeLabel": "Start Trigger",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: Start Trigger (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 410ms."
+          ],
+          "startedAt": "2026-11-08T10:36:16.834Z",
+          "output": {
+            "startedAt": "2026-11-08T10:36:17.251Z",
+            "initialPayload": {
+              "orderId": "ORD-8273",
+              "productId": "PRD-1024",
+              "amount": 249.99,
+              "quantity": 25,
+              "warehouse": "WH-01"
+            }
+          },
+          "completedAt": "2026-11-08T10:36:17.251Z"
+        },
+        "node-end": {
+          "id": "nexec_4a5705f39d32",
+          "executionId": "exec_b9dc8d3aefa6493c9ef79e14f04234dd",
+          "nodeId": "node-end",
+          "nodeType": "END",
+          "nodeLabel": "End Transaction",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: End Transaction (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 404ms."
+          ],
+          "startedAt": "2026-11-08T10:36:17.301Z",
+          "output": {
+            "finishedAt": "2026-11-08T10:36:17.719Z",
+            "status": "SUCCESS"
+          },
+          "completedAt": "2026-11-08T10:36:17.719Z"
+        }
+      },
+      "compensationsExecuted": [],
+      "trigger": "MANUAL",
+      "triggeredBy": "amaan@cyberdyne.com",
+      "id": "exec_b9dc8d3aefa6493c9ef79e14f04234dd",
+      "currentNodeId": "node-end",
+      "completedAt": "2026-11-08T10:36:17.733Z"
+    },
+    {
+      "workflowId": "wf_q3h22wdb",
+      "workflowName": "New Workflow",
+      "tenantId": "tenant_yhm749uq",
+      "status": "SUCCESS",
+      "startedAt": "2026-11-08T10:36:24.109Z",
+      "contextData": {
+        "orderId": "ORD-5019",
+        "productId": "PRD-1024",
+        "amount": 249.99,
+        "quantity": 25,
+        "warehouse": "WH-01",
+        "node-start": {
+          "startedAt": "2026-11-08T10:36:24.547Z",
+          "initialPayload": {
+            "orderId": "ORD-5019",
+            "productId": "PRD-1024",
+            "amount": 249.99,
+            "quantity": 25,
+            "warehouse": "WH-01"
+          }
+        },
+        "startedAt": "2026-11-08T10:36:24.547Z",
+        "initialPayload": {
+          "orderId": "ORD-5019",
+          "productId": "PRD-1024",
+          "amount": 249.99,
+          "quantity": 25,
+          "warehouse": "WH-01"
+        },
+        "node-end": {
+          "finishedAt": "2026-11-08T10:36:24.996Z",
+          "status": "SUCCESS"
+        },
+        "finishedAt": "2026-11-08T10:36:24.996Z",
+        "status": "SUCCESS"
+      },
+      "nodeExecutions": {
+        "node-start": {
+          "id": "nexec_faf994f21316",
+          "executionId": "exec_7f9202a9d6dd46d18243bdd748b6ae7a",
+          "nodeId": "node-start",
+          "nodeType": "START",
+          "nodeLabel": "Start Trigger",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: Start Trigger (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 402ms."
+          ],
+          "startedAt": "2026-11-08T10:36:24.138Z",
+          "output": {
+            "startedAt": "2026-11-08T10:36:24.547Z",
+            "initialPayload": {
+              "orderId": "ORD-5019",
+              "productId": "PRD-1024",
+              "amount": 249.99,
+              "quantity": 25,
+              "warehouse": "WH-01"
+            }
+          },
+          "completedAt": "2026-11-08T10:36:24.547Z"
+        },
+        "node-end": {
+          "id": "nexec_2d55b7f66c80",
+          "executionId": "exec_7f9202a9d6dd46d18243bdd748b6ae7a",
+          "nodeId": "node-end",
+          "nodeType": "END",
+          "nodeLabel": "End Transaction",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: End Transaction (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 405ms."
+          ],
+          "startedAt": "2026-11-08T10:36:24.583Z",
+          "output": {
+            "finishedAt": "2026-11-08T10:36:24.996Z",
+            "status": "SUCCESS"
+          },
+          "completedAt": "2026-11-08T10:36:24.996Z"
+        }
+      },
+      "compensationsExecuted": [],
+      "trigger": "MANUAL",
+      "triggeredBy": "amaan@cyberdyne.com",
+      "id": "exec_7f9202a9d6dd46d18243bdd748b6ae7a",
+      "currentNodeId": "node-end",
+      "completedAt": "2026-11-08T10:36:25.018Z"
+    },
+    {
+      "workflowId": "wf_q3h22wdb",
+      "workflowName": "New Workflow",
+      "tenantId": "tenant_yhm749uq",
+      "status": "SUCCESS",
+      "startedAt": "2026-11-08T10:45:47.252Z",
+      "contextData": {
+        "orderId": "ORD-6694",
+        "productId": "PRD-1024",
+        "amount": 249.99,
+        "quantity": 25,
+        "warehouse": "WH-01",
+        "node-start": {
+          "startedAt": "2026-11-08T10:45:47.699Z",
+          "initialPayload": {
+            "orderId": "ORD-6694",
+            "productId": "PRD-1024",
+            "amount": 249.99,
+            "quantity": 25,
+            "warehouse": "WH-01"
+          }
+        },
+        "startedAt": "2026-11-08T10:45:47.699Z",
+        "initialPayload": {
+          "orderId": "ORD-6694",
+          "productId": "PRD-1024",
+          "amount": 249.99,
+          "quantity": 25,
+          "warehouse": "WH-01"
+        },
+        "node-end": {
+          "finishedAt": "2026-11-08T10:45:48.152Z",
+          "status": "SUCCESS"
+        },
+        "finishedAt": "2026-11-08T10:45:48.152Z",
+        "status": "SUCCESS"
+      },
+      "nodeExecutions": {
+        "node-start": {
+          "id": "nexec_8e7f5c68968d",
+          "executionId": "exec_71d76877b6334862b6df8ac0c6b3abe3",
+          "nodeId": "node-start",
+          "nodeType": "START",
+          "nodeLabel": "Start Trigger",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: Start Trigger (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 415ms."
+          ],
+          "startedAt": "2026-11-08T10:45:47.278Z",
+          "output": {
+            "startedAt": "2026-11-08T10:45:47.699Z",
+            "initialPayload": {
+              "orderId": "ORD-6694",
+              "productId": "PRD-1024",
+              "amount": 249.99,
+              "quantity": 25,
+              "warehouse": "WH-01"
+            }
+          },
+          "completedAt": "2026-11-08T10:45:47.699Z"
+        },
+        "node-end": {
+          "id": "nexec_62cf0ed06d9e",
+          "executionId": "exec_71d76877b6334862b6df8ac0c6b3abe3",
+          "nodeId": "node-end",
+          "nodeType": "END",
+          "nodeLabel": "End Transaction",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: End Transaction (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 414ms."
+          ],
+          "startedAt": "2026-11-08T10:45:47.728Z",
+          "output": {
+            "finishedAt": "2026-11-08T10:45:48.152Z",
+            "status": "SUCCESS"
+          },
+          "completedAt": "2026-11-08T10:45:48.152Z"
+        }
+      },
+      "compensationsExecuted": [],
+      "trigger": "MANUAL",
+      "triggeredBy": "amaan@cyberdyne.com",
+      "id": "exec_71d76877b6334862b6df8ac0c6b3abe3",
+      "currentNodeId": "node-end",
+      "completedAt": "2026-11-08T10:45:48.174Z"
+    },
+    {
+      "workflowId": "wf_q3h22wdb",
+      "workflowName": "New Workflow",
+      "tenantId": "tenant_yhm749uq",
+      "status": "SUCCESS",
+      "startedAt": "2026-11-08T10:45:51.033Z",
+      "contextData": {
+        "orderId": "ORD-6664",
+        "productId": "PRD-1024",
+        "amount": 249.99,
+        "quantity": 25,
+        "warehouse": "WH-01",
+        "node-start": {
+          "startedAt": "2026-11-08T10:45:51.467Z",
+          "initialPayload": {
+            "orderId": "ORD-6664",
+            "productId": "PRD-1024",
+            "amount": 249.99,
+            "quantity": 25,
+            "warehouse": "WH-01"
+          }
+        },
+        "startedAt": "2026-11-08T10:45:51.467Z",
+        "initialPayload": {
+          "orderId": "ORD-6664",
+          "productId": "PRD-1024",
+          "amount": 249.99,
+          "quantity": 25,
+          "warehouse": "WH-01"
+        },
+        "node-end": {
+          "finishedAt": "2026-11-08T10:45:51.917Z",
+          "status": "SUCCESS"
+        },
+        "finishedAt": "2026-11-08T10:45:51.917Z",
+        "status": "SUCCESS"
+      },
+      "nodeExecutions": {
+        "node-start": {
+          "id": "nexec_dcd2c77be979",
+          "executionId": "exec_a8fbbde7bcdb4a9ba420db35e38cbadf",
+          "nodeId": "node-start",
+          "nodeType": "START",
+          "nodeLabel": "Start Trigger",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: Start Trigger (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 402ms."
+          ],
+          "startedAt": "2026-11-08T10:45:51.058Z",
+          "output": {
+            "startedAt": "2026-11-08T10:45:51.467Z",
+            "initialPayload": {
+              "orderId": "ORD-6664",
+              "productId": "PRD-1024",
+              "amount": 249.99,
+              "quantity": 25,
+              "warehouse": "WH-01"
+            }
+          },
+          "completedAt": "2026-11-08T10:45:51.467Z"
+        },
+        "node-end": {
+          "id": "nexec_130734d7722a",
+          "executionId": "exec_a8fbbde7bcdb4a9ba420db35e38cbadf",
+          "nodeId": "node-end",
+          "nodeType": "END",
+          "nodeLabel": "End Transaction",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: End Transaction (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 410ms."
+          ],
+          "startedAt": "2026-11-08T10:45:51.499Z",
+          "output": {
+            "finishedAt": "2026-11-08T10:45:51.917Z",
+            "status": "SUCCESS"
+          },
+          "completedAt": "2026-11-08T10:45:51.917Z"
+        }
+      },
+      "compensationsExecuted": [],
+      "trigger": "MANUAL",
+      "triggeredBy": "amaan@cyberdyne.com",
+      "id": "exec_a8fbbde7bcdb4a9ba420db35e38cbadf",
+      "currentNodeId": "node-end",
+      "completedAt": "2026-11-08T10:45:51.938Z"
+    },
+    {
+      "workflowId": "wf_q3h22wdb",
+      "workflowName": "New Workflow",
+      "tenantId": "tenant_yhm749uq",
+      "status": "SUCCESS",
+      "startedAt": "2026-11-09T07:31:50.201Z",
+      "contextData": {
+        "orderId": "ORD-5888",
+        "productId": "PRD-1024",
+        "amount": 249.99,
+        "quantity": 25,
+        "warehouse": "WH-01",
+        "node-start": {
+          "startedAt": "2026-11-09T07:31:50.668Z",
+          "initialPayload": {
+            "orderId": "ORD-5888",
+            "productId": "PRD-1024",
+            "amount": 249.99,
+            "quantity": 25,
+            "warehouse": "WH-01"
+          }
+        },
+        "startedAt": "2026-11-09T07:31:50.668Z",
+        "initialPayload": {
+          "orderId": "ORD-5888",
+          "productId": "PRD-1024",
+          "amount": 249.99,
+          "quantity": 25,
+          "warehouse": "WH-01"
+        },
+        "node-end": {
+          "finishedAt": "2026-11-09T07:31:51.185Z",
+          "status": "SUCCESS"
+        },
+        "finishedAt": "2026-11-09T07:31:51.185Z",
+        "status": "SUCCESS"
+      },
+      "nodeExecutions": {
+        "node-start": {
+          "id": "nexec_be9e63afc359",
+          "executionId": "exec_5f1b90d96e7943b2b7016e72a2738116",
+          "nodeId": "node-start",
+          "nodeType": "START",
+          "nodeLabel": "Start Trigger",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: Start Trigger (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 400ms."
+          ],
+          "startedAt": "2026-11-09T07:31:50.253Z",
+          "output": {
+            "startedAt": "2026-11-09T07:31:50.668Z",
+            "initialPayload": {
+              "orderId": "ORD-5888",
+              "productId": "PRD-1024",
+              "amount": 249.99,
+              "quantity": 25,
+              "warehouse": "WH-01"
+            }
+          },
+          "completedAt": "2026-11-09T07:31:50.668Z"
+        },
+        "node-end": {
+          "id": "nexec_ee3663660873",
+          "executionId": "exec_5f1b90d96e7943b2b7016e72a2738116",
+          "nodeId": "node-end",
+          "nodeType": "END",
+          "nodeLabel": "End Transaction",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: End Transaction (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 412ms."
+          ],
+          "startedAt": "2026-11-09T07:31:50.746Z",
+          "output": {
+            "finishedAt": "2026-11-09T07:31:51.185Z",
+            "status": "SUCCESS"
+          },
+          "completedAt": "2026-11-09T07:31:51.185Z"
+        }
+      },
+      "compensationsExecuted": [],
+      "trigger": "MANUAL",
+      "triggeredBy": "amaan@cyberdyne.com",
+      "id": "exec_5f1b90d96e7943b2b7016e72a2738116",
+      "currentNodeId": "node-end",
+      "completedAt": "2026-11-09T07:31:51.209Z"
+    },
+    {
+      "workflowId": "wf_q3h22wdb",
+      "workflowName": "New Workflow",
+      "tenantId": "tenant_yhm749uq",
+      "status": "SUCCESS",
+      "startedAt": "2026-11-09T07:31:56.695Z",
+      "contextData": {
+        "orderId": "ORD-6715",
+        "productId": "PRD-1024",
+        "amount": 249.99,
+        "quantity": 25,
+        "warehouse": "WH-01",
+        "node-start": {
+          "startedAt": "2026-11-09T07:31:57.179Z",
+          "initialPayload": {
+            "orderId": "ORD-6715",
+            "productId": "PRD-1024",
+            "amount": 249.99,
+            "quantity": 25,
+            "warehouse": "WH-01"
+          }
+        },
+        "startedAt": "2026-11-09T07:31:57.179Z",
+        "initialPayload": {
+          "orderId": "ORD-6715",
+          "productId": "PRD-1024",
+          "amount": 249.99,
+          "quantity": 25,
+          "warehouse": "WH-01"
+        },
+        "node-end": {
+          "finishedAt": "2026-11-09T07:31:57.664Z",
+          "status": "SUCCESS"
+        },
+        "finishedAt": "2026-11-09T07:31:57.664Z",
+        "status": "SUCCESS"
+      },
+      "nodeExecutions": {
+        "node-start": {
+          "id": "nexec_dda0cc199281",
+          "executionId": "exec_8979893f7c7a400e9fcf99bc648fe00e",
+          "nodeId": "node-start",
+          "nodeType": "START",
+          "nodeLabel": "Start Trigger",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: Start Trigger (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 403ms."
+          ],
+          "startedAt": "2026-11-09T07:31:56.763Z",
+          "output": {
+            "startedAt": "2026-11-09T07:31:57.179Z",
+            "initialPayload": {
+              "orderId": "ORD-6715",
+              "productId": "PRD-1024",
+              "amount": 249.99,
+              "quantity": 25,
+              "warehouse": "WH-01"
+            }
+          },
+          "completedAt": "2026-11-09T07:31:57.179Z"
+        },
+        "node-end": {
+          "id": "nexec_22bd3e5eb10e",
+          "executionId": "exec_8979893f7c7a400e9fcf99bc648fe00e",
+          "nodeId": "node-end",
+          "nodeType": "END",
+          "nodeLabel": "End Transaction",
+          "status": "SUCCESS",
+          "attempts": 1,
+          "maxAttempts": 1,
+          "logs": [
+            "[EXEC] Executing node: End Transaction (Worker: Worker Alpha (US-East))",
+            "[SUCCESS] Completed successfully in 409ms."
+          ],
+          "startedAt": "2026-11-09T07:31:57.240Z",
+          "output": {
+            "finishedAt": "2026-11-09T07:31:57.664Z",
+            "status": "SUCCESS"
+          },
+          "completedAt": "2026-11-09T07:31:57.664Z"
+        }
+      },
+      "compensationsExecuted": [],
+      "trigger": "MANUAL",
+      "triggeredBy": "amaan@cyberdyne.com",
+      "id": "exec_8979893f7c7a400e9fcf99bc648fe00e",
+      "currentNodeId": "node-end",
+      "completedAt": "2026-11-09T07:31:57.688Z"
     }
   ],
   "nodeExecutions": [],
@@ -13064,6 +14168,194 @@
       },
       "id": "audit_f0c54988ddb54e64ac2a3ebd715ea0da",
       "timestamp": "2026-11-05T11:10:35.101Z"
+    },
+    {
+      "tenantId": "tenant_yhm749uq",
+      "userId": "usr_9oipaxmc",
+      "userEmail": "amaan@cyberdyne.com",
+      "action": "WORKFLOW_EXECUTED",
+      "resource": "WorkflowExecution",
+      "resourceId": "exec_47348372fe024fd7b215a2d010f6a771",
+      "metadata": {
+        "workflowId": "wf_q3h22wdb",
+        "trigger": "MANUAL"
+      },
+      "id": "audit_8feb016708f746ea9cc44e1c384c8559",
+      "timestamp": "2026-11-06T11:17:56.096Z"
+    },
+    {
+      "tenantId": "tenant_yhm749uq",
+      "userId": "usr_9oipaxmc",
+      "userEmail": "amaan@cyberdyne.com",
+      "action": "WORKFLOW_EXECUTED",
+      "resource": "WorkflowExecution",
+      "resourceId": "exec_afbd5cddcbfa41788de5719486f3b6d8",
+      "metadata": {
+        "workflowId": "wf_q3h22wdb",
+        "trigger": "MANUAL"
+      },
+      "id": "audit_2976e44d3e1443a68f651f9618d5ccaf",
+      "timestamp": "2026-11-07T09:15:57.776Z"
+    },
+    {
+      "tenantId": "tenant_yhm749uq",
+      "userId": "usr_9oipaxmc",
+      "userEmail": "amaan@cyberdyne.com",
+      "action": "WORKFLOW_EXECUTED",
+      "resource": "WorkflowExecution",
+      "resourceId": "exec_482587a1b4554bce92c6ee17a1217a65",
+      "metadata": {
+        "workflowId": "wf_q3h22wdb",
+        "trigger": "MANUAL"
+      },
+      "id": "audit_3e10baec08fa4e84937c37d2441701b3",
+      "timestamp": "2026-11-07T09:17:30.427Z"
+    },
+    {
+      "tenantId": "tenant_yhm749uq",
+      "userId": "usr_9oipaxmc",
+      "userEmail": "amaan@cyberdyne.com",
+      "action": "WORKFLOW_EXECUTED",
+      "resource": "WorkflowExecution",
+      "resourceId": "exec_606cf45d5a9d420baf81d92e9eb34960",
+      "metadata": {
+        "workflowId": "wf_q3h22wdb",
+        "trigger": "MANUAL"
+      },
+      "id": "audit_ff063eb4b3544528b221bcefcac65f05",
+      "timestamp": "2026-11-07T09:28:18.807Z"
+    },
+    {
+      "tenantId": "tenant_yhm749uq",
+      "userId": "usr_9oipaxmc",
+      "userEmail": "amaan@cyberdyne.com",
+      "action": "WORKFLOW_EXECUTED",
+      "resource": "WorkflowExecution",
+      "resourceId": "exec_03ad92a702e24958ae8d08b78bfd9cb9",
+      "metadata": {
+        "workflowId": "wf_q3h22wdb",
+        "trigger": "MANUAL"
+      },
+      "id": "audit_05cbbe16835e4b9ea8cf853e483cfc78",
+      "timestamp": "2026-11-07T09:28:22.455Z"
+    },
+    {
+      "tenantId": "tenant_yhm749uq",
+      "userId": "usr_9oipaxmc",
+      "userEmail": "amaan@cyberdyne.com",
+      "action": "WORKFLOW_EXECUTED",
+      "resource": "WorkflowExecution",
+      "resourceId": "exec_48e5160c8ee44acaba4f0ae5e55b7fbc",
+      "metadata": {
+        "workflowId": "wf_q3h22wdb",
+        "trigger": "MANUAL"
+      },
+      "id": "audit_d05f60eef65549659bcb16638507f2b2",
+      "timestamp": "2026-11-07T09:28:34.918Z"
+    },
+    {
+      "tenantId": "tenant_eciiez67",
+      "userId": "usr_0ywd2s5p",
+      "userEmail": "tejasreddy1808@gmail.com",
+      "action": "USER_LOGIN",
+      "resource": "User",
+      "resourceId": "usr_0ywd2s5p",
+      "id": "audit_88307616dc104aee9b9d75e6ce71a3fd",
+      "timestamp": "2026-11-07T09:28:45.832Z"
+    },
+    {
+      "tenantId": "tenant_yhm749uq",
+      "userId": "usr_9oipaxmc",
+      "userEmail": "amaan@cyberdyne.com",
+      "action": "USER_LOGIN",
+      "resource": "User",
+      "resourceId": "usr_9oipaxmc",
+      "id": "audit_ee0f17cf2e8f4933b0560706563549dc",
+      "timestamp": "2026-11-07T09:28:52.821Z"
+    },
+    {
+      "tenantId": "tenant_yhm749uq",
+      "userId": "usr_9oipaxmc",
+      "userEmail": "amaan@cyberdyne.com",
+      "action": "WORKFLOW_EXECUTED",
+      "resource": "WorkflowExecution",
+      "resourceId": "exec_b9dc8d3aefa6493c9ef79e14f04234dd",
+      "metadata": {
+        "workflowId": "wf_q3h22wdb",
+        "trigger": "MANUAL"
+      },
+      "id": "audit_d3945daef47640ee92a4f4ae5dd96441",
+      "timestamp": "2026-11-08T10:36:16.842Z"
+    },
+    {
+      "tenantId": "tenant_yhm749uq",
+      "userId": "usr_9oipaxmc",
+      "userEmail": "amaan@cyberdyne.com",
+      "action": "WORKFLOW_EXECUTED",
+      "resource": "WorkflowExecution",
+      "resourceId": "exec_7f9202a9d6dd46d18243bdd748b6ae7a",
+      "metadata": {
+        "workflowId": "wf_q3h22wdb",
+        "trigger": "MANUAL"
+      },
+      "id": "audit_e3852df3a598450f80f64b491ca98a0e",
+      "timestamp": "2026-11-08T10:36:24.146Z"
+    },
+    {
+      "tenantId": "tenant_yhm749uq",
+      "userId": "usr_9oipaxmc",
+      "userEmail": "amaan@cyberdyne.com",
+      "action": "WORKFLOW_EXECUTED",
+      "resource": "WorkflowExecution",
+      "resourceId": "exec_71d76877b6334862b6df8ac0c6b3abe3",
+      "metadata": {
+        "workflowId": "wf_q3h22wdb",
+        "trigger": "MANUAL"
+      },
+      "id": "audit_1e136f586f1745eeaf1f306a0b112b0b",
+      "timestamp": "2026-11-08T10:45:47.284Z"
+    },
+    {
+      "tenantId": "tenant_yhm749uq",
+      "userId": "usr_9oipaxmc",
+      "userEmail": "amaan@cyberdyne.com",
+      "action": "WORKFLOW_EXECUTED",
+      "resource": "WorkflowExecution",
+      "resourceId": "exec_a8fbbde7bcdb4a9ba420db35e38cbadf",
+      "metadata": {
+        "workflowId": "wf_q3h22wdb",
+        "trigger": "MANUAL"
+      },
+      "id": "audit_32728bc2c92a4591baaa864426aadc25",
+      "timestamp": "2026-11-08T10:45:51.065Z"
+    },
+    {
+      "tenantId": "tenant_yhm749uq",
+      "userId": "usr_9oipaxmc",
+      "userEmail": "amaan@cyberdyne.com",
+      "action": "WORKFLOW_EXECUTED",
+      "resource": "WorkflowExecution",
+      "resourceId": "exec_5f1b90d96e7943b2b7016e72a2738116",
+      "metadata": {
+        "workflowId": "wf_q3h22wdb",
+        "trigger": "MANUAL"
+      },
+      "id": "audit_187da18d782f4dec90a9b7423b72fd52",
+      "timestamp": "2026-11-09T07:31:50.269Z"
+    },
+    {
+      "tenantId": "tenant_yhm749uq",
+      "userId": "usr_9oipaxmc",
+      "userEmail": "amaan@cyberdyne.com",
+      "action": "WORKFLOW_EXECUTED",
+      "resource": "WorkflowExecution",
+      "resourceId": "exec_8979893f7c7a400e9fcf99bc648fe00e",
+      "metadata": {
+        "workflowId": "wf_q3h22wdb",
+        "trigger": "MANUAL"
+      },
+      "id": "audit_919962ab4693440db4651704710be0f0",
+      "timestamp": "2026-11-09T07:31:56.776Z"
     }
   ],
   "dlq": [
@@ -14471,31 +15763,31 @@
       "id": "worker-alpha-01",
       "name": "Worker Alpha (US-East)",
       "status": "IDLE",
-      "completedJobs": 20,
-      "failedJobs": 1,
+      "completedJobs": 22,
+      "failedJobs": 0,
       "latencyMs": 180,
-      "startedAt": "2026-11-05T07:09:44.225Z",
-      "lastHeartbeat": "2026-11-05T11:12:14.344Z"
+      "startedAt": "2026-11-09T03:31:17.452Z",
+      "lastHeartbeat": "2026-11-09T07:32:47.511Z"
     },
     {
       "id": "worker-beta-02",
       "name": "Worker Beta (EU-Central)",
       "status": "IDLE",
-      "completedJobs": 26,
+      "completedJobs": 11,
       "failedJobs": 1,
-      "latencyMs": 23,
-      "startedAt": "2026-11-05T07:09:44.231Z",
-      "lastHeartbeat": "2026-11-05T11:12:14.365Z"
+      "latencyMs": 36,
+      "startedAt": "2026-11-09T03:31:17.461Z",
+      "lastHeartbeat": "2026-11-09T07:32:47.511Z"
     },
     {
       "id": "worker-gamma-03",
       "name": "Worker Gamma (AP-South)",
       "status": "IDLE",
-      "completedJobs": 13,
-      "failedJobs": 0,
-      "latencyMs": 30,
-      "startedAt": "2026-11-05T07:09:44.238Z",
-      "lastHeartbeat": "2026-11-05T11:12:14.381Z"
+      "completedJobs": 24,
+      "failedJobs": 2,
+      "latencyMs": 25,
+      "startedAt": "2026-11-09T03:31:17.474Z",
+      "lastHeartbeat": "2026-11-09T07:32:47.511Z"
     }
   ]
 }
